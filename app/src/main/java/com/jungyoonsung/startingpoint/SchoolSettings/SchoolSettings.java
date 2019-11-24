@@ -35,7 +35,9 @@ public class SchoolSettings extends AppCompatActivity {
 
     List<String> ATPT_OFCDC_SC_NM = new ArrayList<>();
     List<String> ATPT_OFCDC_SC_CODE = new ArrayList<>();
+
     List<String> SCHUL_NM = new ArrayList<>();
+    List<String> SD_SCHUL_CODE = new ArrayList<>();
 
     RecyclerView recyclerview;
 
@@ -59,7 +61,7 @@ public class SchoolSettings extends AppCompatActivity {
                 ATPT_OFCDC_SC_CODE.clear();
                 ATPT_OFCDC_SC_NM.clear();
                 SCHUL_NM.clear();
-
+                SD_SCHUL_CODE.clear();
                 String url = "https://open.neis.go.kr/hub/schoolInfo?KEY=5782ec7c631b48fa8e93c6912fd9f8a7&Type=json&pIndex=1&pSize=100&SCHUL_NM=" + school_name.getText().toString();
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
@@ -75,10 +77,11 @@ public class SchoolSettings extends AppCompatActivity {
 
                                         ATPT_OFCDC_SC_CODE.add(response3.getString("ATPT_OFCDC_SC_CODE"));
                                         ATPT_OFCDC_SC_NM.add(response3.getString("ATPT_OFCDC_SC_NM"));
+                                        SD_SCHUL_CODE.add(response3.getString("SD_SCHUL_CODE"));
                                         SCHUL_NM.add(response3.getString("SCHUL_NM"));
                                     }
 
-                                    SchoolSettingsAdapter adapter = new SchoolSettingsAdapter(ATPT_OFCDC_SC_CODE ,ATPT_OFCDC_SC_NM, SCHUL_NM);
+                                    SchoolSettingsAdapter adapter = new SchoolSettingsAdapter(ATPT_OFCDC_SC_CODE, ATPT_OFCDC_SC_NM, SD_SCHUL_CODE, SCHUL_NM);
                                     recyclerview.setAdapter(adapter);
 
                                 } catch (JSONException e) {

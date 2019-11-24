@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="19dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:padding="18dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_schoolsettings_edittext_grade"
+                android:textColor="@android:color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:maxLength="2"
+                android:inputType="number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="학년"
+                android:textColorHint="@android:color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:padding="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_schoolsettings_edittext_class"
+                android:textColor="@android:color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:maxLength="2"
+                android:inputType="number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="반"
+                android:textColorHint="@android:color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:padding="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/dialog_schoolsettings_edittext_number"
+                android:textColor="@android:color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:maxLength="2"
+                android:inputType="number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="번"
+                android:textColorHint="@android:color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

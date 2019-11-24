@@ -1,6 +1,8 @@
-package com.jungyoonsung.startingpoint;
+package com.jungyoonsung.startingpoint.SchoolSettings;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.jungyoonsung.startingpoint.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +37,8 @@ public class SchoolSettings extends AppCompatActivity {
     List<String> ATPT_OFCDC_SC_CODE = new ArrayList<>();
     List<String> SCHUL_NM = new ArrayList<>();
 
+    RecyclerView recyclerview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +49,16 @@ public class SchoolSettings extends AppCompatActivity {
         school_name = (TextInputEditText) findViewById(R.id.school_name);
         check = (FloatingActionButton) findViewById(R.id.check);
 
+        recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerview.setLayoutManager(new LinearLayoutManager(this));
+
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ATPT_OFCDC_SC_CODE.clear();
+                ATPT_OFCDC_SC_NM.clear();
+                SCHUL_NM.clear();
 
                 String url = "https://open.neis.go.kr/hub/schoolInfo?KEY=5782ec7c631b48fa8e93c6912fd9f8a7&Type=json&pIndex=1&pSize=100&SCHUL_NM=" + school_name.getText().toString();
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -64,11 +76,10 @@ public class SchoolSettings extends AppCompatActivity {
                                         ATPT_OFCDC_SC_CODE.add(response3.getString("ATPT_OFCDC_SC_CODE"));
                                         ATPT_OFCDC_SC_NM.add(response3.getString("ATPT_OFCDC_SC_NM"));
                                         SCHUL_NM.add(response3.getString("SCHUL_NM"));
-
                                     }
-                                    Log.d("TEST", String.valueOf(ATPT_OFCDC_SC_CODE));
 
-
+                                    SchoolSettingsAdapter adapter = new SchoolSettingsAdapter(ATPT_OFCDC_SC_CODE ,ATPT_OFCDC_SC_NM, SCHUL_NM);
+                                    recyclerview.setAdapter(adapter);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

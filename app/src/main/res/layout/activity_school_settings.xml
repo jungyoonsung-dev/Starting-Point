@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SchoolSettings"
+    android:orientation="vertical"
+    android:background="@android:color/black"
+    android:padding="44dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/school_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:theme="@style/EditTextUnderlineColor"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:hint="학교명"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/check"
+        app:srcCompat="@drawable/ic_check_black_24dp"
+        android:layout_gravity="bottom|end"
+        android:scaleType="center"
+        android:backgroundTint="#EA0000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

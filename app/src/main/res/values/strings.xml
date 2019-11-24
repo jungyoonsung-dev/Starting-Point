@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Starting Point</string>
+
+    <string name="facebook_application_id">677138522691428</string>
+    <string name="facebook_login_protocol_scheme">fb677138522691428</string>
+</resources>

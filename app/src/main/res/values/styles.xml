@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">false</item>
+
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorAccent">@android:color/black</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="FirebaseUITheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowLightStatusBar">false</item>
+
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorAccent">@android:color/white</item>
+
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    <style name="EditText" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorAccent">@android:color/white</item>
+    </style>
+
+    <style name="EditTextUnderlineColor" parent="Widget.AppCompat.EditText">
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+</resources>

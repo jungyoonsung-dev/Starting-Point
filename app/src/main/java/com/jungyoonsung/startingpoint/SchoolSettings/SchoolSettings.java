@@ -39,6 +39,8 @@ public class SchoolSettings extends AppCompatActivity {
     List<String> SCHUL_NM = new ArrayList<>();
     List<String> SD_SCHUL_CODE = new ArrayList<>();
 
+    List<String> SCHUL_KND_SC_NM = new ArrayList<>();
+
     RecyclerView recyclerview;
 
     @Override
@@ -79,9 +81,11 @@ public class SchoolSettings extends AppCompatActivity {
                                         ATPT_OFCDC_SC_NM.add(response3.getString("ATPT_OFCDC_SC_NM"));
                                         SD_SCHUL_CODE.add(response3.getString("SD_SCHUL_CODE"));
                                         SCHUL_NM.add(response3.getString("SCHUL_NM"));
+
+                                        SCHUL_KND_SC_NM.add(response3.getString("SCHUL_KND_SC_NM"));
                                     }
 
-                                    SchoolSettingsAdapter adapter = new SchoolSettingsAdapter(ATPT_OFCDC_SC_CODE, ATPT_OFCDC_SC_NM, SD_SCHUL_CODE, SCHUL_NM);
+                                    SchoolSettingsAdapter adapter = new SchoolSettingsAdapter(ATPT_OFCDC_SC_CODE, ATPT_OFCDC_SC_NM, SD_SCHUL_CODE, SCHUL_NM, SCHUL_KND_SC_NM);
                                     recyclerview.setAdapter(adapter);
 
                                 } catch (JSONException e) {

@@ -1,4 +1,4 @@
-package com.jungyoonsung.startingpoint;
+package com.jungyoonsung.startingpoint.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jungyoonsung.startingpoint.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

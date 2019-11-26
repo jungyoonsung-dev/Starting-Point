@@ -7,27 +7,24 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.viewpager.widget.ViewPager;
 
 @SuppressLint("AppCompatCustomView")
-public class SquareCardView2 extends CardView {
+public class SquareViewPager extends ViewPager {
 
-    public SquareCardView2(@NonNull Context context) {
+    public SquareViewPager(@NonNull Context context) {
         super(context);
     }
 
-    public SquareCardView2(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public SquareViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public SquareCardView2(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int width = getMeasuredHeight();
+        int width = getMeasuredWidth();
         setMeasuredDimension(width, width);
     }
 }

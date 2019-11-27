@@ -10,8 +10,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TimePicker;
 
@@ -25,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Academic_Calendar;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Lunch;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Schedule;
+import com.jungyoonsung.startingpoint.Notification.AlarmReceiver;
+import com.jungyoonsung.startingpoint.Notification.DeviceBootReceiver;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
 
 import java.util.Arrays;
@@ -79,6 +84,17 @@ public class MainActivity extends AppCompatActivity {
                             viewPager.setCurrentItem(1);
 
                             circleIndicator.setViewPager(viewPager);
+
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(System.currentTimeMillis());
+                            calendar.set(Calendar.HOUR_OF_DAY, 22);
+                            calendar.set(Calendar.MINUTE, 0);
+                            calendar.set(Calendar.SECOND, 0);
+
+                            SharedPreferences.Editor editor = getSharedPreferences("daily alarm", MODE_PRIVATE).edit();
+                            editor.putLong("nextNotifyTime", (long)calendar.getTimeInMillis());
+                            editor.apply();
+                            diaryNotification(calendar);
                         }
 
                         @Override
@@ -103,6 +119,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+    }
+
+    void diaryNotification(Calendar calendar) {
+
+        PackageManager pm = this.getPackageManager();
+        ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
     }
 
     private class pagerAdapter extends FragmentStatePagerAdapter {

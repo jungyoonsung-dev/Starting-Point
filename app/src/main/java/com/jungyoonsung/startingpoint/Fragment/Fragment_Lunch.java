@@ -49,9 +49,11 @@ public class Fragment_Lunch extends Fragment {
     private List<String> DDISH_NM = new ArrayList<>();
 
     LinearLayout
-            lunch_1_linearlayout,
-            lunch_2_linearlayout,
-            lunch_3_linearlayout;
+            item_fragment_lunch_linearlayout_1,
+            item_fragment_lunch_linearlayout_2;
+
+    TextView
+            item_fragment_lunch_linearlayout_1_textView;
 
     TextView
             lunch_1,
@@ -68,9 +70,11 @@ public class Fragment_Lunch extends Fragment {
 
         thisContext = container.getContext();
 
-        lunch_1_linearlayout = (LinearLayout) view.findViewById(R.id.lunch_1_linearlayout);
-        lunch_2_linearlayout = (LinearLayout) view.findViewById(R.id.lunch_2_linearlayout);
-        lunch_3_linearlayout = (LinearLayout) view.findViewById(R.id.lunch_3_linearlayout);
+
+        item_fragment_lunch_linearlayout_1 = (LinearLayout) view.findViewById(R.id.item_fragment_lunch_linearlayout_1);
+        item_fragment_lunch_linearlayout_2 = (LinearLayout) view.findViewById(R.id.item_fragment_lunch_linearlayout_2);
+
+        item_fragment_lunch_linearlayout_1_textView = (TextView) view.findViewById(R.id.item_fragment_lunch_linearlayout_1_textView);
 
         lunch_1 = (TextView) view.findViewById(R.id.lunch_1);
         lunch_2 = (TextView) view.findViewById(R.id.lunch_2);
@@ -100,7 +104,7 @@ public class Fragment_Lunch extends Fragment {
                 String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
                 String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
 
-                String url = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=bb8beb7f15d64325b567e0954c5cae58&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&MLSV_YMD=" + alldate;
+                String url = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=e1e844f2228848cf8b6f521e7f60de86&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&MLSV_YMD=" + alldate;
 
                 final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
@@ -122,11 +126,17 @@ public class Fragment_Lunch extends Fragment {
                                     }
 
                                     if (MMEAL_SC_CODE.size() == 1) {
-                                        lunch_2.setText(DDISH_NM.get(0));
 
-                                        lunch_1_linearlayout.setVisibility(View.GONE);
-                                        lunch_3_linearlayout.setVisibility(View.GONE);
+                                        item_fragment_lunch_linearlayout_1.setVisibility(View.VISIBLE);
+                                        item_fragment_lunch_linearlayout_2.setVisibility(View.GONE);
+
+                                        item_fragment_lunch_linearlayout_1_textView.setText(DDISH_NM.get(0));
+
                                     } else if (MMEAL_SC_CODE.size() == 3) {
+
+                                        item_fragment_lunch_linearlayout_1.setVisibility(View.GONE);
+                                        item_fragment_lunch_linearlayout_2.setVisibility(View.VISIBLE);
+
                                         lunch_1.setText(DDISH_NM.get(0));
                                         lunch_2.setText(DDISH_NM.get(1));
                                         lunch_3.setText(DDISH_NM.get(2));

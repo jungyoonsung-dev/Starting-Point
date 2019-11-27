@@ -7,13 +7,14 @@
     android:background="@android:color/black">
 
     <androidx.cardview.widget.CardView
+        android:layout_margin="18dp"
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="40dp"
+        app:cardCornerRadius="19dp"
         app:cardUseCompatPadding="true"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintDimensionRatio="1:1.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

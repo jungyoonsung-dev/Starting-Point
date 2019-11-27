@@ -25,6 +25,7 @@ public class SquareViewPager extends ViewPager {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         int width = getMeasuredWidth();
-        setMeasuredDimension(width, width);
+        int height = (int) (width * 1.5);
+        setMeasuredDimension(width, height);
     }
 }

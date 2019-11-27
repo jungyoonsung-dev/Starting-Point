@@ -78,12 +78,10 @@ public class Fragment_Academic_Calendar extends Fragment {
                 SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
                 SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
                 SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
-//                SimpleDateFormat day_2_Format = new SimpleDateFormat("EE", Locale.getDefault());
 
                 String year = yearFormat.format(date);
                 String month = monthFormat.format(date);
                 String day = dayFormat.format(date);
-//                String day_2 = day_2_Format.format(date);
 
                 String alldate = year + month + day;
 

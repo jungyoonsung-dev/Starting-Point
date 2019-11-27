@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="@android:color/black"
-    android:padding="19dp">
+    android:background="@android:color/black">
 
     <com.jungyoonsung.startingpoint.Settings.SquareViewPager
         android:id="@+id/view_pager"

@@ -16,8 +16,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TimePicker;
 
+import com.facebook.share.model.SharePhoto;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -87,13 +89,26 @@ public class MainActivity extends AppCompatActivity {
 
                             Calendar calendar = Calendar.getInstance();
                             calendar.setTimeInMillis(System.currentTimeMillis());
-                            calendar.set(Calendar.HOUR_OF_DAY, 22);
+                            calendar.set(Calendar.HOUR_OF_DAY, 6);
                             calendar.set(Calendar.MINUTE, 0);
                             calendar.set(Calendar.SECOND, 0);
 
-                            SharedPreferences.Editor editor = getSharedPreferences("daily alarm", MODE_PRIVATE).edit();
+                            String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
+                            String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+                            String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
+                            String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+                            String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+
+
+                            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);
+                            editor.putString("SD_SCHUL_CODE", SD_SCHUL_CODE);
+                            editor.putString("SCHUL_KND_SC_NM", SCHUL_KND_SC_NM);
+                            editor.putString("s_grade", s_grade);
+                            editor.putString("s_class", s_class);
                             editor.putLong("nextNotifyTime", (long)calendar.getTimeInMillis());
                             editor.apply();
+
                             diaryNotification(calendar);
                         }
 

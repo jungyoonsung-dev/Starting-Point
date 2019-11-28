@@ -218,10 +218,6 @@ public class Fragment_Schedule extends Fragment {
 
                                             period = period.substring(1);
 
-                                            if (period.contains("기술") && period.contains("가정")) {
-                                                period = "기가";
-                                            }
-
                                             if (date.equals(monday)) {
                                                 period_monday.add(period);
                                             } else if (date.equals(tuesday)) {

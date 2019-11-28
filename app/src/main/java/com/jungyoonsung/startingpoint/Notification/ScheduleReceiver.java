@@ -41,7 +41,7 @@ import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class AlarmReceiver extends BroadcastReceiver {
+public class ScheduleReceiver extends BroadcastReceiver {
 
     private RequestQueue requestQueue;
     private List<String> period = new ArrayList<>();
@@ -202,6 +202,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
             @Override
             public void onRequestFinished(Request request) {
+
                 String Schedule = sharedPreferences.getString("Schedule", "");
                 Log.d("TEST", Schedule);
 

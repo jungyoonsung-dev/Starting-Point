@@ -30,7 +30,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".Notification.AlarmReceiver" />
+        <receiver android:name=".Notification.ScheduleReceiver" />
 
     </application>
 

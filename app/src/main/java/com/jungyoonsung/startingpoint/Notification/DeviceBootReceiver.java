@@ -18,8 +18,8 @@ public class DeviceBootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (Objects.equals(intent.getAction(), "android.intent.action.BOOT_COMPLETED")) {
 
-            Intent alarmIntent = new Intent(context, ScheduleReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+            Intent intentScheduleReceiver = new Intent(context, Schedule_Lunch_Receiver.class);
+            PendingIntent pendingIntentScheduleReceiver = PendingIntent.getBroadcast(context, 0, intentScheduleReceiver, 0);
 
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -37,7 +37,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
 
             if (manager != null) {
                 manager.setRepeating(AlarmManager.RTC_WAKEUP, nextNotifyTime.getTimeInMillis(),
-                        AlarmManager.INTERVAL_DAY, pendingIntent);
+                        AlarmManager.INTERVAL_DAY, pendingIntentScheduleReceiver);
             }
         }
     }

@@ -251,11 +251,7 @@ public class Fragment_Schedule extends Fragment {
                                             String date = response3.getString("ALL_TI_YMD");
                                             String period = response3.getString("ITRT_CNTNT");
 
-                                            period = period.substring(1);
-
-//                                            if (period.contains("기술") && period.contains("가정")) {
-//                                                period = "기가";
-//                                            }
+                                            period = period.replaceFirst("-", "");
 
                                             if (date.equals(monday)) {
                                                 period_monday.add(period);

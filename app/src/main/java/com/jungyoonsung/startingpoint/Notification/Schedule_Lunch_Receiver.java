@@ -41,16 +41,19 @@ import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ScheduleReceiver extends BroadcastReceiver {
+public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
     private RequestQueue requestQueue;
+    private RequestQueue requestQueueLunch;
     private List<String> period = new ArrayList<>();
+
+    private List<String> lunch = new ArrayList<>();
 
     @Override
     public void onReceive(final Context context, Intent intent) {
 
-
         requestQueue = Volley.newRequestQueue(context);
+        requestQueueLunch = Volley.newRequestQueue(context);
 
         Date date = Calendar.getInstance().getTime();
 
@@ -71,23 +74,27 @@ public class ScheduleReceiver extends BroadcastReceiver {
         String s_grade = sharedPreferences.getString("s_grade", "");
         String s_class = sharedPreferences.getString("s_class", "");
 
-        String url = null;
+        String url_schedule = null;
+        String url_lunch = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=e1e844f2228848cf8b6f521e7f60de86&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&MLSV_YMD=" + alldate;
+
+        Log.d("TEST", url_lunch);
 
         if (SCHUL_KND_SC_NM.equals("초등학교")) {
             Log.d("TEST", "1");
-            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class;
+            url_schedule = "https://open.neis.go.kr/hub/elsTimetable?KEY=28d1c579be6f424a82296bef1d143291&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class;
         } else if (SCHUL_KND_SC_NM.equals("중학교")) {
             Log.d("TEST", "2");
-            url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class;
+            url_schedule = "https://open.neis.go.kr/hub/misTimetable?KEY=5e224b3241764004ba6db97bf213528d&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class;
         } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
             Log.d("TEST", "3");
-            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class;
+            url_schedule = "https://open.neis.go.kr/hub/hisTimetable?KEY=112df38f4e454ee98c21632e2fc8130f&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class;
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest request_schedule = new JsonObjectRequest(Request.Method.GET, url_schedule, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+
                         if (SCHUL_KND_SC_NM.equals("초등학교")) {
                             try {
                                 JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
@@ -130,7 +137,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
                                     JSONObject response3 = jsonArrayrow.getJSONObject(i);
 
                                     String s_period = response3.getString("ITRT_CNTNT");
-                                    s_period = s_period.substring(1);
+                                    s_period = s_period.replaceFirst("-", "");
 
                                     period.add(s_period);
                                 }
@@ -197,7 +204,59 @@ public class ScheduleReceiver extends BroadcastReceiver {
             }
         });
 
-        requestQueue.add(request);
+        JsonObjectRequest request_lunch = new JsonObjectRequest(Request.Method.GET, url_lunch, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            JSONArray jsonArrayInfo = response.getJSONArray("mealServiceDietInfo");
+                            JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                            JSONArray jsonArrayrow = response2.getJSONArray("row");
+                            for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                String lunch_1 = response3.getString("MMEAL_SC_NM");
+
+                                String lunch_2 = response3.getString("DDISH_NM");
+                                lunch_2 = lunch_2.replaceAll("<br/>", "  ");
+
+                                String s_lunch = lunch_1 + " : " + lunch_2;
+
+                                lunch.add(s_lunch);
+                            }
+
+                            String s_lunch = null;
+
+                            for (int i = 0; i < lunch.size(); i++) {
+                                Log.d("TEST", lunch.get(i));
+                                if (i == 0) {
+                                    s_lunch = lunch.get(i) + "\n";
+                                } else if (i == 1) {
+                                    s_lunch = s_lunch + lunch.get(i) + "\n";
+                                } else {
+                                    s_lunch = s_lunch + lunch.get(i);
+                                }
+                            }
+
+                            SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("Lunch", s_lunch);
+                            editor.apply();
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        requestQueue.add(request_schedule);
+        requestQueueLunch.add(request_lunch);
 
         RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
             @Override
@@ -215,25 +274,25 @@ public class ScheduleReceiver extends BroadcastReceiver {
                 final PendingIntent pendingI = PendingIntent.getActivity(context, 0,
                         notificationIntent, 0);
 
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
-
+                NotificationCompat.Builder builder_Schedule = new NotificationCompat.Builder(context, "Schedule");
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-                    builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+                    builder_Schedule.setSmallIcon(R.drawable.ic_launcher_foreground);
 
                     String channelName ="시간표";
                     int importance = NotificationManager.IMPORTANCE_HIGH;
 
-                    NotificationChannel channel = new NotificationChannel("default", channelName, importance);
+                    NotificationChannel channel = new NotificationChannel("Schedule", channelName, importance);
 
                     if (notificationManager != null) {
                         notificationManager.createNotificationChannel(channel);
                     }
-                } else builder.setSmallIcon(R.mipmap.ic_launcher);
+                } else {
+                    builder_Schedule.setSmallIcon(R.mipmap.ic_launcher);
+                }
 
-                builder.setAutoCancel(true)
-                        .setDefaults(NotificationCompat.DEFAULT_ALL)
+                builder_Schedule.setAutoCancel(true)
                         .setWhen(System.currentTimeMillis())
                         .setContentTitle("시간표")
                         .setContentText(Schedule)
@@ -241,7 +300,63 @@ public class ScheduleReceiver extends BroadcastReceiver {
 
                 if (notificationManager != null) {
 
-                    notificationManager.notify(1234, builder.build());
+                    notificationManager.notify(1234, builder_Schedule.build());
+
+                    Calendar nextNotifyTime = Calendar.getInstance();
+
+                    nextNotifyTime.add(Calendar.DATE, 1);
+
+                    SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                    editor.putLong("nextNotifyTime", nextNotifyTime.getTimeInMillis());
+                    editor.apply();
+                }
+            }
+        };
+
+        RequestQueue.RequestFinishedListener listener_lunch = new RequestQueue.RequestFinishedListener() {
+            @Override
+            public void onRequestFinished(Request request) {
+                String Lunch = sharedPreferences.getString("Lunch", "");
+                Log.d("TEST", Lunch);
+
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                Intent notificationIntent = new Intent(context, MainActivity.class);
+
+                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                final PendingIntent pendingI = PendingIntent.getActivity(context, 0,
+                        notificationIntent, 0);
+
+                NotificationCompat.Builder builder_Lunch = new NotificationCompat.Builder(context, "Lunch");
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+                    builder_Lunch.setSmallIcon(R.drawable.ic_launcher_foreground);
+
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+
+                    String channelNameLunch ="급식식단";
+
+                    NotificationChannel channelLunch = new NotificationChannel("Lunch", channelNameLunch, importance);
+
+                    if (notificationManager != null) {
+                        notificationManager.createNotificationChannel(channelLunch);
+                    }
+                } else {
+                    builder_Lunch.setSmallIcon(R.mipmap.ic_launcher);
+                }
+
+                builder_Lunch.setAutoCancel(true)
+                        .setWhen(System.currentTimeMillis())
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(Lunch))
+                        .setContentTitle("급식식단")
+                        .setContentText(Lunch)
+                        .setContentIntent(pendingI);
+
+                if (notificationManager != null) {
+
+                    notificationManager.notify(1235, builder_Lunch.build());
 
                     Calendar nextNotifyTime = Calendar.getInstance();
 
@@ -255,5 +370,6 @@ public class ScheduleReceiver extends BroadcastReceiver {
         };
 
         requestQueue.addRequestFinishedListener(listener);
+        requestQueueLunch.addRequestFinishedListener(listener_lunch);
     }
 }

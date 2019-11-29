@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Academic_Calendar;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Lunch;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Schedule;
-import com.jungyoonsung.startingpoint.Notification.ScheduleReceiver;
+import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
 import com.jungyoonsung.startingpoint.Notification.DeviceBootReceiver;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
 
@@ -90,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
                             calendar.set(Calendar.MINUTE, 0);
                             calendar.set(Calendar.SECOND, 0);
 
-                            if (calendar.before(Calendar.getInstance())) {
-                                calendar.add(Calendar.DATE, 1);
-                            }
+//                            if (calendar.before(Calendar.getInstance())) {
+//                                calendar.add(Calendar.DATE, 1);
+//                            }
 
                             String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
                             String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
         PackageManager pm = this.getPackageManager();
         ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
-        Intent alarmIntent = new Intent(this, ScheduleReceiver.class);
+        Intent alarmIntent = new Intent(this, Schedule_Lunch_Receiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 

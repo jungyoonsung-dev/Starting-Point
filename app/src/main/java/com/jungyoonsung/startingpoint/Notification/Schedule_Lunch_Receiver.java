@@ -300,7 +300,12 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
                 if (notificationManager != null) {
 
-                    notificationManager.notify(1234, builder_Schedule.build());
+                    Calendar calendar = Calendar.getInstance();
+                    int number = calendar.get(Calendar.DAY_OF_WEEK);
+
+                    if (!(number == 1 || number == 7)) {
+                        notificationManager.notify(1111, builder_Schedule.build());
+                    }
 
                     Calendar nextNotifyTime = Calendar.getInstance();
 
@@ -356,7 +361,12 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
                 if (notificationManager != null) {
 
-                    notificationManager.notify(1235, builder_Lunch.build());
+                    Calendar calendar = Calendar.getInstance();
+                    int number = calendar.get(Calendar.DAY_OF_WEEK);
+
+                    if (!(number == 1 || number == 7)) {
+                        notificationManager.notify(2222, builder_Lunch.build());
+                    }
 
                     Calendar nextNotifyTime = Calendar.getInstance();
 

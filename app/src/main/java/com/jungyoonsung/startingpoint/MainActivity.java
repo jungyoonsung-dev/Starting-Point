@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -128,6 +129,31 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra(Intent.EXTRA_EMAIL, mail);
                         intent.setType("message/rfc822");
                         startActivity(intent);
+                    }
+                });
+
+                TextView t_open_source_license = (TextView) mView.findViewById(R.id.t_open_source_license);
+                t_open_source_license.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Toast.makeText(MainActivity.this, "CircleIndicator\nhttps://github.com/ongakuer/CircleIndicator\nApache License, Version 2.0", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                TextView t_information = (TextView) mView.findViewById(R.id.t_information);
+                t_information.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Toast.makeText(MainActivity.this,
+                                "학교기본정보\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17020190531110010104913&infSeq=1\n\n\n" +
+                                "급식식단\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17320190722180924242823&infSeq=1\n\n\n" +
+                                "초등학교시간표\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN15920190423094641415608&infSeq=1\n\n\n" +
+                                "중학교시간표\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN15120190408165334348844&infSeq=1\n\n\n" +
+                                "고등학교시간표\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN15220190408172102028818&infSeq=1\n\n\n" +
+                                "학사일정\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17220190722175038389180&infSeq=1", Toast.LENGTH_SHORT).show();
                     }
                 });
 

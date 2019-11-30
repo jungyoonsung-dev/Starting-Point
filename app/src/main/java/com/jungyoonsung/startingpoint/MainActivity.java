@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                                 String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
                                 String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
 
-
                                 SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
                                 editor.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);
                                 editor.putString("SD_SCHUL_CODE", SD_SCHUL_CODE);

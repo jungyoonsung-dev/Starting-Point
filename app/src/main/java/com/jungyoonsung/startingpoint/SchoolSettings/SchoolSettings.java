@@ -1,9 +1,12 @@
 package com.jungyoonsung.startingpoint.SchoolSettings;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jungyoonsung.startingpoint.MainActivity;
 import com.jungyoonsung.startingpoint.R;
 
 import org.json.JSONArray;
@@ -43,10 +52,16 @@ public class SchoolSettings extends AppCompatActivity {
 
     RecyclerView recyclerview;
 
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_settings);
+
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -100,6 +115,26 @@ public class SchoolSettings extends AppCompatActivity {
                 });
 
                 requestQueue.add(request);
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    Intent intent = new Intent(SchoolSettings.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }

@@ -278,7 +278,7 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-                    builder_Schedule.setSmallIcon(R.drawable.ic_launcher_foreground);
+                    builder_Schedule.setSmallIcon(R.drawable.ic_icon);
 
                     String channelName ="시간표";
                     int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -289,7 +289,7 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                         notificationManager.createNotificationChannel(channel);
                     }
                 } else {
-                    builder_Schedule.setSmallIcon(R.mipmap.ic_launcher);
+                    builder_Schedule.setSmallIcon(R.mipmap.icon);
                 }
 
                 builder_Schedule.setAutoCancel(true)
@@ -337,7 +337,7 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
 
-                    builder_Lunch.setSmallIcon(R.drawable.ic_launcher_foreground);
+                    builder_Lunch.setSmallIcon(R.drawable.ic_icon);
 
                     int importance = NotificationManager.IMPORTANCE_HIGH;
 
@@ -349,7 +349,7 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                         notificationManager.createNotificationChannel(channelLunch);
                     }
                 } else {
-                    builder_Lunch.setSmallIcon(R.mipmap.ic_launcher);
+                    builder_Lunch.setSmallIcon(R.mipmap.icon);
                 }
 
                 builder_Lunch.setAutoCancel(true)

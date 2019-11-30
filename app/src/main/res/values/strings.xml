@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Starting Point</string>
 
+    <string name="app_admob_id">ca-app-pub-4611663145207552~5834534972</string>
+    <string name="app_admob_banner_id">ca-app-pub-4611663145207552/1895289968</string>
+
     <string name="facebook_application_id">677138522691428</string>
     <string name="facebook_login_protocol_scheme">fb677138522691428</string>
 </resources>

@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
 
+
         <receiver android:name=".Notification.DeviceBootReceiver"
             android:enabled="false">
             <intent-filter>
@@ -31,6 +32,10 @@
         </receiver>
 
         <receiver android:name=".Notification.Schedule_Lunch_Receiver" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/app_admob_id" />
 
     </application>
 

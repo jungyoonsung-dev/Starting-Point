@@ -25,6 +25,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,6 +56,8 @@ public class Fragment_Schedule extends Fragment {
     FirebaseDatabase database;
 
     Context thisContext;
+
+    private AdView adView;
 
     private RequestQueue requestQueue;
 
@@ -137,6 +143,44 @@ public class Fragment_Schedule extends Fragment {
                 LayoutInflater myInflater = LayoutInflater.from(thisContext);
 
                 final View mView = myInflater.inflate(R.layout.dialog_schedule, null);
+
+                MobileAds.initialize(thisContext,
+                        getString(R.string.app_admob_id));
+
+                adView = (AdView) mView.findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                adView.loadAd(adRequest);
+
+                adView.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                        // Code to be executed when an ad finishes loading.
+                        adView.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(int errorCode) {
+                        // Code to be executed when an ad request fails.
+                        adView.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAdOpened() {
+                        // Code to be executed when an ad opens an overlay that
+                        // covers the screen.
+                    }
+
+                    @Override
+                    public void onAdLeftApplication() {
+                        // Code to be executed when the user has left the app.
+                    }
+
+                    @Override
+                    public void onAdClosed() {
+                        // Code to be executed when when the user is about to return
+                        // to the app after tapping on an ad.
+                    }
+                });
 
                 final TextView
                         textView_1_1,

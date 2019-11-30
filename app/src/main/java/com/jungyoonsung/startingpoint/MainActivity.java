@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             new AuthUI.IdpConfig.FacebookBuilder().build()
     );
 
+    TextView textView_name, textView_school, textView_grade_class_number;
+
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
 
@@ -61,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
+        textView_name = (TextView) findViewById(R.id.textView_name);
+        textView_school = (TextView) findViewById(R.id.textView_school);
+        textView_grade_class_number = (TextView) findViewById(R.id.textView_grade_class_number);
 
         viewPager = findViewById(R.id.view_pager);
         circleIndicator = findViewById(R.id.circle);
@@ -79,6 +86,24 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             } else {
+
+                                textView_name.setText(auth.getCurrentUser().getDisplayName());
+                                textView_school.setText(String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + "   ");
+
+                                String t_s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+                                String t_s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+                                String t_s_number = String.valueOf(dataSnapshot.child("s_8_number").getValue());
+
+                                if (t_s_class.length() == 1) {
+                                    t_s_class = "0" + t_s_class;
+                                }
+
+                                if (t_s_number.length() == 1) {
+                                    t_s_number = "0" + t_s_number;
+                                }
+
+                                textView_grade_class_number.setText("   " + t_s_grade + t_s_class + t_s_number);
+
                                 viewPager.setAdapter(new pagerAdapter(getSupportFragmentManager()));
                                 viewPager.setCurrentItem(1);
 
@@ -99,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                                 String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
                                 String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
                                 String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+
 
                                 SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
                                 editor.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);

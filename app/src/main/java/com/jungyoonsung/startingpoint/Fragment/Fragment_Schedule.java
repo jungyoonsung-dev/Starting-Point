@@ -139,6 +139,12 @@ public class Fragment_Schedule extends Fragment {
             @Override
             public void onClick(View view) {
 
+                d_period_monday.clear();
+                d_period_tuesday.clear();
+                d_period_wednesday.clear();
+                d_period_thursday.clear();
+                d_period_friday.clear();
+
                 final AlertDialog.Builder mBuilder = new AlertDialog.Builder(thisContext);
                 LayoutInflater myInflater = LayoutInflater.from(thisContext);
 
@@ -276,11 +282,10 @@ public class Fragment_Schedule extends Fragment {
                         String startDate, endDate;
 
                         Calendar calendar = GregorianCalendar.getInstance();
-                        calendar.setFirstDayOfWeek(Calendar.SATURDAY);
+                        calendar.setFirstDayOfWeek(Calendar.MONDAY);
                         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+                        calendar.add(Calendar.WEEK_OF_MONTH, 1);
                         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-
-                        calendar.add(Calendar.DAY_OF_WEEK, 2);
 
                         startDate = dateFormat.format(calendar.getTime());
                         monday = dateFormat.format(calendar.getTime());
@@ -315,6 +320,8 @@ public class Fragment_Schedule extends Fragment {
                             url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                         }
 
+                        Log.d("TEST", url);
+
                         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                                 new Response.Listener<JSONObject>() {
                                     @Override
@@ -345,7 +352,7 @@ public class Fragment_Schedule extends Fragment {
                                                         d_period_friday.add(period);
                                                     }
                                                     show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
                                                     show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
                                                     show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
                                                     show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
@@ -379,8 +386,9 @@ public class Fragment_Schedule extends Fragment {
                                                     } else if (date.equals(friday)) {
                                                         d_period_friday.add(period);
                                                     }
+
                                                     show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
                                                     show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
                                                     show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
                                                     show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
@@ -401,10 +409,6 @@ public class Fragment_Schedule extends Fragment {
                                                     String date = response3.getString("ALL_TI_YMD");
                                                     String period = response3.getString("ITRT_CNTNT");
 
-                                                    if (period.contains("기술") && period.contains("가정")) {
-                                                        period = "기가";
-                                                    }
-
                                                     if (date.equals(monday)) {
                                                         d_period_monday.add(period);
                                                     } else if (date.equals(tuesday)) {
@@ -417,7 +421,7 @@ public class Fragment_Schedule extends Fragment {
                                                         d_period_friday.add(period);
                                                     }
                                                     show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
                                                     show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
                                                     show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
                                                     show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
@@ -574,7 +578,7 @@ public class Fragment_Schedule extends Fragment {
                                                 period_friday.add(period);
                                             }
                                             show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
                                             show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
                                             show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
                                             show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
@@ -609,7 +613,7 @@ public class Fragment_Schedule extends Fragment {
                                                 period_friday.add(period);
                                             }
                                             show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
                                             show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
                                             show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
                                             show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
@@ -630,10 +634,6 @@ public class Fragment_Schedule extends Fragment {
                                             String date = response3.getString("ALL_TI_YMD");
                                             String period = response3.getString("ITRT_CNTNT");
 
-                                            if (period.contains("기술") && period.contains("가정")) {
-                                                period = "기가";
-                                            }
-
                                             if (date.equals(monday)) {
                                                 period_monday.add(period);
                                             } else if (date.equals(tuesday)) {
@@ -646,7 +646,7 @@ public class Fragment_Schedule extends Fragment {
                                                 period_friday.add(period);
                                             }
                                             show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
                                             show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
                                             show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
                                             show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);

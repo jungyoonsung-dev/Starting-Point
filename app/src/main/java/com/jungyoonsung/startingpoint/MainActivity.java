@@ -9,15 +9,20 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -79,7 +84,57 @@ public class MainActivity extends AppCompatActivity {
         t_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater myInflater = LayoutInflater.from(MainActivity.this);
 
+                final View mView = myInflater.inflate(R.layout.dialog_settings, null);
+
+                LinearLayout facebook_linearLayout = (LinearLayout) mView.findViewById(R.id.facebook_linearLayout);
+                LinearLayout instagram_linearaLayout = (LinearLayout) mView.findViewById(R.id.instagram_linearLayout);
+                LinearLayout github_linearLayout = (LinearLayout) mView.findViewById(R.id.github_linearLayout);
+                LinearLayout mail_linearLayout = (LinearLayout) mView.findViewById(R.id.mail_linearLayout);
+
+                facebook_linearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/jungyoonsung.dev"));
+                        startActivity(intent);
+                    }
+                });
+
+                instagram_linearaLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/jungyoonsung.dev"));
+                        startActivity(intent);
+                    }
+                });
+
+                github_linearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jungyoonsung-dev"));
+                        startActivity(intent);
+                    }
+                });
+
+                mail_linearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String[] mail = {"jungyoonsung.dev@gmail.com"};
+
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("plain/Text");
+                        intent.putExtra(Intent.EXTRA_EMAIL, mail);
+                        intent.setType("message/rfc822");
+                        startActivity(intent);
+                    }
+                });
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
             }
         });
 

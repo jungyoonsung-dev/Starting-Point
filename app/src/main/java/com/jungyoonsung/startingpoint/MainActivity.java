@@ -27,6 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
 
+    private AdView adView, adView_settings;
+
     private FirebaseAuth.AuthStateListener mAuthListener;
     public static final int RC_SIGN_IN = 1;
 
@@ -76,6 +82,41 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
+        MobileAds.initialize(MainActivity.this, getString(R.string.app_admob_id));
+        adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                adView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+                adView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+
         textView_name = (TextView) findViewById(R.id.textView_name);
         textView_school = (TextView) findViewById(R.id.textView_school);
         textView_grade_class_number = (TextView) findViewById(R.id.textView_grade_class_number);
@@ -91,6 +132,42 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater myInflater = LayoutInflater.from(MainActivity.this);
 
                 final View mView = myInflater.inflate(R.layout.dialog_settings, null);
+
+                MobileAds.initialize(MainActivity.this,
+                        getString(R.string.app_admob_id));
+                adView_settings = mView.findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                adView.loadAd(adRequest);
+                adView.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                        // Code to be executed when an ad finishes loading.
+                        adView.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(int errorCode) {
+                        // Code to be executed when an ad request fails.
+                        adView.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAdOpened() {
+                        // Code to be executed when an ad opens an overlay that
+                        // covers the screen.
+                    }
+
+                    @Override
+                    public void onAdLeftApplication() {
+                        // Code to be executed when the user has left the app.
+                    }
+
+                    @Override
+                    public void onAdClosed() {
+                        // Code to be executed when when the user is about to return
+                        // to the app after tapping on an ad.
+                    }
+                });
 
                 LinearLayout facebook_linearLayout = (LinearLayout) mView.findViewById(R.id.facebook_linearLayout);
                 LinearLayout instagram_linearaLayout = (LinearLayout) mView.findViewById(R.id.instagram_linearLayout);

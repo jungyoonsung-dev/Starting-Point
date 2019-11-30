@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Starting Point</string>
+    <string name="app_name">출발점</string>
 
     <string name="app_admob_id">ca-app-pub-4611663145207552~5834534972</string>
     <string name="app_admob_banner_id">ca-app-pub-4611663145207552/1895289968</string>

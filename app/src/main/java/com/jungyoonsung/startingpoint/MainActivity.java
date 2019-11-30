@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
 
+    TextView t_settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.view_pager);
         circleIndicator = findViewById(R.id.circle);
+
+        t_settings = (TextView) findViewById(R.id.t_settings);
+        t_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override

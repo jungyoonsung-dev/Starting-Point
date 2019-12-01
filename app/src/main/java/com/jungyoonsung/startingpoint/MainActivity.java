@@ -3,6 +3,7 @@ package com.jungyoonsung.startingpoint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -19,14 +20,17 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -137,18 +141,18 @@ public class MainActivity extends AppCompatActivity {
                         getString(R.string.app_admob_id));
                 adView_settings = mView.findViewById(R.id.adView);
                 AdRequest adRequest = new AdRequest.Builder().build();
-                adView.loadAd(adRequest);
-                adView.setAdListener(new AdListener() {
+                adView_settings.loadAd(adRequest);
+                adView_settings.setAdListener(new AdListener() {
                     @Override
                     public void onAdLoaded() {
                         // Code to be executed when an ad finishes loading.
-                        adView.setVisibility(View.VISIBLE);
+                        adView_settings.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onAdFailedToLoad(int errorCode) {
                         // Code to be executed when an ad request fails.
-                        adView.setVisibility(View.GONE);
+                        adView_settings.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -233,6 +237,59 @@ public class MainActivity extends AppCompatActivity {
                                 "중학교시간표\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN15120190408165334348844&infSeq=1\n\n\n" +
                                 "고등학교시간표\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN15220190408172102028818&infSeq=1\n\n\n" +
                                 "학사일정\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17220190722175038389180&infSeq=1", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                final CheckBox c_l_n, c_s_n;
+
+                c_l_n = (CheckBox) mView.findViewById(R.id.c_l_n);
+                c_s_n = (CheckBox) mView.findViewById(R.id.c_s_n);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
+                String f_lunch = sharedPreferences.getString("CLunch", "");
+                String f_schedule = sharedPreferences.getString("CSchedule", "");
+
+                if (TextUtils.isEmpty(f_lunch)) {
+                    SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                    editor.putString("CLunch", "true");
+                    editor.apply();
+                }
+
+                if (TextUtils.isEmpty(f_schedule)) {
+                    SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                    editor.putString("CSchedule", "true");
+                    editor.apply();
+                }
+
+                String lunch = sharedPreferences.getString("CLunch", "");
+                String schedule = sharedPreferences.getString("CSchedule", "");
+
+                if (lunch.equals("true")) {
+                    c_l_n.setChecked(true);
+                } else {
+                    c_l_n.setChecked(false);
+                }
+
+                if (schedule.equals("true")) {
+                    c_s_n.setChecked(true);
+                } else {
+                    c_s_n.setChecked(false);
+                }
+
+                c_l_n.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (c_l_n.isChecked()) {
+                            Log.d("TEST", "true");
+                            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("CLunch", "true");
+                            editor.apply();
+                        } else {
+                            Log.d("TEST", "false");
+                            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("CLunch", "false");
+                            editor.apply();
+                        }
                     }
                 });
 
@@ -365,6 +422,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
+        String f_lunch = sharedPreferences.getString("CLunch", "");
+        String f_schedule = sharedPreferences.getString("CSchedule", "");
+
+        if (TextUtils.isEmpty(f_lunch)) {
+            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+            editor.putString("CLunch", "true");
+            editor.apply();
+        }
+
+        if (TextUtils.isEmpty(f_schedule)) {
+            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+            editor.putString("CSchedule", "true");
+            editor.apply();
+        }
     }
 
     void diaryNotification(Calendar calendar) {
@@ -416,6 +489,14 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                editor.putString("CLunch", "true");
+                editor.putString("CSchedule", "true");
+                editor.apply();
+            }
+        }
     }
 
     @Override

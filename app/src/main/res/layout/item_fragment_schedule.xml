@@ -105,6 +105,7 @@
                     android:layout_height="0dp">
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_1_1"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -118,6 +119,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_2_1"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -131,6 +133,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_3_1"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -144,6 +147,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_4_1"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -157,6 +161,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_5_1"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -179,6 +184,7 @@
                     android:layout_height="0dp">
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_1_2"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -192,6 +198,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_2_2"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -205,6 +212,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_3_2"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -218,6 +226,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_4_2"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -231,6 +240,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_5_2"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -253,6 +263,7 @@
                     android:layout_height="0dp">
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_1_3"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -266,6 +277,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_2_3"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -279,6 +291,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_3_3"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -292,6 +305,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_4_3"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -305,6 +319,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_5_3"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -326,6 +341,7 @@
                     android:layout_height="0dp">
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_1_4"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -339,6 +355,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_2_4"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -352,6 +369,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_3_4"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -365,6 +383,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_4_4"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -378,6 +397,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_5_4"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -399,6 +419,7 @@
                     android:layout_height="0dp">
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_1_5"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -412,6 +433,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_2_5"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -425,6 +447,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_3_5"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -438,6 +461,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_4_5"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -451,6 +475,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_5_5"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -473,6 +498,7 @@
                     android:layout_height="0dp">
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_1_6"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -486,6 +512,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_2_6"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -499,6 +526,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_3_6"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -512,6 +540,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_4_6"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -525,6 +554,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_5_6"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -546,19 +576,21 @@
                     android:layout_height="0dp">
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_1_7"
-                        android:layout_margin="1dp"
-                        android:background="@android:color/white"
-                        android:padding="5dp"
-                        android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/white"
                         android:gravity="center"
+                        android:padding="5dp"
                         android:text=""
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_2_7"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -572,6 +604,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_3_7"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -585,6 +618,7 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_4_7"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
@@ -598,7 +632,86 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
+                        android:maxLength="5"
                         android:id="@+id/textView_5_7"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:padding="5dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black" />
+
+                </TableRow>
+                <TableRow
+                    android:background="#292929"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+
+                    <TextView
+                        android:maxLength="5"
+                        android:id="@+id/textView_1_8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text=""
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:maxLength="5"
+                        android:id="@+id/textView_2_8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/white"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text=""
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:maxLength="5"
+                        android:id="@+id/textView_3_8"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:padding="5dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:maxLength="5"
+                        android:id="@+id/textView_4_8"
+                        android:layout_margin="1dp"
+                        android:background="@android:color/white"
+                        android:padding="5dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:maxLength="5"
+                        android:id="@+id/textView_5_8"
                         android:layout_margin="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"

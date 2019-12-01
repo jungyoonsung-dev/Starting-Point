@@ -46,7 +46,28 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
+                        <CheckBox
+                            android:id="@+id/c_l_n"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:padding="15dp"
+                            android:text="급식식단 알림"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@android:color/black" />
+
+                        <CheckBox
+                            android:id="@+id/c_s_n"
+                            android:padding="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="시간표 알림"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@android:color/black"
+                            android:checked="false" />
+
                         <TextView
+                            android:layout_marginTop="15dp"
                             android:id="@+id/t_log_out"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

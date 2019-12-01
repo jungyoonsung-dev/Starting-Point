@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -157,6 +158,34 @@ public class Fragment_Lunch extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        item_fragment_lunch_linearlayout_1_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(thisContext, DDISH_NM.get(0), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lunch_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(thisContext, DDISH_NM.get(0), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lunch_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(thisContext, DDISH_NM.get(1), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lunch_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(thisContext, DDISH_NM.get(2), Toast.LENGTH_SHORT).show();
             }
         });
 

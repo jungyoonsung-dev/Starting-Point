@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,6 +53,8 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
+
+
 
         requestQueue = Volley.newRequestQueue(context);
         requestQueueLunch = Volley.newRequestQueue(context);
@@ -303,8 +307,13 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                     Calendar calendar = Calendar.getInstance();
                     int number = calendar.get(Calendar.DAY_OF_WEEK);
 
-                    if (!(number == 1 || number == 7)) {
-                        notificationManager.notify(1111, builder_Schedule.build());
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("Notification", MODE_PRIVATE);
+                    String schedule = sharedPreferences.getString("CSchedule", "");
+
+                    if (schedule.equals("true")) {
+                        if (!(number == 1 || number == 7)) {
+                            notificationManager.notify(1111, builder_Schedule.build());
+                        }
                     }
 
                     Calendar nextNotifyTime = Calendar.getInstance();
@@ -364,8 +373,13 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                     Calendar calendar = Calendar.getInstance();
                     int number = calendar.get(Calendar.DAY_OF_WEEK);
 
-                    if (!(number == 1 || number == 7)) {
-                        notificationManager.notify(2222, builder_Lunch.build());
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("Notification", MODE_PRIVATE);
+                    String lunch = sharedPreferences.getString("CLunch", "");
+
+                    if (lunch.equals("true")) {
+                        if (!(number == 1 || number == 7)) {
+                            notificationManager.notify(2222, builder_Lunch.build());
+                        }
                     }
 
                     Calendar nextNotifyTime = Calendar.getInstance();

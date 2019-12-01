@@ -351,13 +351,12 @@ public class Fragment_Schedule extends Fragment {
                                                     } else if (date.equals(friday)) {
                                                         d_period_friday.add(period);
                                                     }
-                                                    show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
-                                                    show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
-                                                    show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
-                                                    show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
-
                                                 }
+                                                show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                                show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
+                                                show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
+                                                show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
+                                                show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -386,14 +385,12 @@ public class Fragment_Schedule extends Fragment {
                                                     } else if (date.equals(friday)) {
                                                         d_period_friday.add(period);
                                                     }
-
-                                                    show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
-                                                    show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
-                                                    show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
-                                                    show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
-
                                                 }
+                                                show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                                show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
+                                                show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
+                                                show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
+                                                show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -420,13 +417,12 @@ public class Fragment_Schedule extends Fragment {
                                                     } else if (date.equals(friday)) {
                                                         d_period_friday.add(period);
                                                     }
-                                                    show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                                    show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
-                                                    show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
-                                                    show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
-                                                    show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
-
                                                 }
+                                                show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                                show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
+                                                show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
+                                                show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
+                                                show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -577,13 +573,12 @@ public class Fragment_Schedule extends Fragment {
                                             } else if (date.equals(friday)) {
                                                 period_friday.add(period);
                                             }
-                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
-                                            show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
-                                            show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
-                                            show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
-
                                         }
+                                        show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                        show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
+                                        show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
+                                        show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
+                                        show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -612,13 +607,12 @@ public class Fragment_Schedule extends Fragment {
                                             } else if (date.equals(friday)) {
                                                 period_friday.add(period);
                                             }
-                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
-                                            show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
-                                            show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
-                                            show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
-
                                         }
+                                        show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                        show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
+                                        show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
+                                        show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
+                                        show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -645,13 +639,13 @@ public class Fragment_Schedule extends Fragment {
                                             } else if (date.equals(friday)) {
                                                 period_friday.add(period);
                                             }
-                                            show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
-                                            show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
-                                            show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
-                                            show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
-                                            show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
-
                                         }
+
+                                        show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7);
+                                        show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7);
+                                        show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7);
+                                        show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7);
+                                        show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7);
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -683,10 +677,23 @@ public class Fragment_Schedule extends Fragment {
 
             t_1.setText(period.get(0));
 
+            t_2.setBackgroundResource(R.color.color1);
+            t_3.setBackgroundResource(R.color.color1);
+            t_4.setBackgroundResource(R.color.color1);
+            t_5.setBackgroundResource(R.color.color1);
+            t_6.setBackgroundResource(R.color.color1);
+            t_7.setBackgroundResource(R.color.color1);
+
         } else if (period.size() == 2) {
 
             t_1.setText(period.get(0));
             t_2.setText(period.get(1));
+
+            t_3.setBackgroundResource(R.color.color1);
+            t_4.setBackgroundResource(R.color.color1);
+            t_5.setBackgroundResource(R.color.color1);
+            t_6.setBackgroundResource(R.color.color1);
+            t_7.setBackgroundResource(R.color.color1);
 
         } else if (period.size() == 3) {
 
@@ -694,12 +701,21 @@ public class Fragment_Schedule extends Fragment {
             t_2.setText(period.get(1));
             t_3.setText(period.get(2));
 
+            t_4.setBackgroundResource(R.color.color1);
+            t_5.setBackgroundResource(R.color.color1);
+            t_6.setBackgroundResource(R.color.color1);
+            t_7.setBackgroundResource(R.color.color1);
+
         } else if (period.size() == 4) {
 
             t_1.setText(period.get(0));
             t_2.setText(period.get(1));
             t_3.setText(period.get(2));
             t_4.setText(period.get(3));
+
+            t_5.setBackgroundResource(R.color.color1);
+            t_6.setBackgroundResource(R.color.color1);
+            t_7.setBackgroundResource(R.color.color1);
 
         } else if (period.size() == 5) {
 
@@ -709,6 +725,9 @@ public class Fragment_Schedule extends Fragment {
             t_4.setText(period.get(3));
             t_5.setText(period.get(4));
 
+            t_6.setBackgroundResource(R.color.color1);
+            t_7.setBackgroundResource(R.color.color1);
+
         } else if (period.size() == 6) {
 
             t_1.setText(period.get(0));
@@ -717,6 +736,8 @@ public class Fragment_Schedule extends Fragment {
             t_4.setText(period.get(3));
             t_5.setText(period.get(4));
             t_6.setText(period.get(5));
+
+            t_7.setBackgroundResource(R.color.color1);
 
         } else if (period.size() == 7) {
 

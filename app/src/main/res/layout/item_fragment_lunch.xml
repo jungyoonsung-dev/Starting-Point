@@ -34,15 +34,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:padding="27dp"
-                    android:id="@+id/item_fragment_lunch_linearlayout_1_textView"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@android:color/black"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent">
+
+<!--                    <TextView-->
+<!--                        android:padding="20dp"-->
+<!--                        app:layout_constraintRight_toRightOf="parent"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        android:text="급식"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="#737373"-->
+<!--                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content" />-->
+
+                    <TextView
+                        android:padding="27dp"
+                        android:id="@+id/item_fragment_lunch_linearlayout_1_textView"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@android:color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 
@@ -59,7 +76,6 @@
                     android:layout_weight="44"
                     android:orientation="horizontal"
                     android:padding="8dp">
-
 
                     <TextView
                         android:layout_width="0dp"

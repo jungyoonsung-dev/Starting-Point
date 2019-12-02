@@ -301,6 +301,9 @@ public class Fragment_Schedule extends Fragment {
                 textView_5_7 = (TextView) mView.findViewById(R.id.textView_5_7);
                 textView_5_8 = (TextView) mView.findViewById(R.id.textView_5_8);
 
+                final TextView t_date;
+                t_date = (TextView) mView.findViewById(R.id.t_date);
+
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -328,11 +331,15 @@ public class Fragment_Schedule extends Fragment {
                         calendar.add(Calendar.WEEK_OF_MONTH, count);
 
                         String startDate, endDate;
+                        String s_d_s, s_d_f;
 
                         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+                        DateFormat t_dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+                        DateFormat t_dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
 
                         startDate = dateFormat.format(calendar.getTime());
                         monday = dateFormat.format(calendar.getTime());
+                        s_d_s = t_dateFormat_s.format(calendar.getTime());
 
                         calendar.add(Calendar.DAY_OF_WEEK, 1);
                         tuesday = dateFormat.format(calendar.getTime());
@@ -346,6 +353,9 @@ public class Fragment_Schedule extends Fragment {
                         calendar.add(Calendar.DAY_OF_WEEK, 1);
                         endDate = dateFormat.format(calendar.getTime());
                         friday = dateFormat.format(calendar.getTime());
+                        s_d_f = t_dateFormat_f.format(calendar.getTime());
+
+                        t_date.setText(s_d_s + " ~ " + s_d_f);
 
                         String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
                         String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
@@ -602,11 +612,15 @@ public class Fragment_Schedule extends Fragment {
                                 calendar.add(Calendar.WEEK_OF_MONTH, count);
 
                                 String startDate, endDate;
+                                String s_d_s, s_d_f;
 
                                 DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+                                DateFormat t_dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+                                DateFormat t_dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
 
                                 startDate = dateFormat.format(calendar.getTime());
                                 monday = dateFormat.format(calendar.getTime());
+                                s_d_s = t_dateFormat_s.format(calendar.getTime());
 
                                 calendar.add(Calendar.DAY_OF_WEEK, 1);
                                 tuesday = dateFormat.format(calendar.getTime());
@@ -620,6 +634,9 @@ public class Fragment_Schedule extends Fragment {
                                 calendar.add(Calendar.DAY_OF_WEEK, 1);
                                 endDate = dateFormat.format(calendar.getTime());
                                 friday = dateFormat.format(calendar.getTime());
+                                s_d_f = t_dateFormat_f.format(calendar.getTime());
+
+                                t_date.setText(s_d_s + " ~ " + s_d_f);
 
                                 String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
                                 String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
@@ -879,11 +896,15 @@ public class Fragment_Schedule extends Fragment {
                                 calendar.add(Calendar.WEEK_OF_MONTH, count);
 
                                 String startDate, endDate;
+                                String s_d_s, s_d_f;
 
                                 DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+                                DateFormat t_dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+                                DateFormat t_dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
 
                                 startDate = dateFormat.format(calendar.getTime());
                                 monday = dateFormat.format(calendar.getTime());
+                                s_d_s = t_dateFormat_s.format(calendar.getTime());
 
                                 calendar.add(Calendar.DAY_OF_WEEK, 1);
                                 tuesday = dateFormat.format(calendar.getTime());
@@ -897,6 +918,9 @@ public class Fragment_Schedule extends Fragment {
                                 calendar.add(Calendar.DAY_OF_WEEK, 1);
                                 endDate = dateFormat.format(calendar.getTime());
                                 friday = dateFormat.format(calendar.getTime());
+                                s_d_f = t_dateFormat_f.format(calendar.getTime());
+
+                                t_date.setText(s_d_s + " ~ " + s_d_f);
 
                                 String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
                                 String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());

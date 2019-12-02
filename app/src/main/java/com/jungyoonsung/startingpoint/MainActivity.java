@@ -3,7 +3,6 @@ package com.jungyoonsung.startingpoint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -14,6 +13,7 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -27,10 +27,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -174,6 +174,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                final TimePicker timePicker = (TimePicker) mView.findViewById(R.id.timePicker);
+//                timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+//                    @Override
+//                    public void onTimeChanged(TimePicker timePicker, int i, int i1) {
+//                        SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+//                        editor.putInt("HOUR", i);
+//                        editor.putInt("MIN", i1);
+//                        editor.apply();
+//                    }
+//                });
+
                 LinearLayout facebook_linearLayout = (LinearLayout) mView.findViewById(R.id.facebook_linearLayout);
                 LinearLayout instagram_linearaLayout = (LinearLayout) mView.findViewById(R.id.instagram_linearLayout);
                 LinearLayout github_linearLayout = (LinearLayout) mView.findViewById(R.id.github_linearLayout);
@@ -299,6 +310,20 @@ public class MainActivity extends AppCompatActivity {
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                 dialog.show();
 
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                        editor.putInt("HOUR", timePicker.getHour());
+                        editor.putInt("MIN", timePicker.getMinute());
+                        editor.apply();
+
+                        finish();
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
                 TextView t_log_out = (TextView) mView.findViewById(R.id.t_log_out);
                 t_log_out.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -373,9 +398,20 @@ public class MainActivity extends AppCompatActivity {
 
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.setTimeInMillis(System.currentTimeMillis());
-                                calendar.set(Calendar.HOUR_OF_DAY, 6);
-                                calendar.set(Calendar.MINUTE, 0);
-                                calendar.set(Calendar.SECOND, 0);
+
+                                SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
+                                int i_hour = sharedPreferences.getInt("HOUR", -1);
+                                int i_min = sharedPreferences.getInt("MIN", -1);
+
+                                if (i_hour != -1 && i_min != -1) {
+                                    calendar.set(Calendar.HOUR_OF_DAY, i_hour);
+                                    calendar.set(Calendar.MINUTE, i_min);
+                                    calendar.set(Calendar.SECOND, 0);
+                                } else {
+                                    calendar.set(Calendar.HOUR_OF_DAY, 6);
+                                    calendar.set(Calendar.MINUTE, 0);
+                                    calendar.set(Calendar.SECOND, 0);
+                                }
 
                                 if (calendar.before(Calendar.getInstance())) {
                                     calendar.add(Calendar.DATE, 1);
@@ -397,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putLong("nextNotifyTime", (long)calendar.getTimeInMillis());
                                 editor.apply();
 
-                                diaryNotification(calendar);
+                                Notification_ALARM(calendar);
                             }
                         }
 
@@ -441,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void diaryNotification(Calendar calendar) {
+    void Notification_ALARM(Calendar calendar) {
 
         PackageManager pm = this.getPackageManager();
         ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);

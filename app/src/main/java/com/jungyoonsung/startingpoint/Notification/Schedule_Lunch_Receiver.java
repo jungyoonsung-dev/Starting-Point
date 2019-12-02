@@ -79,7 +79,7 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
         String s_class = sharedPreferences.getString("s_class", "");
 
         String url_schedule = null;
-        String url_lunch = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=e1e844f2228848cf8b6f521e7f60de86&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&MLSV_YMD=" + alldate;
+        String url_lunch = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=7038ed79d5144336975a34e3c1a184cc&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&MLSV_YMD=" + alldate;
 
         Log.d("TEST", url_lunch);
 

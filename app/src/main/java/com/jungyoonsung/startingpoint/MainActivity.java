@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
                 MobileAds.initialize(MainActivity.this,
                         getString(R.string.app_admob_id));
+
                 adView_settings = mView.findViewById(R.id.adView);
                 AdRequest adRequest = new AdRequest.Builder().build();
                 adView_settings.loadAd(adRequest);

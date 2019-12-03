@@ -6,12 +6,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +89,16 @@ public class Fragment_Schedule extends Fragment {
     private List<String> d_period_friday_c = new ArrayList<>();
 
     CardView cardView;
+
+    TableRow
+            tableRow_1,
+            tableRow_2,
+            tableRow_3,
+            tableRow_4,
+            tableRow_5,
+            tableRow_6,
+            tableRow_7,
+            tableRow_8;
 
     TextView
             textView_1_1,
@@ -1152,6 +1164,15 @@ public class Fragment_Schedule extends Fragment {
             }
         });
 
+        tableRow_1 = (TableRow) view.findViewById(R.id.tableRow_1);
+        tableRow_2 = (TableRow) view.findViewById(R.id.tableRow_2);
+        tableRow_3 = (TableRow) view.findViewById(R.id.tableRow_3);
+        tableRow_4 = (TableRow) view.findViewById(R.id.tableRow_4);
+        tableRow_5 = (TableRow) view.findViewById(R.id.tableRow_5);
+        tableRow_6 = (TableRow) view.findViewById(R.id.tableRow_6);
+        tableRow_7 = (TableRow) view.findViewById(R.id.tableRow_7);
+        tableRow_8 = (TableRow) view.findViewById(R.id.tableRow_8);
+
         textView_1_1 = (TextView) view.findViewById(R.id.textView_1_1);
         textView_1_2 = (TextView) view.findViewById(R.id.textView_1_2);
         textView_1_3 = (TextView) view.findViewById(R.id.textView_1_3);
@@ -1363,6 +1384,18 @@ public class Fragment_Schedule extends Fragment {
                                         show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
                                         show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                         show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+
+                                        if (
+                                                TextUtils.isEmpty(textView_1_8.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_2_8.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_3_8.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_4_8.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_5_8.getText().toString())
+                                        ) {
+                                            tableRow_8.setVisibility(View.GONE);
+                                        } else {
+                                            tableRow_8.setVisibility(View.VISIBLE);
+                                        }
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -1601,5 +1634,4 @@ public class Fragment_Schedule extends Fragment {
 
         }
     }
-
 }

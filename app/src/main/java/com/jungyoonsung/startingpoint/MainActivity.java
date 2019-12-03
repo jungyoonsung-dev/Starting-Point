@@ -185,6 +185,18 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+
+                SharedPreferences sharedPreferences_check = getSharedPreferences("Notification", MODE_PRIVATE);
+                int i_hour = sharedPreferences_check.getInt("HOUR", -1);
+                int i_min = sharedPreferences_check.getInt("MIN", -1);
+
+                if (i_hour != -1 && i_min != -1) {
+                    timePicker.setHour(i_hour);
+                    timePicker.setMinute(i_min);
+                }
+
                 LinearLayout facebook_linearLayout = (LinearLayout) mView.findViewById(R.id.facebook_linearLayout);
                 LinearLayout instagram_linearaLayout = (LinearLayout) mView.findViewById(R.id.instagram_linearLayout);
                 LinearLayout github_linearLayout = (LinearLayout) mView.findViewById(R.id.github_linearLayout);

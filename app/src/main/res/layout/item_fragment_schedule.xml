@@ -98,6 +98,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tableRow_1"
                     android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -177,6 +178,7 @@
 
                 </TableRow>
                 <TableRow
+                    android:id="@+id/tableRow_2"
                     android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -256,6 +258,7 @@
 
                 </TableRow>
                 <TableRow
+                    android:id="@+id/tableRow_3"
                     android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -334,6 +337,7 @@
 
                 </TableRow>
                 <TableRow
+                    android:id="@+id/tableRow_4"
                     android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -412,6 +416,7 @@
 
                 </TableRow>
                 <TableRow
+                    android:id="@+id/tableRow_5"
                     android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -491,6 +496,7 @@
 
                 </TableRow>
                 <TableRow
+                    android:id="@+id/tableRow_6"
                     android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -569,6 +575,7 @@
 
                 </TableRow>
                 <TableRow
+                    android:id="@+id/tableRow_7"
                     android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -647,6 +654,7 @@
 
                 </TableRow>
                 <TableRow
+                    android:id="@+id/tableRow_8"
                     android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"

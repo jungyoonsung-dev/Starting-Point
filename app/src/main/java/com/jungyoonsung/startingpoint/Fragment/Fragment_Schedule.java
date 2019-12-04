@@ -326,16 +326,7 @@ public class Fragment_Schedule extends Fragment {
                     @Override
                     public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
 
-                        d_period_monday.clear();
-                        d_period_tuesday.clear();
-                        d_period_wednesday.clear();
-                        d_period_thursday.clear();
-                        d_period_friday.clear();
-                        d_period_monday_c.clear();
-                        d_period_tuesday_c.clear();
-                        d_period_wednesday_c.clear();
-                        d_period_thursday_c.clear();
-                        d_period_friday_c.clear();
+                        c_1();
 
                         final Calendar calendar = GregorianCalendar.getInstance();
                         calendar.setFirstDayOfWeek(Calendar.MONDAY);
@@ -403,42 +394,7 @@ public class Fragment_Schedule extends Fragment {
                                                     String perio = response3.getString("PERIO");
                                                     String period = response3.getString("ITRT_CNTNT");
 
-                                                    if (date.equals(monday)) {
-
-                                                        if (!(d_period_monday_c.contains(perio))) {
-                                                            d_period_monday_c.add(perio);
-                                                            d_period_monday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(tuesday)) {
-
-                                                        if (!(d_period_tuesday_c.contains(perio))) {
-                                                            d_period_tuesday_c.add(perio);
-                                                            d_period_tuesday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(wednesday)) {
-
-                                                        if (!(d_period_wednesday_c.contains(perio))) {
-                                                            d_period_wednesday_c.add(perio);
-                                                            d_period_wednesday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(thursday)) {
-
-                                                        if (!(d_period_thursday_c.contains(perio))) {
-                                                            d_period_thursday_c.add(perio);
-                                                            d_period_thursday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(friday)) {
-
-                                                        if (!(d_period_friday_c.contains(perio))) {
-                                                            d_period_friday_c.add(perio);
-                                                            d_period_friday.add(period);
-                                                        }
-
-                                                    }
+                                                    c_3(date, perio, period);
                                                 }
                                                 show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                 show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -463,42 +419,7 @@ public class Fragment_Schedule extends Fragment {
 
                                                     period = period.replaceFirst("-", "");
 
-                                                    if (date.equals(monday)) {
-
-                                                        if (!(d_period_monday_c.contains(perio))) {
-                                                            d_period_monday_c.add(perio);
-                                                            d_period_monday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(tuesday)) {
-
-                                                        if (!(d_period_tuesday_c.contains(perio))) {
-                                                            d_period_tuesday_c.add(perio);
-                                                            d_period_tuesday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(wednesday)) {
-
-                                                        if (!(d_period_wednesday_c.contains(perio))) {
-                                                            d_period_wednesday_c.add(perio);
-                                                            d_period_wednesday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(thursday)) {
-
-                                                        if (!(d_period_thursday_c.contains(perio))) {
-                                                            d_period_thursday_c.add(perio);
-                                                            d_period_thursday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(friday)) {
-
-                                                        if (!(d_period_friday_c.contains(perio))) {
-                                                            d_period_friday_c.add(perio);
-                                                            d_period_friday.add(period);
-                                                        }
-
-                                                    }
+                                                    c_3(date, perio, period);
                                                 }
                                                 show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                 show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -521,42 +442,7 @@ public class Fragment_Schedule extends Fragment {
                                                     String perio = response3.getString("PERIO");
                                                     String period = response3.getString("ITRT_CNTNT");
 
-                                                    if (date.equals(monday)) {
-
-                                                        if (!(d_period_monday_c.contains(perio))) {
-                                                            d_period_monday_c.add(perio);
-                                                            d_period_monday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(tuesday)) {
-
-                                                        if (!(d_period_tuesday_c.contains(perio))) {
-                                                            d_period_tuesday_c.add(perio);
-                                                            d_period_tuesday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(wednesday)) {
-
-                                                        if (!(d_period_wednesday_c.contains(perio))) {
-                                                            d_period_wednesday_c.add(perio);
-                                                            d_period_wednesday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(thursday)) {
-
-                                                        if (!(d_period_thursday_c.contains(perio))) {
-                                                            d_period_thursday_c.add(perio);
-                                                            d_period_thursday.add(period);
-                                                        }
-
-                                                    } else if (date.equals(friday)) {
-
-                                                        if (!(d_period_friday_c.contains(perio))) {
-                                                            d_period_friday_c.add(perio);
-                                                            d_period_friday.add(period);
-                                                        }
-
-                                                    }
+                                                    c_3(date, perio, period);
                                                 }
                                                 show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                 show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -601,16 +487,7 @@ public class Fragment_Schedule extends Fragment {
 
                         dialog.dismiss();
 
-                        d_period_monday.clear();
-                        d_period_tuesday.clear();
-                        d_period_wednesday.clear();
-                        d_period_thursday.clear();
-                        d_period_friday.clear();
-                        d_period_monday_c.clear();
-                        d_period_tuesday_c.clear();
-                        d_period_wednesday_c.clear();
-                        d_period_thursday_c.clear();
-                        d_period_friday_c.clear();
+                        c_1();
 
                         requestQueueDialog.getCache().clear();
 
@@ -684,42 +561,7 @@ public class Fragment_Schedule extends Fragment {
                                                             String perio = response3.getString("PERIO");
                                                             String period = response3.getString("ITRT_CNTNT");
 
-                                                            if (date.equals(monday)) {
-
-                                                                if (!(d_period_monday_c.contains(perio))) {
-                                                                    d_period_monday_c.add(perio);
-                                                                    d_period_monday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(tuesday)) {
-
-                                                                if (!(d_period_tuesday_c.contains(perio))) {
-                                                                    d_period_tuesday_c.add(perio);
-                                                                    d_period_tuesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(wednesday)) {
-
-                                                                if (!(d_period_wednesday_c.contains(perio))) {
-                                                                    d_period_wednesday_c.add(perio);
-                                                                    d_period_wednesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(thursday)) {
-
-                                                                if (!(d_period_thursday_c.contains(perio))) {
-                                                                    d_period_thursday_c.add(perio);
-                                                                    d_period_thursday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(friday)) {
-
-                                                                if (!(d_period_friday_c.contains(perio))) {
-                                                                    d_period_friday_c.add(perio);
-                                                                    d_period_friday.add(period);
-                                                                }
-
-                                                            }
+                                                            c_3(date, perio, period);
                                                         }
                                                         show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                         show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -744,42 +586,7 @@ public class Fragment_Schedule extends Fragment {
 
                                                             period = period.replaceFirst("-", "");
 
-                                                            if (date.equals(monday)) {
-
-                                                                if (!(d_period_monday_c.contains(perio))) {
-                                                                    d_period_monday_c.add(perio);
-                                                                    d_period_monday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(tuesday)) {
-
-                                                                if (!(d_period_tuesday_c.contains(perio))) {
-                                                                    d_period_tuesday_c.add(perio);
-                                                                    d_period_tuesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(wednesday)) {
-
-                                                                if (!(d_period_wednesday_c.contains(perio))) {
-                                                                    d_period_wednesday_c.add(perio);
-                                                                    d_period_wednesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(thursday)) {
-
-                                                                if (!(d_period_thursday_c.contains(perio))) {
-                                                                    d_period_thursday_c.add(perio);
-                                                                    d_period_thursday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(friday)) {
-
-                                                                if (!(d_period_friday_c.contains(perio))) {
-                                                                    d_period_friday_c.add(perio);
-                                                                    d_period_friday.add(period);
-                                                                }
-
-                                                            }
+                                                            c_3(date, perio, period);
                                                         }
                                                         show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                         show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -802,42 +609,7 @@ public class Fragment_Schedule extends Fragment {
                                                             String perio = response3.getString("PERIO");
                                                             String period = response3.getString("ITRT_CNTNT");
 
-                                                            if (date.equals(monday)) {
-
-                                                                if (!(d_period_monday_c.contains(perio))) {
-                                                                    d_period_monday_c.add(perio);
-                                                                    d_period_monday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(tuesday)) {
-
-                                                                if (!(d_period_tuesday_c.contains(perio))) {
-                                                                    d_period_tuesday_c.add(perio);
-                                                                    d_period_tuesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(wednesday)) {
-
-                                                                if (!(d_period_wednesday_c.contains(perio))) {
-                                                                    d_period_wednesday_c.add(perio);
-                                                                    d_period_wednesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(thursday)) {
-
-                                                                if (!(d_period_thursday_c.contains(perio))) {
-                                                                    d_period_thursday_c.add(perio);
-                                                                    d_period_thursday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(friday)) {
-
-                                                                if (!(d_period_friday_c.contains(perio))) {
-                                                                    d_period_friday_c.add(perio);
-                                                                    d_period_friday.add(period);
-                                                                }
-
-                                                            }
+                                                            c_3(date, perio, period);
                                                         }
                                                         show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                         show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -885,16 +657,7 @@ public class Fragment_Schedule extends Fragment {
 
                         dialog.dismiss();
 
-                        d_period_monday.clear();
-                        d_period_tuesday.clear();
-                        d_period_wednesday.clear();
-                        d_period_thursday.clear();
-                        d_period_friday.clear();
-                        d_period_monday_c.clear();
-                        d_period_tuesday_c.clear();
-                        d_period_wednesday_c.clear();
-                        d_period_thursday_c.clear();
-                        d_period_friday_c.clear();
+                        c_1();
 
                         requestQueueDialog.getCache().clear();
 
@@ -968,42 +731,7 @@ public class Fragment_Schedule extends Fragment {
                                                             String perio = response3.getString("PERIO");
                                                             String period = response3.getString("ITRT_CNTNT");
 
-                                                            if (date.equals(monday)) {
-
-                                                                if (!(d_period_monday_c.contains(perio))) {
-                                                                    d_period_monday_c.add(perio);
-                                                                    d_period_monday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(tuesday)) {
-
-                                                                if (!(d_period_tuesday_c.contains(perio))) {
-                                                                    d_period_tuesday_c.add(perio);
-                                                                    d_period_tuesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(wednesday)) {
-
-                                                                if (!(d_period_wednesday_c.contains(perio))) {
-                                                                    d_period_wednesday_c.add(perio);
-                                                                    d_period_wednesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(thursday)) {
-
-                                                                if (!(d_period_thursday_c.contains(perio))) {
-                                                                    d_period_thursday_c.add(perio);
-                                                                    d_period_thursday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(friday)) {
-
-                                                                if (!(d_period_friday_c.contains(perio))) {
-                                                                    d_period_friday_c.add(perio);
-                                                                    d_period_friday.add(period);
-                                                                }
-
-                                                            }
+                                                            c_3(date, perio, period);
                                                         }
                                                         show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                         show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -1028,42 +756,7 @@ public class Fragment_Schedule extends Fragment {
 
                                                             period = period.replaceFirst("-", "");
 
-                                                            if (date.equals(monday)) {
-
-                                                                if (!(d_period_monday_c.contains(perio))) {
-                                                                    d_period_monday_c.add(perio);
-                                                                    d_period_monday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(tuesday)) {
-
-                                                                if (!(d_period_tuesday_c.contains(perio))) {
-                                                                    d_period_tuesday_c.add(perio);
-                                                                    d_period_tuesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(wednesday)) {
-
-                                                                if (!(d_period_wednesday_c.contains(perio))) {
-                                                                    d_period_wednesday_c.add(perio);
-                                                                    d_period_wednesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(thursday)) {
-
-                                                                if (!(d_period_thursday_c.contains(perio))) {
-                                                                    d_period_thursday_c.add(perio);
-                                                                    d_period_thursday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(friday)) {
-
-                                                                if (!(d_period_friday_c.contains(perio))) {
-                                                                    d_period_friday_c.add(perio);
-                                                                    d_period_friday.add(period);
-                                                                }
-
-                                                            }
+                                                            c_3(date, perio, period);
                                                         }
                                                         show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                         show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -1086,42 +779,7 @@ public class Fragment_Schedule extends Fragment {
                                                             String perio = response3.getString("PERIO");
                                                             String period = response3.getString("ITRT_CNTNT");
 
-                                                            if (date.equals(monday)) {
-
-                                                                if (!(d_period_monday_c.contains(perio))) {
-                                                                    d_period_monday_c.add(perio);
-                                                                    d_period_monday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(tuesday)) {
-
-                                                                if (!(d_period_tuesday_c.contains(perio))) {
-                                                                    d_period_tuesday_c.add(perio);
-                                                                    d_period_tuesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(wednesday)) {
-
-                                                                if (!(d_period_wednesday_c.contains(perio))) {
-                                                                    d_period_wednesday_c.add(perio);
-                                                                    d_period_wednesday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(thursday)) {
-
-                                                                if (!(d_period_thursday_c.contains(perio))) {
-                                                                    d_period_thursday_c.add(perio);
-                                                                    d_period_thursday.add(period);
-                                                                }
-
-                                                            } else if (date.equals(friday)) {
-
-                                                                if (!(d_period_friday_c.contains(perio))) {
-                                                                    d_period_friday_c.add(perio);
-                                                                    d_period_friday.add(period);
-                                                                }
-
-                                                            }
+                                                            c_3(date, perio, period);
                                                         }
                                                         show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                                         show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
@@ -1282,134 +940,14 @@ public class Fragment_Schedule extends Fragment {
                                             String perio = response3.getString("PERIO");
                                             String period = response3.getString("ITRT_CNTNT");
 
-                                            if (date.equals(monday)) {
-
-                                                if (!(period_monday_c.contains(perio))) {
-                                                    period_monday_c.add(perio);
-                                                    period_monday.add(period);
-                                                }
-
-                                            } else if (date.equals(tuesday)) {
-
-                                                if (!(period_tuesday_c.contains(perio))) {
-                                                    period_tuesday_c.add(perio);
-                                                    period_tuesday.add(period);
-                                                }
-
-                                            } else if (date.equals(wednesday)) {
-
-                                                if (!(period_wednesday_c.contains(perio))) {
-                                                    period_wednesday_c.add(perio);
-                                                    period_wednesday.add(period);
-                                                }
-
-                                            } else if (date.equals(thursday)) {
-
-                                                if (!(period_thursday_c.contains(perio))) {
-                                                    period_thursday_c.add(perio);
-                                                    period_thursday.add(period);
-                                                }
-
-                                            } else if (date.equals(friday)) {
-
-                                                if (!(period_friday_c.contains(perio))) {
-                                                    period_friday_c.add(perio);
-                                                    period_friday.add(period);
-                                                }
-
-                                            }
+                                            c_4(date, perio, period);
                                         }
                                         show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                         show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
                                         show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
                                         show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                         show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-
-                                        if (
-                                                TextUtils.isEmpty(textView_1_2.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_2.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_2.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_2.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_2.getText().toString())) {
-                                            tableRow_2.setVisibility(View.GONE);
-                                            tableRow_3.setVisibility(View.GONE);
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_3.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_3.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_3.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_3.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_3.getText().toString())) {
-                                            tableRow_3.setVisibility(View.GONE);
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_4.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_4.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_4.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_4.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_4.getText().toString())) {
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_5.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_5.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_5.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_5.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_5.getText().toString())) {
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_6.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_6.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_6.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_6.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_6.getText().toString())) {
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_7.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_7.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_7.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_7.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_7.getText().toString())) {
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_8.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_8.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_8.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_8.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_8.getText().toString())) {
-                                            tableRow_8.setVisibility(View.GONE);
-                                        } else {
-                                            tableRow_1.setVisibility(View.VISIBLE);
-                                            tableRow_2.setVisibility(View.VISIBLE);
-                                            tableRow_3.setVisibility(View.VISIBLE);
-                                            tableRow_4.setVisibility(View.VISIBLE);
-                                            tableRow_5.setVisibility(View.VISIBLE);
-                                            tableRow_6.setVisibility(View.VISIBLE);
-                                            tableRow_7.setVisibility(View.VISIBLE);
-                                            tableRow_8.setVisibility(View.VISIBLE);
-                                        }
+                                        c_2();
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -1428,134 +966,14 @@ public class Fragment_Schedule extends Fragment {
 
                                             period = period.replaceFirst("-", "");
 
-                                            if (date.equals(monday)) {
-
-                                                if (!(period_monday_c.contains(perio))) {
-                                                    period_monday_c.add(perio);
-                                                    period_monday.add(period);
-                                                }
-
-                                            } else if (date.equals(tuesday)) {
-
-                                                if (!(period_tuesday_c.contains(perio))) {
-                                                    period_tuesday_c.add(perio);
-                                                    period_tuesday.add(period);
-                                                }
-
-                                            } else if (date.equals(wednesday)) {
-
-                                                if (!(period_wednesday_c.contains(perio))) {
-                                                    period_wednesday_c.add(perio);
-                                                    period_wednesday.add(period);
-                                                }
-
-                                            } else if (date.equals(thursday)) {
-
-                                                if (!(period_thursday_c.contains(perio))) {
-                                                    period_thursday_c.add(perio);
-                                                    period_thursday.add(period);
-                                                }
-
-                                            } else if (date.equals(friday)) {
-
-                                                if (!(period_friday_c.contains(perio))) {
-                                                    period_friday_c.add(perio);
-                                                    period_friday.add(period);
-                                                }
-
-                                            }
+                                            c_4(date, perio, period);
                                         }
                                         show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                         show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
                                         show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
                                         show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                         show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-
-                                        if (
-                                                TextUtils.isEmpty(textView_1_2.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_2_2.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_3_2.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_4_2.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_5_2.getText().toString())) {
-                                            tableRow_2.setVisibility(View.GONE);
-                                            tableRow_3.setVisibility(View.GONE);
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_3.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_2_3.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_3_3.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_4_3.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_5_3.getText().toString())) {
-                                            tableRow_3.setVisibility(View.GONE);
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_4.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_2_4.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_3_4.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_4_4.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_5_4.getText().toString())) {
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_5.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_2_5.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_3_5.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_4_5.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_5_5.getText().toString())) {
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_6.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_2_6.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_3_6.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_4_6.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_5_6.getText().toString())) {
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_7.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_2_7.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_3_7.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_4_7.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_5_7.getText().toString())) {
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_8.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_2_8.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_3_8.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_4_8.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_5_8.getText().toString())) {
-                                            tableRow_8.setVisibility(View.GONE);
-                                        } else {
-                                            tableRow_1.setVisibility(View.VISIBLE);
-                                            tableRow_2.setVisibility(View.VISIBLE);
-                                            tableRow_3.setVisibility(View.VISIBLE);
-                                            tableRow_4.setVisibility(View.VISIBLE);
-                                            tableRow_5.setVisibility(View.VISIBLE);
-                                            tableRow_6.setVisibility(View.VISIBLE);
-                                            tableRow_7.setVisibility(View.VISIBLE);
-                                            tableRow_8.setVisibility(View.VISIBLE);
-                                        }
+                                        c_2();
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -1572,134 +990,14 @@ public class Fragment_Schedule extends Fragment {
                                             String perio = response3.getString("PERIO");
                                             String period = response3.getString("ITRT_CNTNT");
 
-                                            if (date.equals(monday)) {
-
-                                                if (!(period_monday_c.contains(perio))) {
-                                                    period_monday_c.add(perio);
-                                                    period_monday.add(period);
-                                                }
-
-                                            } else if (date.equals(tuesday)) {
-
-                                                if (!(period_tuesday_c.contains(perio))) {
-                                                    period_tuesday_c.add(perio);
-                                                    period_tuesday.add(period);
-                                                }
-
-                                            } else if (date.equals(wednesday)) {
-
-                                                if (!(period_wednesday_c.contains(perio))) {
-                                                    period_wednesday_c.add(perio);
-                                                    period_wednesday.add(period);
-                                                }
-
-                                            } else if (date.equals(thursday)) {
-
-                                                if (!(period_thursday_c.contains(perio))) {
-                                                    period_thursday_c.add(perio);
-                                                    period_thursday.add(period);
-                                                }
-
-                                            } else if (date.equals(friday)) {
-
-                                                if (!(period_friday_c.contains(perio))) {
-                                                    period_friday_c.add(perio);
-                                                    period_friday.add(period);
-                                                }
-
-                                            }
+                                            c_4(date, perio, period);
                                         }
                                         show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
                                         show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
                                         show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
                                         show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                         show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-
-                                        if (
-                                                TextUtils.isEmpty(textView_1_2.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_2.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_2.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_2.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_2.getText().toString())) {
-                                            tableRow_2.setVisibility(View.GONE);
-                                            tableRow_3.setVisibility(View.GONE);
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_3.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_3.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_3.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_3.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_3.getText().toString())) {
-                                            tableRow_3.setVisibility(View.GONE);
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_4.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_4.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_4.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_4.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_4.getText().toString())) {
-                                            tableRow_4.setVisibility(View.GONE);
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_5.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_5.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_5.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_5.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_5.getText().toString())) {
-                                            tableRow_5.setVisibility(View.GONE);
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_6.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_6.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_6.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_6.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_6.getText().toString())) {
-                                            tableRow_6.setVisibility(View.GONE);
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_7.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_7.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_7.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_7.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_7.getText().toString())) {
-                                            tableRow_7.setVisibility(View.GONE);
-                                            tableRow_8.setVisibility(View.GONE);
-                                        } else if (
-                                                TextUtils.isEmpty(textView_1_8.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_2_8.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_3_8.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_4_8.getText().toString()) &&
-                                                        TextUtils.isEmpty(textView_5_8.getText().toString())) {
-                                            tableRow_8.setVisibility(View.GONE);
-                                        } else {
-                                            tableRow_1.setVisibility(View.VISIBLE);
-                                            tableRow_2.setVisibility(View.VISIBLE);
-                                            tableRow_3.setVisibility(View.VISIBLE);
-                                            tableRow_4.setVisibility(View.VISIBLE);
-                                            tableRow_5.setVisibility(View.VISIBLE);
-                                            tableRow_6.setVisibility(View.VISIBLE);
-                                            tableRow_7.setVisibility(View.VISIBLE);
-                                            tableRow_8.setVisibility(View.VISIBLE);
-                                        }
+                                        c_2();
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -1877,6 +1175,185 @@ public class Fragment_Schedule extends Fragment {
             t_6.setBackgroundResource(R.color.colorPrimary);
             t_7.setBackgroundResource(R.color.colorPrimary);
             t_8.setBackgroundResource(R.color.colorPrimary);
+
+        }
+    }
+
+    private void c_1() {
+        d_period_monday.clear();
+        d_period_tuesday.clear();
+        d_period_wednesday.clear();
+        d_period_thursday.clear();
+        d_period_friday.clear();
+        d_period_monday_c.clear();
+        d_period_tuesday_c.clear();
+        d_period_wednesday_c.clear();
+        d_period_thursday_c.clear();
+        d_period_friday_c.clear();
+    }
+
+    private void c_2() {
+        if (
+                        TextUtils.isEmpty(textView_1_2.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_2.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_2.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_2.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_2.getText().toString())) {
+            tableRow_2.setVisibility(View.GONE);
+            tableRow_3.setVisibility(View.GONE);
+            tableRow_4.setVisibility(View.GONE);
+            tableRow_5.setVisibility(View.GONE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_3.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_3.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_3.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_3.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_3.getText().toString())) {
+            tableRow_3.setVisibility(View.GONE);
+            tableRow_4.setVisibility(View.GONE);
+            tableRow_5.setVisibility(View.GONE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_4.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_4.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_4.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_4.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_4.getText().toString())) {
+            tableRow_4.setVisibility(View.GONE);
+            tableRow_5.setVisibility(View.GONE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_5.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_5.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_5.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_5.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_5.getText().toString())) {
+            tableRow_5.setVisibility(View.GONE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_6.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_6.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_6.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_6.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_6.getText().toString())) {
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_7.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_7.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_7.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_7.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_7.getText().toString())) {
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+        } else if (
+                        TextUtils.isEmpty(textView_1_8.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_8.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_8.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_8.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_8.getText().toString())) {
+            tableRow_8.setVisibility(View.GONE);
+        } else {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.VISIBLE);
+            tableRow_3.setVisibility(View.VISIBLE);
+            tableRow_4.setVisibility(View.VISIBLE);
+            tableRow_5.setVisibility(View.VISIBLE);
+            tableRow_6.setVisibility(View.VISIBLE);
+            tableRow_7.setVisibility(View.VISIBLE);
+            tableRow_8.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void c_3(String date, String perio, String period) {
+        if (date.equals(monday)) {
+
+            if (!(d_period_monday_c.contains(perio))) {
+                d_period_monday_c.add(perio);
+                d_period_monday.add(period);
+            }
+
+        } else if (date.equals(tuesday)) {
+
+            if (!(d_period_tuesday_c.contains(perio))) {
+                d_period_tuesday_c.add(perio);
+                d_period_tuesday.add(period);
+            }
+
+        } else if (date.equals(wednesday)) {
+
+            if (!(d_period_wednesday_c.contains(perio))) {
+                d_period_wednesday_c.add(perio);
+                d_period_wednesday.add(period);
+            }
+
+        } else if (date.equals(thursday)) {
+
+            if (!(d_period_thursday_c.contains(perio))) {
+                d_period_thursday_c.add(perio);
+                d_period_thursday.add(period);
+            }
+
+        } else if (date.equals(friday)) {
+
+            if (!(d_period_friday_c.contains(perio))) {
+                d_period_friday_c.add(perio);
+                d_period_friday.add(period);
+            }
+
+        }
+    }
+
+    private void c_4(String date, String perio, String period) {
+        if (date.equals(monday)) {
+
+            if (!(period_monday_c.contains(perio))) {
+                period_monday_c.add(perio);
+                period_monday.add(period);
+            }
+
+        } else if (date.equals(tuesday)) {
+
+            if (!(period_tuesday_c.contains(perio))) {
+                period_tuesday_c.add(perio);
+                period_tuesday.add(period);
+            }
+
+        } else if (date.equals(wednesday)) {
+
+            if (!(period_wednesday_c.contains(perio))) {
+                period_wednesday_c.add(perio);
+                period_wednesday.add(period);
+            }
+
+        } else if (date.equals(thursday)) {
+
+            if (!(period_thursday_c.contains(perio))) {
+                period_thursday_c.add(perio);
+                period_thursday.add(period);
+            }
+
+        } else if (date.equals(friday)) {
+
+            if (!(period_friday_c.contains(perio))) {
+                period_friday_c.add(perio);
+                period_friday.add(period);
+            }
 
         }
     }

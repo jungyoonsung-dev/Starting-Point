@@ -109,37 +109,27 @@ public class Fragment_Academic_Calendar extends Fragment {
 
                                     if (academic_calendar.size() == 1) {
 
-                                        item_fragment_academic_calendar_textView.setVisibility(View.GONE);
-                                        item_fragment_academic_calendar.setVisibility(View.VISIBLE);
-
+                                        c_1();
                                         item_fragment_academic_calendar.setText(academic_calendar.get(0));
 
                                     } else if (academic_calendar.size() == 2) {
 
-                                        item_fragment_academic_calendar_textView.setVisibility(View.GONE);
-                                        item_fragment_academic_calendar.setVisibility(View.VISIBLE);
-
+                                        c_1();
                                         item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1));
 
                                     } else if (academic_calendar.size() == 3) {
 
-                                        item_fragment_academic_calendar_textView.setVisibility(View.GONE);
-                                        item_fragment_academic_calendar.setVisibility(View.VISIBLE);
-
+                                        c_1();
                                         item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2));
 
                                     } else if (academic_calendar.size() == 4) {
 
-                                        item_fragment_academic_calendar_textView.setVisibility(View.GONE);
-                                        item_fragment_academic_calendar.setVisibility(View.VISIBLE);
-
+                                        c_1();
                                         item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3));
 
                                     } else if (academic_calendar.size() == 5) {
 
-                                        item_fragment_academic_calendar_textView.setVisibility(View.GONE);
-                                        item_fragment_academic_calendar.setVisibility(View.VISIBLE);
-
+                                        c_1();
                                         item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3) + ", " + academic_calendar.get(4));
 
                                     }
@@ -166,6 +156,11 @@ public class Fragment_Academic_Calendar extends Fragment {
         });
 
         return view;
+    }
+
+    private void c_1() {
+        item_fragment_academic_calendar_textView.setVisibility(View.GONE);
+        item_fragment_academic_calendar.setVisibility(View.VISIBLE);
     }
 
 }

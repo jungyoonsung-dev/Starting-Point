@@ -317,6 +317,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                c_s_n.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (c_l_n.isChecked()) {
+                            Log.d("TEST", "true");
+                            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("CSchedule", "true");
+                            editor.apply();
+                        } else {
+                            Log.d("TEST", "false");
+                            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("CSchedule", "false");
+                            editor.apply();
+                        }
+                    }
+                });
+
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -429,12 +446,12 @@ public class MainActivity extends AppCompatActivity {
                                     calendar.add(Calendar.DATE, 1);
                                 }
 
+
                                 String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
                                 String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
                                 String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
                                 String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
                                 String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
-
 
                                 SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
                                 editor.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);

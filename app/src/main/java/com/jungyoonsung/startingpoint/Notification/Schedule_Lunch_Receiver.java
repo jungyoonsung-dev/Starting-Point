@@ -1,12 +1,15 @@
 package com.jungyoonsung.startingpoint.Notification;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -316,13 +319,41 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                         }
                     }
 
-                    Calendar nextNotifyTime = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.add(Calendar.DATE, 1);
+                    int i_hour = sharedPreferences.getInt("HOUR", -1);
+                    int i_min = sharedPreferences.getInt("MIN", -1);
 
-                    nextNotifyTime.add(Calendar.DATE, 1);
+                    if (i_hour != -1 && i_min != -1) {
+                        calendar.set(Calendar.HOUR_OF_DAY, i_hour);
+                        calendar.set(Calendar.MINUTE, i_min);
+                        calendar.set(Calendar.SECOND, 0);
+                    } else {
+                        calendar.set(Calendar.HOUR_OF_DAY, 6);
+                        calendar.set(Calendar.MINUTE, 0);
+                        calendar.set(Calendar.SECOND, 0);
+                    }
 
-                    SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                    editor.putLong("nextNotifyTime", nextNotifyTime.getTimeInMillis());
-                    editor.apply();
+                    PackageManager pm = context.getPackageManager();
+                    ComponentName receiver = new ComponentName(context, DeviceBootReceiver.class);
+                    Intent alarmIntent = new Intent(context, Schedule_Lunch_Receiver.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                            calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+                    pm.setComponentEnabledSetting(receiver,
+                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP);
+
+//                    Calendar nextNotifyTime = Calendar.getInstance();
+//
+//                    nextNotifyTime.add(Calendar.DATE, 1);
+//
+//                    SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
+//                    editor.putLong("nextNotifyTime", nextNotifyTime.getTimeInMillis());
+//                    editor.apply();
                 }
             }
         };
@@ -382,13 +413,13 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                         }
                     }
 
-                    Calendar nextNotifyTime = Calendar.getInstance();
-
-                    nextNotifyTime.add(Calendar.DATE, 1);
-
-                    SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                    editor.putLong("nextNotifyTime", nextNotifyTime.getTimeInMillis());
-                    editor.apply();
+//                    Calendar nextNotifyTime = Calendar.getInstance();
+//
+//                    nextNotifyTime.add(Calendar.DATE, 1);
+//
+//                    SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
+//                    editor.putLong("nextNotifyTime", nextNotifyTime.getTimeInMillis());
+//                    editor.apply();
                 }
             }
         };

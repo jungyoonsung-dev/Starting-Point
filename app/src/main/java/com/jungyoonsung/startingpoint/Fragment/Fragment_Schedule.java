@@ -1325,6 +1325,92 @@ public class Fragment_Schedule extends Fragment {
                                         show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                         show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
 
+                                        if (
+                                                TextUtils.isEmpty(textView_1_2.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_2.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_2.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_2.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_2.getText().toString())) {
+                                            tableRow_2.setVisibility(View.GONE);
+                                            tableRow_3.setVisibility(View.GONE);
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_3.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_3.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_3.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_3.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_3.getText().toString())) {
+                                            tableRow_3.setVisibility(View.GONE);
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_4.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_4.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_4.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_4.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_4.getText().toString())) {
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_5.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_5.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_5.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_5.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_5.getText().toString())) {
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_6.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_6.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_6.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_6.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_6.getText().toString())) {
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_7.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_7.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_7.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_7.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_7.getText().toString())) {
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_8.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_8.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_8.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_8.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_8.getText().toString())) {
+                                            tableRow_8.setVisibility(View.GONE);
+                                        } else {
+                                            tableRow_1.setVisibility(View.VISIBLE);
+                                            tableRow_2.setVisibility(View.VISIBLE);
+                                            tableRow_3.setVisibility(View.VISIBLE);
+                                            tableRow_4.setVisibility(View.VISIBLE);
+                                            tableRow_5.setVisibility(View.VISIBLE);
+                                            tableRow_6.setVisibility(View.VISIBLE);
+                                            tableRow_7.setVisibility(View.VISIBLE);
+                                            tableRow_8.setVisibility(View.VISIBLE);
+                                        }
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -1386,14 +1472,88 @@ public class Fragment_Schedule extends Fragment {
                                         show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
 
                                         if (
+                                                TextUtils.isEmpty(textView_1_2.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_2_2.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_3_2.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_4_2.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_5_2.getText().toString())) {
+                                            tableRow_2.setVisibility(View.GONE);
+                                            tableRow_3.setVisibility(View.GONE);
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_3.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_2_3.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_3_3.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_4_3.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_5_3.getText().toString())) {
+                                            tableRow_3.setVisibility(View.GONE);
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_4.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_2_4.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_3_4.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_4_4.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_5_4.getText().toString())) {
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_5.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_2_5.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_3_5.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_4_5.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_5_5.getText().toString())) {
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_6.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_2_6.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_3_6.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_4_6.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_5_6.getText().toString())) {
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_7.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_2_7.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_3_7.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_4_7.getText().toString()) &&
+                                                TextUtils.isEmpty(textView_5_7.getText().toString())) {
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+                                        } else if (
                                                 TextUtils.isEmpty(textView_1_8.getText().toString()) &&
                                                 TextUtils.isEmpty(textView_2_8.getText().toString()) &&
                                                 TextUtils.isEmpty(textView_3_8.getText().toString()) &&
                                                 TextUtils.isEmpty(textView_4_8.getText().toString()) &&
-                                                TextUtils.isEmpty(textView_5_8.getText().toString())
-                                        ) {
+                                                TextUtils.isEmpty(textView_5_8.getText().toString())) {
                                             tableRow_8.setVisibility(View.GONE);
                                         } else {
+                                            tableRow_1.setVisibility(View.VISIBLE);
+                                            tableRow_2.setVisibility(View.VISIBLE);
+                                            tableRow_3.setVisibility(View.VISIBLE);
+                                            tableRow_4.setVisibility(View.VISIBLE);
+                                            tableRow_5.setVisibility(View.VISIBLE);
+                                            tableRow_6.setVisibility(View.VISIBLE);
+                                            tableRow_7.setVisibility(View.VISIBLE);
                                             tableRow_8.setVisibility(View.VISIBLE);
                                         }
 
@@ -1454,6 +1614,92 @@ public class Fragment_Schedule extends Fragment {
                                         show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
                                         show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                         show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+
+                                        if (
+                                                TextUtils.isEmpty(textView_1_2.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_2.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_2.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_2.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_2.getText().toString())) {
+                                            tableRow_2.setVisibility(View.GONE);
+                                            tableRow_3.setVisibility(View.GONE);
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_3.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_3.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_3.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_3.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_3.getText().toString())) {
+                                            tableRow_3.setVisibility(View.GONE);
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_4.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_4.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_4.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_4.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_4.getText().toString())) {
+                                            tableRow_4.setVisibility(View.GONE);
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_5.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_5.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_5.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_5.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_5.getText().toString())) {
+                                            tableRow_5.setVisibility(View.GONE);
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_6.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_6.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_6.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_6.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_6.getText().toString())) {
+                                            tableRow_6.setVisibility(View.GONE);
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_7.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_7.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_7.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_7.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_7.getText().toString())) {
+                                            tableRow_7.setVisibility(View.GONE);
+                                            tableRow_8.setVisibility(View.GONE);
+                                        } else if (
+                                                TextUtils.isEmpty(textView_1_8.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_2_8.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_3_8.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_4_8.getText().toString()) &&
+                                                        TextUtils.isEmpty(textView_5_8.getText().toString())) {
+                                            tableRow_8.setVisibility(View.GONE);
+                                        } else {
+                                            tableRow_1.setVisibility(View.VISIBLE);
+                                            tableRow_2.setVisibility(View.VISIBLE);
+                                            tableRow_3.setVisibility(View.VISIBLE);
+                                            tableRow_4.setVisibility(View.VISIBLE);
+                                            tableRow_5.setVisibility(View.VISIBLE);
+                                            tableRow_6.setVisibility(View.VISIBLE);
+                                            tableRow_7.setVisibility(View.VISIBLE);
+                                            tableRow_8.setVisibility(View.VISIBLE);
+                                        }
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();

@@ -47,7 +47,7 @@ import com.jungyoonsung.startingpoint.Fragment.Fragment_Academic_Calendar;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Lunch;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Schedule;
 import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
-import com.jungyoonsung.startingpoint.Notification.DeviceBootReceiver;
+import com.jungyoonsung.startingpoint.Notification.Receiver;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
 
 import java.util.Arrays;
@@ -509,7 +509,7 @@ public class MainActivity extends AppCompatActivity {
     void Notification_ALARM(Calendar calendar) {
 
         PackageManager pm = this.getPackageManager();
-        ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
+        ComponentName receiver = new ComponentName(this, Receiver.class);
         Intent alarmIntent = new Intent(this, Schedule_Lunch_Receiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

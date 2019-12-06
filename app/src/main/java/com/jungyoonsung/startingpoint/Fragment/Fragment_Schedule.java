@@ -42,6 +42,7 @@ import com.jungyoonsung.startingpoint.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
@@ -217,6 +218,25 @@ public class Fragment_Schedule extends Fragment {
                 final TextView back, next;
                 back = (TextView) mView.findViewById(R.id.back);
                 next = (TextView) mView.findViewById(R.id.next);
+
+                final TableRow
+                        tableRow_1,
+                        tableRow_2,
+                        tableRow_3,
+                        tableRow_4,
+                        tableRow_5,
+                        tableRow_6,
+                        tableRow_7,
+                        tableRow_8;
+
+                tableRow_1 = (TableRow) mView.findViewById(R.id.tableRow_1);
+                tableRow_2 = (TableRow) mView.findViewById(R.id.tableRow_2);
+                tableRow_3 = (TableRow) mView.findViewById(R.id.tableRow_3);
+                tableRow_4 = (TableRow) mView.findViewById(R.id.tableRow_4);
+                tableRow_5 = (TableRow) mView.findViewById(R.id.tableRow_5);
+                tableRow_6 = (TableRow) mView.findViewById(R.id.tableRow_6);
+                tableRow_7 = (TableRow) mView.findViewById(R.id.tableRow_7);
+                tableRow_8 = (TableRow) mView.findViewById(R.id.tableRow_8);
 
                 final TextView
                         textView_1_1,
@@ -402,6 +422,14 @@ public class Fragment_Schedule extends Fragment {
                                                 show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                 show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
 
+                                                c_5(
+                                                        textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                        textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                        textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                        textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                        textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                        tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -427,6 +455,14 @@ public class Fragment_Schedule extends Fragment {
                                                 show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                 show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
 
+                                                c_5(
+                                                        textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                        textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                        textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                        textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                        textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                        tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -449,6 +485,14 @@ public class Fragment_Schedule extends Fragment {
                                                 show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
                                                 show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                 show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+
+                                                c_5(
+                                                        textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                        textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                        textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                        textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                        textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                        tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -569,6 +613,14 @@ public class Fragment_Schedule extends Fragment {
                                                         show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                         show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
 
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
                                                     }
@@ -594,6 +646,14 @@ public class Fragment_Schedule extends Fragment {
                                                         show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                         show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
 
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
                                                     }
@@ -616,6 +676,14 @@ public class Fragment_Schedule extends Fragment {
                                                         show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
                                                         show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                         show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
 
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
@@ -739,6 +807,14 @@ public class Fragment_Schedule extends Fragment {
                                                         show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                         show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
 
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
                                                     }
@@ -764,6 +840,14 @@ public class Fragment_Schedule extends Fragment {
                                                         show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                         show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
 
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
                                                     }
@@ -786,6 +870,14 @@ public class Fragment_Schedule extends Fragment {
                                                         show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
                                                         show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
                                                         show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
 
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
@@ -1356,6 +1448,130 @@ public class Fragment_Schedule extends Fragment {
                 period_friday.add(period);
             }
 
+        }
+    }
+
+    private void c_5(
+            TextView textView_1_2, TextView textView_1_3, TextView textView_1_4, TextView textView_1_5, TextView textView_1_6, TextView textView_1_7, TextView textView_1_8,
+            TextView textView_2_2, TextView textView_2_3, TextView textView_2_4, TextView textView_2_5, TextView textView_2_6, TextView textView_2_7, TextView textView_2_8,
+            TextView textView_3_2, TextView textView_3_3, TextView textView_3_4, TextView textView_3_5, TextView textView_3_6, TextView textView_3_7, TextView textView_3_8,
+            TextView textView_4_2, TextView textView_4_3, TextView textView_4_4, TextView textView_4_5, TextView textView_4_6, TextView textView_4_7, TextView textView_4_8,
+            TextView textView_5_2, TextView textView_5_3, TextView textView_5_4, TextView textView_5_5, TextView textView_5_6, TextView textView_5_7, TextView textView_5_8,
+
+            TableRow tableRow_1, TableRow tableRow_2, TableRow tableRow_3, TableRow tableRow_4,
+            TableRow tableRow_5, TableRow tableRow_6, TableRow tableRow_7, TableRow tableRow_8) {
+        if (
+                        TextUtils.isEmpty(textView_1_2.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_2.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_2.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_2.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_2.getText().toString())) {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.GONE);
+            tableRow_3.setVisibility(View.GONE);
+            tableRow_4.setVisibility(View.GONE);
+            tableRow_5.setVisibility(View.GONE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_3.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_3.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_3.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_3.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_3.getText().toString())) {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.VISIBLE);
+            tableRow_3.setVisibility(View.GONE);
+            tableRow_4.setVisibility(View.GONE);
+            tableRow_5.setVisibility(View.GONE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_4.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_4.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_4.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_4.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_4.getText().toString())) {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.VISIBLE);
+            tableRow_3.setVisibility(View.VISIBLE);
+            tableRow_4.setVisibility(View.GONE);
+            tableRow_5.setVisibility(View.GONE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_5.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_5.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_5.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_5.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_5.getText().toString())) {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.VISIBLE);
+            tableRow_3.setVisibility(View.VISIBLE);
+            tableRow_4.setVisibility(View.VISIBLE);
+            tableRow_5.setVisibility(View.GONE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_6.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_6.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_6.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_6.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_6.getText().toString())) {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.VISIBLE);
+            tableRow_3.setVisibility(View.VISIBLE);
+            tableRow_4.setVisibility(View.VISIBLE);
+            tableRow_5.setVisibility(View.VISIBLE);
+            tableRow_6.setVisibility(View.GONE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+
+        } else if (
+                        TextUtils.isEmpty(textView_1_7.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_7.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_7.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_7.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_7.getText().toString())) {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.VISIBLE);
+            tableRow_3.setVisibility(View.VISIBLE);
+            tableRow_4.setVisibility(View.VISIBLE);
+            tableRow_5.setVisibility(View.VISIBLE);
+            tableRow_6.setVisibility(View.VISIBLE);
+            tableRow_7.setVisibility(View.GONE);
+            tableRow_8.setVisibility(View.GONE);
+        } else if (
+                        TextUtils.isEmpty(textView_1_8.getText().toString()) &&
+                        TextUtils.isEmpty(textView_2_8.getText().toString()) &&
+                        TextUtils.isEmpty(textView_3_8.getText().toString()) &&
+                        TextUtils.isEmpty(textView_4_8.getText().toString()) &&
+                        TextUtils.isEmpty(textView_5_8.getText().toString())) {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.VISIBLE);
+            tableRow_3.setVisibility(View.VISIBLE);
+            tableRow_4.setVisibility(View.VISIBLE);
+            tableRow_5.setVisibility(View.VISIBLE);
+            tableRow_6.setVisibility(View.VISIBLE);
+            tableRow_7.setVisibility(View.VISIBLE);
+            tableRow_8.setVisibility(View.GONE);
+        } else {
+            tableRow_1.setVisibility(View.VISIBLE);
+            tableRow_2.setVisibility(View.VISIBLE);
+            tableRow_3.setVisibility(View.VISIBLE);
+            tableRow_4.setVisibility(View.VISIBLE);
+            tableRow_5.setVisibility(View.VISIBLE);
+            tableRow_6.setVisibility(View.VISIBLE);
+            tableRow_7.setVisibility(View.VISIBLE);
+            tableRow_8.setVisibility(View.VISIBLE);
         }
     }
 }

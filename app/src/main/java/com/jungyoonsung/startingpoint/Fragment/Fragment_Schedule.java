@@ -1012,6 +1012,7 @@ public class Fragment_Schedule extends Fragment {
 
                 requestQueue.add(request);
 
+
             }
 
             @Override

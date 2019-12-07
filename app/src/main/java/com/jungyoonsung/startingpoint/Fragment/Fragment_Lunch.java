@@ -54,6 +54,7 @@ public class Fragment_Lunch extends Fragment {
             item_fragment_lunch_linearlayout_2;
 
     TextView
+            item_fragment_lunch_linearlayout_1_main,
             item_fragment_lunch_linearlayout_1_textView;
 
     TextView
@@ -75,12 +76,17 @@ public class Fragment_Lunch extends Fragment {
         item_fragment_lunch_linearlayout_1 = (LinearLayout) view.findViewById(R.id.item_fragment_lunch_linearlayout_1);
         item_fragment_lunch_linearlayout_2 = (LinearLayout) view.findViewById(R.id.item_fragment_lunch_linearlayout_2);
 
+        item_fragment_lunch_linearlayout_1_main = (TextView) view.findViewById(R.id.item_fragment_lunch_linearlayout_1_main);
         item_fragment_lunch_linearlayout_1_textView = (TextView) view.findViewById(R.id.item_fragment_lunch_linearlayout_1_textView);
 
         lunch_1 = (TextView) view.findViewById(R.id.lunch_1);
         lunch_2 = (TextView) view.findViewById(R.id.lunch_2);
         lunch_3 = (TextView) view.findViewById(R.id.lunch_3);
 
+        item_fragment_lunch_linearlayout_1.setVisibility(View.VISIBLE);
+        item_fragment_lunch_linearlayout_2.setVisibility(View.GONE);
+        item_fragment_lunch_linearlayout_1_main.setVisibility(View.VISIBLE);
+        item_fragment_lunch_linearlayout_1_textView.setVisibility(View.GONE);
 
         requestQueue = Volley.newRequestQueue(thisContext);
 
@@ -128,6 +134,9 @@ public class Fragment_Lunch extends Fragment {
 
                                         item_fragment_lunch_linearlayout_1.setVisibility(View.VISIBLE);
                                         item_fragment_lunch_linearlayout_2.setVisibility(View.GONE);
+
+                                        item_fragment_lunch_linearlayout_1_main.setVisibility(View.GONE);
+                                        item_fragment_lunch_linearlayout_1_textView.setVisibility(View.VISIBLE);
 
                                         item_fragment_lunch_linearlayout_1_textView.setText(DDISH_NM.get(0));
 

@@ -40,14 +40,16 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
     private RequestQueue requestQueue;
     private RequestQueue requestQueueLunch;
+
+
+    private List<String> periodSize = new ArrayList<>();
     private List<String> period = new ArrayList<>();
 
+    private List<String> lunchSize = new ArrayList<>();
     private List<String> lunch = new ArrayList<>();
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-
-
 
         requestQueue = Volley.newRequestQueue(context);
         requestQueueLunch = Volley.newRequestQueue(context);
@@ -57,6 +59,7 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
         SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
+
         String year = yearFormat.format(date);
         String month = monthFormat.format(date);
         String day = dayFormat.format(date);
@@ -73,8 +76,6 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
         String url_schedule = null;
         String url_lunch = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=7038ed79d5144336975a34e3c1a184cc&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&MLSV_YMD=" + alldate;
-
-        Log.d("TEST", url_lunch);
 
         if (SCHUL_KND_SC_NM.equals("초등학교")) {
             Log.d("TEST", "1");
@@ -100,9 +101,13 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                 for (int i = 0; i < jsonArrayrow.length(); i++) {
                                     JSONObject response3 = jsonArrayrow.getJSONObject(i);
 
+                                    String perio = response3.getString("PERIO");
                                     String s_period = response3.getString("ITRT_CNTNT");
 
-                                    period.add(s_period);
+                                    if (!(periodSize.contains(perio))) {
+                                        periodSize.add(perio);
+                                        period.add(s_period);
+                                    }
                                 }
 
                                 String schedule = null;
@@ -133,10 +138,14 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                 for (int i = 0; i < jsonArrayrow.length(); i++) {
                                     JSONObject response3 = jsonArrayrow.getJSONObject(i);
 
+                                    String perio = response3.getString("PERIO");
                                     String s_period = response3.getString("ITRT_CNTNT");
                                     s_period = s_period.replaceFirst("-", "");
 
-                                    period.add(s_period);
+                                    if (!(periodSize.contains(perio))) {
+                                        periodSize.add(perio);
+                                        period.add(s_period);
+                                    }
                                 }
 
                                 String schedule = null;
@@ -167,9 +176,13 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                 for (int i = 0; i < jsonArrayrow.length(); i++) {
                                     JSONObject response3 = jsonArrayrow.getJSONObject(i);
 
+                                    String perio = response3.getString("PERIO");
                                     String s_period = response3.getString("ITRT_CNTNT");
 
-                                    period.add(s_period);
+                                    if (!(periodSize.contains(perio))) {
+                                        periodSize.add(perio);
+                                        period.add(s_period);
+                                    }
                                 }
 
                                 String schedule = null;
@@ -337,13 +350,6 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                             PackageManager.DONT_KILL_APP);
 
-//                    Calendar nextNotifyTime = Calendar.getInstance();
-//
-//                    nextNotifyTime.add(Calendar.DATE, 1);
-//
-//                    SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
-//                    editor.putLong("nextNotifyTime", nextNotifyTime.getTimeInMillis());
-//                    editor.apply();
                 }
             }
         };
@@ -402,14 +408,6 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                             notificationManager.notify(2222, builder_Lunch.build());
                         }
                     }
-
-//                    Calendar nextNotifyTime = Calendar.getInstance();
-//
-//                    nextNotifyTime.add(Calendar.DATE, 1);
-//
-//                    SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
-//                    editor.putLong("nextNotifyTime", nextNotifyTime.getTimeInMillis());
-//                    editor.apply();
                 }
             }
         };

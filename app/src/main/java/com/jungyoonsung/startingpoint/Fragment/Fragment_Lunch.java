@@ -1,17 +1,23 @@
 package com.jungyoonsung.startingpoint.Fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -25,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jungyoonsung.startingpoint.MainActivity;
 import com.jungyoonsung.startingpoint.R;
 
 import org.json.JSONArray;
@@ -48,6 +55,8 @@ public class Fragment_Lunch extends Fragment {
     private RequestQueue requestQueue;
     private List<String> MMEAL_SC_CODE = new ArrayList<>();
     private List<String> DDISH_NM = new ArrayList<>();
+
+    CardView cardView;
 
     LinearLayout
             item_fragment_lunch_linearlayout_1,
@@ -170,31 +179,60 @@ public class Fragment_Lunch extends Fragment {
             }
         });
 
-        item_fragment_lunch_linearlayout_1_textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(thisContext, DDISH_NM.get(0), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        item_fragment_lunch_linearlayout_1_textView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(thisContext, DDISH_NM.get(0), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        lunch_1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(thisContext, DDISH_NM.get(0), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        lunch_2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(thisContext, DDISH_NM.get(1), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        lunch_3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(thisContext, DDISH_NM.get(2), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        lunch_1.setOnClickListener(new View.OnClickListener() {
+        cardView = (CardView) view.findViewById(R.id.cardView);
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(thisContext, DDISH_NM.get(0), Toast.LENGTH_SHORT).show();
-            }
-        });
+                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(thisContext);
+                LayoutInflater myInflater = LayoutInflater.from(thisContext);
 
-        lunch_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(thisContext, DDISH_NM.get(1), Toast.LENGTH_SHORT).show();
-            }
-        });
+                final View mView = myInflater.inflate(R.layout.dialog_lunch_calendar, null);
 
-        lunch_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(thisContext, DDISH_NM.get(2), Toast.LENGTH_SHORT).show();
+                CalendarView dialog_lunch_calendar = (CalendarView) mView.findViewById(R.id.dialog_lunch_calendar);
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                Window window = dialog.getWindow();
+                window.setGravity(Gravity.CENTER);
+
+                dialog.show();
+
+                dialog_lunch_calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                    @Override
+                    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                        Toast.makeText(thisContext, "" + dayOfMonth, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

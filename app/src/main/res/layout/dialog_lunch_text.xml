@@ -3,44 +3,65 @@
     android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#000000">
+    android:padding="19dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="19dp"
-        app:cardUseCompatPadding="true">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:padding="69dp"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/dialog_lunch_text_1"
-                android:text="급식이 없습니다."
-                android:textColor="@android:color/black"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <androidx.cardview.widget.CardView
+                android:clickable="true"
+                android:id="@+id/dialog_lunch_text_cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="19dp"
+                app:cardUseCompatPadding="true">
 
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/dialog_lunch_text_2"
-                android:textColor="@android:color/black"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:padding="40dp"
+                    android:id="@+id/dialog_lunch_text_1"
+                    android:gravity="center"
+                    android:text="오늘은 급식이 없습니다."
+                    android:textColor="@android:color/black"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:padding="40dp"
+                    android:id="@+id/dialog_lunch_text_2"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.gms.ads.AdView
+                android:layout_marginTop="27dp"
+                android:id="@+id/adView2"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/app_admob_banner_id">
+            </com.google.android.gms.ads.AdView>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
+    </ScrollView>
 </LinearLayout>

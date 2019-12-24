@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -322,33 +323,33 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                         }
                     }
 
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.add(Calendar.DATE, 1);
-                    int i_hour = sharedPreferences.getInt("HOUR", -1);
-                    int i_min = sharedPreferences.getInt("MIN", -1);
-
-                    if (i_hour != -1 && i_min != -1) {
-                        calendar.set(Calendar.HOUR_OF_DAY, i_hour);
-                        calendar.set(Calendar.MINUTE, i_min);
-                        calendar.set(Calendar.SECOND, 0);
-                    } else {
-                        calendar.set(Calendar.HOUR_OF_DAY, 6);
-                        calendar.set(Calendar.MINUTE, 0);
-                        calendar.set(Calendar.SECOND, 0);
-                    }
-
-                    PackageManager pm = context.getPackageManager();
-                    ComponentName receiver = new ComponentName(context, Receiver.class);
-                    Intent alarmIntent = new Intent(context, Schedule_Lunch_Receiver.class);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
-                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
-                    pm.setComponentEnabledSetting(receiver,
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP);
+//                    calendar.setTimeInMillis(System.currentTimeMillis());
+//                    calendar.add(Calendar.DATE, 1);
+//                    int i_hour = sharedPreferences.getInt("HOUR", -1);
+//                    int i_min = sharedPreferences.getInt("MIN", -1);
+//
+//                    if (i_hour != -1 && i_min != -1) {
+//                        calendar.set(Calendar.HOUR_OF_DAY, i_hour);
+//                        calendar.set(Calendar.MINUTE, i_min);
+//                        calendar.set(Calendar.SECOND, 0);
+//                    } else {
+//                        calendar.set(Calendar.HOUR_OF_DAY, 6);
+//                        calendar.set(Calendar.MINUTE, 0);
+//                        calendar.set(Calendar.SECOND, 0);
+//                    }
+//
+//                    PackageManager pm = context.getPackageManager();
+//                    ComponentName receiver = new ComponentName(context, Receiver.class);
+//                    Intent alarmIntent = new Intent(context, Schedule_Lunch_Receiver.class);
+//                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+//                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//
+//                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+//                            calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//
+//                    pm.setComponentEnabledSetting(receiver,
+//                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+//                            PackageManager.DONT_KILL_APP);
 
                 }
             }
@@ -358,7 +359,6 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
             @Override
             public void onRequestFinished(Request request) {
                 String Lunch = sharedPreferences.getString("Lunch", "");
-                Log.d("TEST", Lunch);
 
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 Intent notificationIntent = new Intent(context, MainActivity.class);
@@ -414,5 +414,37 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
         requestQueue.addRequestFinishedListener(listener);
         requestQueueLunch.addRequestFinishedListener(listener_lunch);
+
+        Calendar calendar = Calendar.getInstance();
+        SharedPreferences sharedPreferencesNext = context.getSharedPreferences("Notification", MODE_PRIVATE);
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        int i_hour = sharedPreferencesNext.getInt("HOUR", -1);
+        int i_min = sharedPreferencesNext.getInt("MIN", -1);
+
+        if (i_hour != -1 && i_min != -1) {
+            calendar.set(Calendar.HOUR_OF_DAY, i_hour);
+            calendar.set(Calendar.MINUTE, i_min);
+            calendar.set(Calendar.SECOND, 0);
+        } else {
+            calendar.set(Calendar.HOUR_OF_DAY, 6);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+        }
+        calendar.add(Calendar.DATE, 1);
+
+        PackageManager pm = context.getPackageManager();
+        ComponentName receiver = new ComponentName(context, Receiver.class);
+        Intent alarmIntent = new Intent(context, Schedule_Lunch_Receiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+
     }
 }

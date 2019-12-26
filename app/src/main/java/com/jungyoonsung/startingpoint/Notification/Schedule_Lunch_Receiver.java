@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -49,6 +48,8 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
     private List<String> lunchSize = new ArrayList<>();
     private List<String> lunch = new ArrayList<>();
 
+    String s_schedule, s_lunch;
+
     @Override
     public void onReceive(final Context context, Intent intent) {
 
@@ -79,13 +80,10 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
         String url_lunch = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=7038ed79d5144336975a34e3c1a184cc&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&MLSV_YMD=" + alldate;
 
         if (SCHUL_KND_SC_NM.equals("초등학교")) {
-            Log.d("TEST", "1");
             url_schedule = "https://open.neis.go.kr/hub/elsTimetable?KEY=28d1c579be6f424a82296bef1d143291&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class;
         } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-            Log.d("TEST", "2");
             url_schedule = "https://open.neis.go.kr/hub/misTimetable?KEY=5e224b3241764004ba6db97bf213528d&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class;
         } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-            Log.d("TEST", "3");
             url_schedule = "https://open.neis.go.kr/hub/hisTimetable?KEY=112df38f4e454ee98c21632e2fc8130f&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class;
         }
 
@@ -111,22 +109,17 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                String schedule = null;
-
                                 for (int i = 0; i < period.size(); i++) {
+                                    int count = i + 1;
 
-                                    if (i == 0) {
-                                        schedule = period.get(i) + ", ";
-                                    } else if (i == period.size() - 1) {
-                                        schedule = schedule + period.get(i) + " ";
-                                    } else  {
-                                        schedule = schedule + period.get(i) + ", ";
+                                    if (count == 1) {
+                                        s_schedule =  count + ". " + period.get(i) + "\n";
+                                    } else if (!(count == period.size())) {
+                                        s_schedule = s_schedule + + count + ". " + period.get(i) + "\n";
+                                    } else {
+                                        s_schedule = s_schedule + + count + ". " + period.get(i);
                                     }
                                 }
-
-                                SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                                editor.putString("Schedule", schedule);
-                                editor.apply();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -149,22 +142,17 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                String schedule = null;
-
                                 for (int i = 0; i < period.size(); i++) {
+                                    int count = i + 1;
 
-                                    if (i == 0) {
-                                        schedule = period.get(i) + ", ";
-                                    } else if (i == period.size() - 1) {
-                                        schedule = schedule + period.get(i) + " ";
-                                    } else  {
-                                        schedule = schedule + period.get(i) + ", ";
+                                    if (count == 1) {
+                                        s_schedule =  count + ". " + period.get(i) + "\n";
+                                    } else if (!(count == period.size())) {
+                                        s_schedule = s_schedule + + count + ". " + period.get(i) + "\n";
+                                    } else {
+                                        s_schedule = s_schedule + + count + ". " + period.get(i);
                                     }
                                 }
-
-                                SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                                editor.putString("Schedule", schedule);
-                                editor.apply();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -186,22 +174,17 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                String schedule = null;
-
                                 for (int i = 0; i < period.size(); i++) {
+                                    int count = i + 1;
 
-                                    if (i == 0) {
-                                        schedule = period.get(i) + ", ";
-                                    } else if (i == period.size() - 1) {
-                                        schedule = schedule + period.get(i) + " ";
-                                    } else  {
-                                        schedule = schedule + period.get(i) + ", ";
+                                    if (count == 1) {
+                                        s_schedule =  count + ". " + period.get(i) + "\n";
+                                    } else if (!(count == period.size())) {
+                                        s_schedule = s_schedule + + count + ". " + period.get(i) + "\n";
+                                    } else {
+                                        s_schedule = s_schedule + + count + ". " + period.get(i);
                                     }
                                 }
-
-                                SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                                editor.putString("Schedule", schedule);
-                                editor.apply();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -237,10 +220,7 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                 lunch.add(s_lunch);
                             }
 
-                            String s_lunch = null;
-
                             for (int i = 0; i < lunch.size(); i++) {
-                                Log.d("TEST", lunch.get(i));
                                 if (i == 0) {
                                     s_lunch = lunch.get(i) + "\n";
                                 } else if (i == 1) {
@@ -249,12 +229,6 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                     s_lunch = s_lunch + lunch.get(i);
                                 }
                             }
-
-                            SharedPreferences.Editor editor = context.getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                            editor.putString("Lunch", s_lunch);
-                            editor.apply();
-
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -272,9 +246,6 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
         RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
             @Override
             public void onRequestFinished(Request request) {
-
-                String Schedule = sharedPreferences.getString("Schedule", "");
-                Log.d("TEST", Schedule);
 
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 Intent notificationIntent = new Intent(context, MainActivity.class);
@@ -305,8 +276,9 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
                 builder_Schedule.setAutoCancel(true)
                         .setWhen(System.currentTimeMillis())
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(s_schedule))
                         .setContentTitle("시간표")
-                        .setContentText(Schedule)
+                        .setContentText(s_schedule)
                         .setContentIntent(pendingI);
 
                 if (notificationManager != null) {
@@ -323,34 +295,6 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                         }
                     }
 
-//                    calendar.setTimeInMillis(System.currentTimeMillis());
-//                    calendar.add(Calendar.DATE, 1);
-//                    int i_hour = sharedPreferences.getInt("HOUR", -1);
-//                    int i_min = sharedPreferences.getInt("MIN", -1);
-//
-//                    if (i_hour != -1 && i_min != -1) {
-//                        calendar.set(Calendar.HOUR_OF_DAY, i_hour);
-//                        calendar.set(Calendar.MINUTE, i_min);
-//                        calendar.set(Calendar.SECOND, 0);
-//                    } else {
-//                        calendar.set(Calendar.HOUR_OF_DAY, 6);
-//                        calendar.set(Calendar.MINUTE, 0);
-//                        calendar.set(Calendar.SECOND, 0);
-//                    }
-//
-//                    PackageManager pm = context.getPackageManager();
-//                    ComponentName receiver = new ComponentName(context, Receiver.class);
-//                    Intent alarmIntent = new Intent(context, Schedule_Lunch_Receiver.class);
-//                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
-//                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//
-//                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-//                            calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-//
-//                    pm.setComponentEnabledSetting(receiver,
-//                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//                            PackageManager.DONT_KILL_APP);
-
                 }
             }
         };
@@ -358,7 +302,6 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
         RequestQueue.RequestFinishedListener listener_lunch = new RequestQueue.RequestFinishedListener() {
             @Override
             public void onRequestFinished(Request request) {
-                String Lunch = sharedPreferences.getString("Lunch", "");
 
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 Intent notificationIntent = new Intent(context, MainActivity.class);
@@ -390,9 +333,9 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
                 builder_Lunch.setAutoCancel(true)
                         .setWhen(System.currentTimeMillis())
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText(Lunch))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(s_lunch))
                         .setContentTitle("급식식단")
-                        .setContentText(Lunch)
+                        .setContentText(s_lunch)
                         .setContentIntent(pendingI);
 
                 if (notificationManager != null) {

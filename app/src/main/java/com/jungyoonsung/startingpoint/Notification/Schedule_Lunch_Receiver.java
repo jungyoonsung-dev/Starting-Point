@@ -379,7 +379,10 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
         PackageManager pm = context.getPackageManager();
         ComponentName receiver = new ComponentName(context, Receiver.class);
         Intent alarmIntent = new Intent(context, Schedule_Lunch_Receiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,

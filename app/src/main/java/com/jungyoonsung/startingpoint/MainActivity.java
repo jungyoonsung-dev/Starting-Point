@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -96,12 +100,19 @@ public class MainActivity extends AppCompatActivity {
 
                                 textView_grade_class_number.setText("   " + t_s_grade + t_s_class + t_s_number);
 
-                                BottomNavigationView main_bottomNavigation = (BottomNavigationView) findViewById(R.id.main_bottomNavigation);
-                                main_bottomNavigation.setOnNavigationItemSelectedListener(navListener);
+                                BottomNavigationView navView = findViewById(R.id.nav_view);
+                                AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                                        R.id.navigation_home, R.id.navigation_school, R.id.navigation_study, R.id.navigation_account)
+                                        .build();
+                                NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                                NavigationUI.setupActionBarWithNavController(MainActivity.this, navController, appBarConfiguration);
+                                NavigationUI.setupWithNavController(navView, navController);
 
-                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                                        new TabHome()).commit();
+//                                BottomNavigationView main_bottomNavigation = (BottomNavigationView) findViewById(R.id.main_bottomNavigation);
+//                                main_bottomNavigation.setOnNavigationItemSelectedListener(navListener);
 
+//                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                        new TabHome()).commit();
 
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.setTimeInMillis(System.currentTimeMillis());
@@ -231,36 +242,4 @@ public class MainActivity extends AppCompatActivity {
 
         auth.removeAuthStateListener(mAuthListener);
     }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-
-                    switch (item.getItemId()) {
-
-                        case R.id.navigation_home:
-                            selectedFragment = new TabHome();
-                            break;
-
-                        case R.id.navigation_school:
-                            selectedFragment = new TabSchool();
-                            break;
-
-                        case R.id.navigation_study:
-                            selectedFragment = new TabStudy();
-                            break;
-
-                        case R.id.navigation_account:
-                            selectedFragment = new TabAccount();
-                            break;
-                    }
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
-
-                    return true;
-                }
-            };
 }

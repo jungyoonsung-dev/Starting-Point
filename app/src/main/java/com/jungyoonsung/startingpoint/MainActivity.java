@@ -19,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -101,11 +102,10 @@ public class MainActivity extends AppCompatActivity {
                                 textView_grade_class_number.setText("   " + t_s_grade + t_s_class + t_s_number);
 
                                 BottomNavigationView navView = findViewById(R.id.nav_view);
-                                AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                                        R.id.navigation_home, R.id.navigation_school, R.id.navigation_study, R.id.navigation_account)
-                                        .build();
+//                                AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                                        R.id.navigation_home, R.id.navigation_school, R.id.navigation_study, R.id.navigation_account)
+//                                        .build();
                                 NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
-                                NavigationUI.setupActionBarWithNavController(MainActivity.this, navController, appBarConfiguration);
                                 NavigationUI.setupWithNavController(navView, navController);
 
 //                                BottomNavigationView main_bottomNavigation = (BottomNavigationView) findViewById(R.id.main_bottomNavigation);

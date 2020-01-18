@@ -7,4 +7,28 @@
 <!--    <string name="facebook_application_id" translatable="false">677138522691428</string>-->
 <!--    <string name="facebook_app_id" translatable="false">677138522691428</string>-->
 <!--    <string name="facebook_login_protocol_scheme" translatable="false">fb677138522691428</string>-->
+
+    <string name="material_calendar_monday">월</string>
+    <string name="material_calendar_tuesday">화</string>
+    <string name="material_calendar_wednesday">수</string>
+    <string name="material_calendar_thursday">목</string>
+    <string name="material_calendar_friday">금</string>
+    <string name="material_calendar_saturday">토</string>
+    <string name="material_calendar_sunday">일</string>
+
+    <array name="material_calendar_months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </array>
+
 </resources>

@@ -33,10 +33,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.jungyoonsung.startingpoint.Notification.Receiver;
 import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
-import com.jungyoonsung.startingpoint.Tab.TabAccount;
-import com.jungyoonsung.startingpoint.Tab.TabHome;
-import com.jungyoonsung.startingpoint.Tab.TabSchool;
-import com.jungyoonsung.startingpoint.Tab.TabStudy;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -102,17 +98,8 @@ public class MainActivity extends AppCompatActivity {
                                 textView_grade_class_number.setText("   " + t_s_grade + t_s_class + t_s_number);
 
                                 BottomNavigationView navView = findViewById(R.id.nav_view);
-//                                AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                                        R.id.navigation_home, R.id.navigation_school, R.id.navigation_study, R.id.navigation_account)
-//                                        .build();
                                 NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
                                 NavigationUI.setupWithNavController(navView, navController);
-
-//                                BottomNavigationView main_bottomNavigation = (BottomNavigationView) findViewById(R.id.main_bottomNavigation);
-//                                main_bottomNavigation.setOnNavigationItemSelectedListener(navListener);
-
-//                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                        new TabHome()).commit();
 
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.setTimeInMillis(System.currentTimeMillis());

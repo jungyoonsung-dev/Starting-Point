@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -290,9 +291,14 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                     String schedule = sharedPreferences.getString("CSchedule", "");
 
                     if (schedule.equals("true")) {
-                        if (!(number == 1 || number == 7)) {
+
+                        if (!(TextUtils.isEmpty(s_schedule))) {
                             notificationManager.notify(1111, builder_Schedule.build());
                         }
+
+//                        if (!(number == 1 || number == 7)) {
+//                            notificationManager.notify(1111, builder_Schedule.build());
+//                        }
                     }
 
                 }
@@ -347,9 +353,14 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                     String lunch = sharedPreferences.getString("CLunch", "");
 
                     if (lunch.equals("true")) {
-                        if (!(number == 1 || number == 7)) {
+
+                        if (!(TextUtils.isEmpty(s_lunch))) {
                             notificationManager.notify(2222, builder_Lunch.build());
                         }
+
+//                        if (!(number == 1 || number == 7)) {
+//                            notificationManager.notify(2222, builder_Lunch.build());
+//                        }
                     }
                 }
             }

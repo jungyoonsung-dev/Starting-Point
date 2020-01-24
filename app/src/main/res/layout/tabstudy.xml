@@ -7,16 +7,4 @@
     android:background="@android:color/black"
     android:padding="10dp">
 
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView
-        android:id="@+id/compactcalendar_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        app:compactCalendarBackgroundColor="#000000"
-        app:compactCalendarTextColor="#FFFFFF"
-        app:compactCalendarCurrentSelectedDayTextColor="#292929"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="#FFFFFF"
-        app:compactCalendarCurrentDayBackgroundColor="#000000"
-        app:compactCalendarMultiEventIndicatorColor="#FFFFFF" />
-
 </LinearLayout>

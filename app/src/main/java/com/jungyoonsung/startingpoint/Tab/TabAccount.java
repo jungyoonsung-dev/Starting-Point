@@ -285,12 +285,16 @@ public class TabAccount extends Fragment {
                 .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
                     @Override
                     public void onChooseColor(int position, int color) {
-//                        layout.setBackgroundColor(color);  // OK 버튼 클릭 시 이벤트
+                        SharedPreferences.Editor editor = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE).edit();
+                        editor.putInt("Color", color);
+                        editor.apply();
+
+                        LinearLayout mainLineraLayout = (LinearLayout)MainActivity.activity_main_LinearLayout;
+                        mainLineraLayout.setBackgroundColor(color);
                     }
 
                     @Override
                     public void onCancel() {
-                        // Cancel 버튼 클릭 시 이벤트
                     }
                 }).show();
     }

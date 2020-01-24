@@ -62,6 +62,8 @@ public class TabHome extends Fragment {
 
     Context thisContext;
 
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     private FirebaseAuth auth;
     private FirebaseDatabase database;
 
@@ -80,63 +82,71 @@ public class TabHome extends Fragment {
         viewPager = view.findViewById(R.id.view_pager);
         circleIndicator = view.findViewById(R.id.circle);
 
-        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() == null) {
-                } else {
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() == null) {
+                            } else {
 
-                    viewPager.setAdapter(new pagerAdapter(((FragmentActivity)thisContext).getSupportFragmentManager()));
-                    viewPager.setCurrentItem(1);
+                                viewPager.setAdapter(new pagerAdapter(((FragmentActivity)thisContext).getSupportFragmentManager()));
+                                viewPager.setCurrentItem(1);
 
-                    circleIndicator.setViewPager(viewPager);
+                                circleIndicator.setViewPager(viewPager);
 
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(System.currentTimeMillis());
 
-                    SharedPreferences sharedPreferences = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE);
-                    int i_hour = sharedPreferences.getInt("HOUR", -1);
-                    int i_min = sharedPreferences.getInt("MIN", -1);
+                                SharedPreferences sharedPreferences = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE);
+                                int i_hour = sharedPreferences.getInt("HOUR", -1);
+                                int i_min = sharedPreferences.getInt("MIN", -1);
 
-                    if (i_hour != -1 && i_min != -1) {
-                        calendar.set(Calendar.HOUR_OF_DAY, i_hour);
-                        calendar.set(Calendar.MINUTE, i_min);
-                        calendar.set(Calendar.SECOND, 0);
-                    } else {
-                        calendar.set(Calendar.HOUR_OF_DAY, 6);
-                        calendar.set(Calendar.MINUTE, 0);
-                        calendar.set(Calendar.SECOND, 0);
-                    }
+                                if (i_hour != -1 && i_min != -1) {
+                                    calendar.set(Calendar.HOUR_OF_DAY, i_hour);
+                                    calendar.set(Calendar.MINUTE, i_min);
+                                    calendar.set(Calendar.SECOND, 0);
+                                } else {
+                                    calendar.set(Calendar.HOUR_OF_DAY, 6);
+                                    calendar.set(Calendar.MINUTE, 0);
+                                    calendar.set(Calendar.SECOND, 0);
+                                }
 
-                    if (calendar.before(Calendar.getInstance())) {
-                        calendar.add(Calendar.DATE, 1);
-                    }
+                                if (calendar.before(Calendar.getInstance())) {
+                                    calendar.add(Calendar.DATE, 1);
+                                }
 
 
-                    String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
-                    String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
-                    String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
-                    String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
-                    String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+                                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
+                                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+                                String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
+                                String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+                                String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
 
-                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-                    editor.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);
-                    editor.putString("SD_SCHUL_CODE", SD_SCHUL_CODE);
-                    editor.putString("SCHUL_KND_SC_NM", SCHUL_KND_SC_NM);
-                    editor.putString("s_grade", s_grade);
-                    editor.putString("s_class", s_class);
-                    editor.putLong("nextNotifyTime", (long)calendar.getTimeInMillis());
-                    editor.apply();
+                                SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
+                                editor.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);
+                                editor.putString("SD_SCHUL_CODE", SD_SCHUL_CODE);
+                                editor.putString("SCHUL_KND_SC_NM", SCHUL_KND_SC_NM);
+                                editor.putString("s_grade", s_grade);
+                                editor.putString("s_class", s_class);
+                                editor.putLong("nextNotifyTime", (long)calendar.getTimeInMillis());
+                                editor.apply();
 
-                    Notification_ALARM(calendar);
+                                Notification_ALARM(calendar);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        };
 
         return view;
     }
@@ -180,5 +190,19 @@ public class TabHome extends Fragment {
         {
             return 3;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        auth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        auth.removeAuthStateListener(mAuthListener);
     }
 }

@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textView_name, textView_school, textView_grade_class_number;
 
+    public static LinearLayout activity_main_LinearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
+        activity_main_LinearLayout = (LinearLayout) findViewById(R.id.activity_main_LinearLayout);
 
         textView_name = (TextView) findViewById(R.id.textView_name);
         textView_school = (TextView) findViewById(R.id.textView_school);
@@ -180,6 +185,16 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("CSchedule", "true");
             editor.apply();
         }
+
+        SharedPreferences sharedPreferencesBackground = getSharedPreferences("Background", MODE_PRIVATE);
+        int color = sharedPreferencesBackground.getInt("Color", 0);
+
+        if (color == 0) {
+            activity_main_LinearLayout.setBackgroundResource(android.R.color.black);
+        } else if (color != 0) {
+            activity_main_LinearLayout.setBackgroundColor(color);
+        }
+
     }
 
     void Notification_ALARM(Calendar calendar) {

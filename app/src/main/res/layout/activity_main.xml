@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    android:id="@+id/activity_main_LinearLayout">
 
     <LinearLayout
         android:padding="18dp"
@@ -84,7 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
-            android:background="@android:color/black"
             app:menu="@menu/bottom_nav_menu_main"
             app:itemIconTint="@color/b_n_m_m_c"
             app:itemTextColor="@color/b_n_m_m_c"/>

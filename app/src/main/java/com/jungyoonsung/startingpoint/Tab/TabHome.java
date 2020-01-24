@@ -65,12 +65,8 @@ public class TabHome extends Fragment {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
 
-    private AdView adView_settings;
-
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
-
-    TextView t_settings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,

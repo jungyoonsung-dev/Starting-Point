@@ -2,19 +2,23 @@ package com.jungyoonsung.startingpoint.Tab;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,7 +41,12 @@ import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
 import com.jungyoonsung.startingpoint.R;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class TabAccount extends Fragment {
 
@@ -164,6 +173,40 @@ public class TabAccount extends Fragment {
             }
         });
 
+
+        TextView t_edit = (TextView) view.findViewById(R.id.t_edit);
+        t_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ((Activity) thisContext).finish();
+                Intent intent = new Intent(thisContext, SchoolSettings.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView t_background = (TextView) view.findViewById(R.id.t_background);
+        t_background.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                openColorPicker();
+//                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(thisContext);
+//                LayoutInflater myInflater = LayoutInflater.from(thisContext);
+//
+//                final View mView = myInflater.inflate(R.layout.dialog_background, null);
+//
+//                mBuilder.setView(mView);
+//                final AlertDialog dialog = mBuilder.create();
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+//
+//                Window window = dialog.getWindow();
+//                window.setGravity(Gravity.CENTER);
+//
+//                dialog.show();
+            }
+        });
+
         TextView t_log_out = (TextView) view.findViewById(R.id.t_log_out);
         t_log_out.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,17 +222,6 @@ public class TabAccount extends Fragment {
                                 startActivity(homeIntent);
                             }
                         });
-            }
-        });
-
-        TextView t_edit = (TextView) view.findViewById(R.id.t_edit);
-        t_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ((Activity) thisContext).finish();
-                Intent intent = new Intent(thisContext, SchoolSettings.class);
-                startActivity(intent);
             }
         });
 
@@ -235,5 +267,31 @@ public class TabAccount extends Fragment {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
+    }
+
+    private void openColorPicker() {
+        final ColorPicker colorPicker = new ColorPicker((Activity) thisContext);  // ColorPicker 객체 생성
+        ArrayList<String> colors = new ArrayList<>();  // Color 넣어줄 list
+
+        colors.add("#FF000000");
+        colors.add("#FF111111");
+        colors.add("#FF222222");
+        colors.add("#FF333333");
+        colors.add("#FF444444");
+
+        colorPicker.setColors(colors)
+                .setTitle("배경색")
+                .setColumns(5)
+                .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    @Override
+                    public void onChooseColor(int position, int color) {
+//                        layout.setBackgroundColor(color);  // OK 버튼 클릭 시 이벤트
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // Cancel 버튼 클릭 시 이벤트
+                    }
+                }).show();
     }
 }

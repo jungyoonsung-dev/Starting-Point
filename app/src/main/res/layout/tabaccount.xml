@@ -94,17 +94,6 @@
 
                         <TextView
                             android:layout_marginTop="15dp"
-                            android:id="@+id/t_log_out"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_log_out_black_24dp"
-                            android:gravity="center_vertical"
-                            android:padding="15dp"
-                            android:text="   로그아웃"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@android:color/black" />
-
-                        <TextView
                             android:id="@+id/t_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -112,6 +101,28 @@
                             android:gravity="center_vertical"
                             android:padding="15dp"
                             android:text="   수정"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/t_background"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_filter_none_black_24dp"
+                            android:gravity="center_vertical"
+                            android:padding="15dp"
+                            android:text="   배경"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/t_log_out"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_log_out_black_24dp"
+                            android:gravity="center_vertical"
+                            android:padding="15dp"
+                            android:text="   로그아웃"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@android:color/black" />
 

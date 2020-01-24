@@ -6,18 +6,19 @@
         android:icon="@drawable/b_n_m_m_d_h"
         android:title="홈" />
 
-    <item
-        android:id="@+id/navigation_school"
-        android:icon="@drawable/b_n_m_m_d_s"
-        android:title="학교" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_school"-->
+<!--        android:icon="@drawable/b_n_m_m_d_s"-->
+<!--        android:title="학교" />-->
 
-    <item
-        android:id="@+id/navigation_study"
-        android:icon="@drawable/b_n_m_m_d_t"
-        android:title="공부" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_study"-->
+<!--        android:icon="@drawable/b_n_m_m_d_t"-->
+<!--        android:title="공부" />-->
 
     <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/b_n_m_m_d_a"
         android:title="계정"/>
+
 </menu>

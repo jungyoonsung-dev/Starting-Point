@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -190,20 +191,60 @@ public class TabAccount extends Fragment {
             @Override
             public void onClick(View v) {
 
-                openColorPicker();
-//                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(thisContext);
-//                LayoutInflater myInflater = LayoutInflater.from(thisContext);
-//
-//                final View mView = myInflater.inflate(R.layout.dialog_background, null);
-//
-//                mBuilder.setView(mView);
-//                final AlertDialog dialog = mBuilder.create();
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//
-//                Window window = dialog.getWindow();
-//                window.setGravity(Gravity.CENTER);
-//
-//                dialog.show();
+                final ColorPicker colorPicker = new ColorPicker((Activity) thisContext);
+                ArrayList<String> colors = new ArrayList<>();
+
+                colors.add("#000000");
+                colors.add("#111111");
+                colors.add("#222222");
+                colors.add("#333333");
+                colors.add("#444444");
+                colors.add("#555555");
+                colors.add("#666666");
+                colors.add("#777777");
+                colors.add("#888888");
+                colors.add("#999999");
+                colors.add("#AAAAAA");
+                colors.add("#BBBBBB");
+                colors.add("#CCCCCC");
+                colors.add("#EEEEEE");
+                colors.add("#FFFFFF");
+
+
+                colorPicker.setColors(colors)
+                        .setTitle("배경색")
+                        .setColumns(5)
+                        .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                            @Override
+                            public void onChooseColor(int position, int color) {
+                                SharedPreferences.Editor editor = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE).edit();
+                                editor.putInt("Position", position);
+                                editor.putInt("Color", color);
+                                editor.apply();
+
+                                LinearLayout mainLineraLayout = (LinearLayout) MainActivity.activity_main_LinearLayout;
+                                mainLineraLayout.setBackgroundColor(color);
+
+                                TextView textView_name = (TextView) MainActivity.textView_name;
+                                TextView textView_school = (TextView) MainActivity.textView_school;
+                                TextView textView_grade_class_number = (TextView) MainActivity.textView_grade_class_number;
+
+                                if (position >= 10) {
+                                    textView_name.setTextColor(Color.parseColor("#000000"));
+                                    textView_school.setTextColor(Color.parseColor("#111111"));
+                                    textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
+                                } else {
+                                    textView_name.setTextColor(Color.parseColor("#FFFFFF"));
+                                    textView_school.setTextColor(Color.parseColor("#EEEEEE"));
+                                    textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+                                }
+                            }
+
+                            @Override
+                            public void onCancel() {
+                            }
+                        }).show();
+
             }
         });
 
@@ -267,35 +308,5 @@ public class TabAccount extends Fragment {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
-    }
-
-    private void openColorPicker() {
-        final ColorPicker colorPicker = new ColorPicker((Activity) thisContext);  // ColorPicker 객체 생성
-        ArrayList<String> colors = new ArrayList<>();  // Color 넣어줄 list
-
-        colors.add("#FF000000");
-        colors.add("#FF111111");
-        colors.add("#FF222222");
-        colors.add("#FF333333");
-        colors.add("#FF444444");
-
-        colorPicker.setColors(colors)
-                .setTitle("배경색")
-                .setColumns(5)
-                .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-                    @Override
-                    public void onChooseColor(int position, int color) {
-                        SharedPreferences.Editor editor = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE).edit();
-                        editor.putInt("Color", color);
-                        editor.apply();
-
-                        LinearLayout mainLineraLayout = (LinearLayout)MainActivity.activity_main_LinearLayout;
-                        mainLineraLayout.setBackgroundColor(color);
-                    }
-
-                    @Override
-                    public void onCancel() {
-                    }
-                }).show();
     }
 }

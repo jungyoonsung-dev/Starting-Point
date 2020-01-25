@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -16,12 +17,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -52,9 +57,10 @@ public class MainActivity extends AppCompatActivity {
 //            new AuthUI.IdpConfig.FacebookBuilder().build()
     );
 
-    TextView textView_name, textView_school, textView_grade_class_number;
-
     public static LinearLayout activity_main_LinearLayout;
+    public static TextView textView_name, textView_school, textView_grade_class_number;
+
+    public static BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         textView_name = (TextView) findViewById(R.id.textView_name);
         textView_school = (TextView) findViewById(R.id.textView_school);
         textView_grade_class_number = (TextView) findViewById(R.id.textView_grade_class_number);
+
+        navView = (BottomNavigationView) findViewById(R.id.nav_view);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -102,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 textView_grade_class_number.setText("   " + t_s_grade + t_s_class + t_s_number);
 
-                                BottomNavigationView navView = findViewById(R.id.nav_view);
                                 NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
                                 NavigationUI.setupWithNavController(navView, navController);
 
@@ -187,12 +194,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         SharedPreferences sharedPreferencesBackground = getSharedPreferences("Background", MODE_PRIVATE);
+        int position = sharedPreferencesBackground.getInt("Position", 0);
         int color = sharedPreferencesBackground.getInt("Color", 0);
 
         if (color == 0) {
             activity_main_LinearLayout.setBackgroundResource(android.R.color.black);
         } else if (color != 0) {
             activity_main_LinearLayout.setBackgroundColor(color);
+
+            if (position >= 10) {
+                textView_name.setTextColor(Color.parseColor("#000000"));
+                textView_school.setTextColor(Color.parseColor("#111111"));
+                textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
+
+                navView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.b_n_m_m_c_2)));
+            } else {
+                textView_name.setTextColor(Color.parseColor("#FFFFFF"));
+                textView_school.setTextColor(Color.parseColor("#EEEEEE"));
+                textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+            }
         }
 
     }

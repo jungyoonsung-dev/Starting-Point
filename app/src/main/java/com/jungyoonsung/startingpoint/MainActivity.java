@@ -3,13 +3,10 @@ package com.jungyoonsung.startingpoint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -17,16 +14,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.Window;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,6 +39,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Context MainContext;
+
     private FirebaseAuth auth;
     private FirebaseDatabase database;
 
@@ -60,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
     public static LinearLayout activity_main_LinearLayout;
     public static TextView textView_name, textView_school, textView_grade_class_number;
 
-    public static BottomNavigationView navView;
+    public static BottomNavigationView navView_1, navView_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainContext = MainActivity.this;
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -76,7 +73,11 @@ public class MainActivity extends AppCompatActivity {
         textView_school = (TextView) findViewById(R.id.textView_school);
         textView_grade_class_number = (TextView) findViewById(R.id.textView_grade_class_number);
 
-        navView = (BottomNavigationView) findViewById(R.id.nav_view);
+        navView_1 = (BottomNavigationView) findViewById(R.id.nav_view_1);
+        navView_2 = (BottomNavigationView) findViewById(R.id.nav_view_2);
+
+        navView_1.setVisibility(View.VISIBLE);
+        navView_2.setVisibility(View.GONE);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -110,13 +111,61 @@ public class MainActivity extends AppCompatActivity {
 
                                 textView_grade_class_number.setText("   " + t_s_grade + t_s_class + t_s_number);
 
-                                NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
-                                NavigationUI.setupWithNavController(navView, navController);
+
+
+
+
+                                SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
+                                String f_lunch = sharedPreferences.getString("CLunch", "");
+                                String f_schedule = sharedPreferences.getString("CSchedule", "");
+
+                                if (TextUtils.isEmpty(f_lunch)) {
+                                    SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                                    editor.putString("CLunch", "true");
+                                    editor.apply();
+                                }
+
+                                if (TextUtils.isEmpty(f_schedule)) {
+                                    SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                                    editor.putString("CSchedule", "true");
+                                    editor.apply();
+                                }
+
+                                SharedPreferences sharedPreferencesBackground = getSharedPreferences("Background", MODE_PRIVATE);
+                                int position = sharedPreferencesBackground.getInt("Position", 0);
+                                int color = sharedPreferencesBackground.getInt("Color", 0);
+
+                                if (color == 0) {
+                                    activity_main_LinearLayout.setBackgroundResource(android.R.color.black);
+                                } else if (color != 0) {
+                                    activity_main_LinearLayout.setBackgroundColor(color);
+
+                                    if (position < 10) {
+                                        textView_name.setTextColor(Color.parseColor("#FFFFFF"));
+                                        textView_school.setTextColor(Color.parseColor("#EEEEEE"));
+                                        textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+
+                                        navView_1.setVisibility(View.VISIBLE);
+                                        navView_2.setVisibility(View.GONE);
+
+                                        NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                                        NavigationUI.setupWithNavController(navView_1, navController);
+                                    } else {
+                                        textView_name.setTextColor(Color.parseColor("#000000"));
+                                        textView_school.setTextColor(Color.parseColor("#111111"));
+                                        textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
+
+                                        navView_1.setVisibility(View.GONE);
+                                        navView_2.setVisibility(View.VISIBLE);
+
+                                        NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                                        NavigationUI.setupWithNavController(navView_2, navController);
+                                    }
+                                }
 
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.setTimeInMillis(System.currentTimeMillis());
 
-                                SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
                                 int i_hour = sharedPreferences.getInt("HOUR", -1);
                                 int i_min = sharedPreferences.getInt("MIN", -1);
 
@@ -133,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
                                 if (calendar.before(Calendar.getInstance())) {
                                     calendar.add(Calendar.DATE, 1);
                                 }
-
 
                                 String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
                                 String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
@@ -176,45 +224,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
-        SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
-        String f_lunch = sharedPreferences.getString("CLunch", "");
-        String f_schedule = sharedPreferences.getString("CSchedule", "");
-
-        if (TextUtils.isEmpty(f_lunch)) {
-            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
-            editor.putString("CLunch", "true");
-            editor.apply();
-        }
-
-        if (TextUtils.isEmpty(f_schedule)) {
-            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
-            editor.putString("CSchedule", "true");
-            editor.apply();
-        }
-
-        SharedPreferences sharedPreferencesBackground = getSharedPreferences("Background", MODE_PRIVATE);
-        int position = sharedPreferencesBackground.getInt("Position", 0);
-        int color = sharedPreferencesBackground.getInt("Color", 0);
-
-        if (color == 0) {
-            activity_main_LinearLayout.setBackgroundResource(android.R.color.black);
-        } else if (color != 0) {
-            activity_main_LinearLayout.setBackgroundColor(color);
-
-            if (position >= 10) {
-                textView_name.setTextColor(Color.parseColor("#000000"));
-                textView_school.setTextColor(Color.parseColor("#111111"));
-                textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
-
-                navView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.b_n_m_m_c_2)));
-            } else {
-                textView_name.setTextColor(Color.parseColor("#FFFFFF"));
-                textView_school.setTextColor(Color.parseColor("#EEEEEE"));
-                textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
-            }
-        }
-
     }
 
     void Notification_ALARM(Calendar calendar) {

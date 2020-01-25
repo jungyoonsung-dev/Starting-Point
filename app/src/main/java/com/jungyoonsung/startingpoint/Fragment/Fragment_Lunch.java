@@ -2,6 +2,7 @@ package com.jungyoonsung.startingpoint.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -88,6 +90,7 @@ public class Fragment_Lunch extends Fragment {
 
         thisContext = container.getContext();
 
+        cardView = (CardView) view.findViewById(R.id.cardView);
 
         item_fragment_lunch_linearlayout_1 = (LinearLayout) view.findViewById(R.id.item_fragment_lunch_linearlayout_1);
         item_fragment_lunch_linearlayout_2 = (LinearLayout) view.findViewById(R.id.item_fragment_lunch_linearlayout_2);
@@ -103,6 +106,28 @@ public class Fragment_Lunch extends Fragment {
         item_fragment_lunch_linearlayout_2.setVisibility(View.GONE);
         item_fragment_lunch_linearlayout_1_main.setVisibility(View.VISIBLE);
         item_fragment_lunch_linearlayout_1_textView.setVisibility(View.GONE);
+
+        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+        int position = sharedPreferencesBackground.getInt("Position", 0);
+        if (position < 10) {
+            cardView.setCardBackgroundColor(ContextCompat.getColor(thisContext, android.R.color.white));
+
+            item_fragment_lunch_linearlayout_1_main.setTextColor(ContextCompat.getColor(thisContext, android.R.color.black));
+            item_fragment_lunch_linearlayout_1_textView.setTextColor(ContextCompat.getColor(thisContext, android.R.color.black));
+
+            lunch_1.setTextColor(ContextCompat.getColor(thisContext, android.R.color.black));
+            lunch_2.setTextColor(ContextCompat.getColor(thisContext, android.R.color.black));
+            lunch_2.setTextColor(ContextCompat.getColor(thisContext, android.R.color.black));
+        } else {
+            cardView.setCardBackgroundColor(ContextCompat.getColor(thisContext, android.R.color.black));
+
+            item_fragment_lunch_linearlayout_1_main.setTextColor(ContextCompat.getColor(thisContext, android.R.color.white));
+            item_fragment_lunch_linearlayout_1_textView.setTextColor(ContextCompat.getColor(thisContext, android.R.color.white));
+
+            lunch_1.setTextColor(ContextCompat.getColor(thisContext, android.R.color.white));
+            lunch_2.setTextColor(ContextCompat.getColor(thisContext, android.R.color.white));
+            lunch_2.setTextColor(ContextCompat.getColor(thisContext, android.R.color.white));
+        }
 
         requestQueue = Volley.newRequestQueue(thisContext);
 
@@ -213,8 +238,6 @@ public class Fragment_Lunch extends Fragment {
 //                Toast.makeText(thisContext, DDISH_NM.get(2), Toast.LENGTH_SHORT).show();
 //            }
 //        });
-
-        cardView = (CardView) view.findViewById(R.id.cardView);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

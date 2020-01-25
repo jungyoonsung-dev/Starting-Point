@@ -79,7 +79,7 @@
             app:navGraph="@navigation/mobile_navigation" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_view"
+            android:id="@+id/nav_view_1"
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,6 +88,17 @@
             app:menu="@menu/bottom_nav_menu_main"
             app:itemIconTint="@color/b_n_m_m_c"
             app:itemTextColor="@color/b_n_m_m_c"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view_2"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            app:menu="@menu/bottom_nav_menu_main"
+            app:itemIconTint="@color/b_n_m_m_c_2"
+            app:itemTextColor="@color/b_n_m_m_c_2"/>
 
     </LinearLayout>
 </LinearLayout>

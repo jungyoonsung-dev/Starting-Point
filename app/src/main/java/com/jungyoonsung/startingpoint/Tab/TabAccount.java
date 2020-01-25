@@ -28,6 +28,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.ads.AdListener;
@@ -36,6 +39,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jungyoonsung.startingpoint.MainActivity;
 import com.jungyoonsung.startingpoint.Notification.Receiver;
 import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
@@ -53,11 +57,25 @@ public class TabAccount extends Fragment {
 
     Context thisContext;
 
+    TextView t_open_source_license, t_information;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tabaccount, container, false);
         thisContext = container.getContext();
+
+        t_open_source_license = (TextView) view.findViewById(R.id.t_open_source_license);
+        t_information = (TextView) view.findViewById(R.id.t_information);
+
+        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+        int position = sharedPreferencesBackground.getInt("Position", 0);
+        if (position < 10) {
+            t_open_source_license.setTextColor(Color.parseColor("#FFFFFF"));
+            t_information.setTextColor(Color.parseColor("#FFFFFF"));
+        } else {
+            t_open_source_license.setTextColor(Color.parseColor("#000000"));
+            t_information.setTextColor(Color.parseColor("#000000"));
+        }
 
         final TimePicker timePicker = (TimePicker) view.findViewById(R.id.timePicker);
 
@@ -229,14 +247,38 @@ public class TabAccount extends Fragment {
                                 TextView textView_school = (TextView) MainActivity.textView_school;
                                 TextView textView_grade_class_number = (TextView) MainActivity.textView_grade_class_number;
 
-                                if (position >= 10) {
+                                BottomNavigationView navView_1 = (BottomNavigationView) MainActivity.navView_1;
+                                BottomNavigationView navView_2 = (BottomNavigationView) MainActivity.navView_2;
+
+                                MainActivity mainActivity = (MainActivity) MainActivity.MainContext;
+
+                                if (position < 10) {
+                                    textView_name.setTextColor(Color.parseColor("#FFFFFF"));
+                                    textView_school.setTextColor(Color.parseColor("#EEEEEE"));
+
+                                    textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+
+                                    navView_1.setVisibility(View.VISIBLE);
+                                    navView_2.setVisibility(View.GONE);
+
+                                    NavController navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
+                                    NavigationUI.setupWithNavController(navView_1, navController);
+
+                                    t_open_source_license.setTextColor(Color.parseColor("#FFFFFF"));
+                                    t_information.setTextColor(Color.parseColor("#FFFFFF"));
+                                } else {
                                     textView_name.setTextColor(Color.parseColor("#000000"));
                                     textView_school.setTextColor(Color.parseColor("#111111"));
                                     textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
-                                } else {
-                                    textView_name.setTextColor(Color.parseColor("#FFFFFF"));
-                                    textView_school.setTextColor(Color.parseColor("#EEEEEE"));
-                                    textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+
+                                    navView_1.setVisibility(View.GONE);
+                                    navView_2.setVisibility(View.VISIBLE);
+
+                                    NavController navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
+                                    NavigationUI.setupWithNavController(navView_2, navController);
+
+                                    t_open_source_license.setTextColor(Color.parseColor("#000000"));
+                                    t_information.setTextColor(Color.parseColor("#000000"));
                                 }
                             }
 
@@ -266,7 +308,6 @@ public class TabAccount extends Fragment {
             }
         });
 
-        TextView t_open_source_license = (TextView) view.findViewById(R.id.t_open_source_license);
         t_open_source_license.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -276,7 +317,6 @@ public class TabAccount extends Fragment {
             }
         });
 
-        TextView t_information = (TextView) view.findViewById(R.id.t_information);
         t_information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

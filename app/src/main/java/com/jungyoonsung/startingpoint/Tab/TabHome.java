@@ -1,44 +1,24 @@
 package com.jungyoonsung.startingpoint.Tab;
 
-import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,11 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Academic_Calendar;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Lunch;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Schedule;
-import com.jungyoonsung.startingpoint.MainActivity;
 import com.jungyoonsung.startingpoint.Notification.Receiver;
 import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
 import com.jungyoonsung.startingpoint.R;
-import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
 
 import java.util.Calendar;
 
@@ -68,7 +46,7 @@ public class TabHome extends Fragment {
     private FirebaseDatabase database;
 
     private ViewPager viewPager;
-    private CircleIndicator circleIndicator;
+    private CircleIndicator circleIndicator_1, circleIndicator_2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -80,7 +58,11 @@ public class TabHome extends Fragment {
         database = FirebaseDatabase.getInstance();
 
         viewPager = view.findViewById(R.id.view_pager);
-        circleIndicator = view.findViewById(R.id.circle);
+        circleIndicator_1 = view.findViewById(R.id.circle_1);
+        circleIndicator_2 = view.findViewById(R.id.circle_2);
+
+        circleIndicator_1.setVisibility(View.VISIBLE);
+        circleIndicator_2.setVisibility(View.GONE);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -96,12 +78,32 @@ public class TabHome extends Fragment {
                                 viewPager.setAdapter(new pagerAdapter(((FragmentActivity)thisContext).getSupportFragmentManager()));
                                 viewPager.setCurrentItem(1);
 
-                                circleIndicator.setViewPager(viewPager);
+                                circleIndicator_1.setViewPager(viewPager);
+
+
+
+
+
+                                SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+                                int position = sharedPreferencesBackground.getInt("Position", 0);
+
+                                if (position < 10) {
+                                    circleIndicator_1.setViewPager(viewPager);
+
+                                    circleIndicator_1.setVisibility(View.VISIBLE);
+                                    circleIndicator_2.setVisibility(View.GONE);
+                                } else {
+                                    circleIndicator_2.setViewPager(viewPager);
+
+                                    circleIndicator_1.setVisibility(View.GONE);
+                                    circleIndicator_2.setVisibility(View.VISIBLE);
+                                }
 
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.setTimeInMillis(System.currentTimeMillis());
 
                                 SharedPreferences sharedPreferences = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE);
+
                                 int i_hour = sharedPreferences.getInt("HOUR", -1);
                                 int i_min = sharedPreferences.getInt("MIN", -1);
 

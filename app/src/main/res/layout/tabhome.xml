@@ -16,10 +16,19 @@
         android:layout_height="0dp"/>
 
     <me.relex.circleindicator.CircleIndicator
-        android:id="@+id/circle"
+        android:id="@+id/circle_1"
         app:ci_height="5dp"
         app:ci_width="5dp"
         app:ci_drawable="@drawable/white_oval"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp" />
+
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/circle_2"
+        app:ci_height="5dp"
+        app:ci_width="5dp"
+        app:ci_drawable="@drawable/black_oval"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp" />

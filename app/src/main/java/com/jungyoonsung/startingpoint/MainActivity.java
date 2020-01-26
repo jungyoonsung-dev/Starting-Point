@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     List<AuthUI.IdpConfig> providers = Arrays.asList(
             new AuthUI.IdpConfig.GoogleBuilder().build()
-//            new AuthUI.IdpConfig.FacebookBuilder().build()
     );
 
     public static LinearLayout activity_main_LinearLayout;
@@ -138,6 +137,16 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (color == 0) {
                                     activity_main_LinearLayout.setBackgroundResource(android.R.color.black);
+
+                                    textView_name.setTextColor(Color.parseColor("#FFFFFF"));
+                                    textView_school.setTextColor(Color.parseColor("#EEEEEE"));
+                                    textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+
+                                    navView_1.setVisibility(View.VISIBLE);
+                                    navView_2.setVisibility(View.GONE);
+
+                                    NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                                    NavigationUI.setupWithNavController(navView_1, navController);
                                 } else if (color != 0) {
                                     activity_main_LinearLayout.setBackgroundColor(color);
 

@@ -21,6 +21,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/tabaccount_cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@android:color/white"
@@ -64,6 +65,10 @@
                                 android:layout_height="wrap_content"/>
 
                             <TimePicker
+                                android:numbersInnerTextColor="@color/white"
+                                android:numbersBackgroundColor="@color/white"
+                                android:numbersSelectorColor="@color/white"
+                                android:numbersTextColor="@color/white"
                                 android:id="@+id/timePicker"
                                 android:timePickerMode="spinner"
                                 android:layout_width="match_parent"

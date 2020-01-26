@@ -27,6 +27,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -57,12 +58,16 @@ public class TabAccount extends Fragment {
 
     Context thisContext;
 
+    CardView tabaccount_cardView;
+
     TextView t_open_source_license, t_information;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tabaccount, container, false);
         thisContext = container.getContext();
+
+        tabaccount_cardView = (CardView) view.findViewById(R.id.tabaccount_cardView);
 
         t_open_source_license = (TextView) view.findViewById(R.id.t_open_source_license);
         t_information = (TextView) view.findViewById(R.id.t_information);
@@ -312,7 +317,9 @@ public class TabAccount extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(thisContext, "CircleIndicator\nhttps://github.com/ongakuer/CircleIndicator\nApache License, Version 2.0", Toast.LENGTH_SHORT).show();
+                Toast.makeText(thisContext,
+                        "CircleIndicator\nhttps://github.com/ongakuer/CircleIndicator\nApache License, Version 2.0\n\n\n" +
+                                "ColorPicker\nhttps://github.com/kristiyanP/colorpicker\nApache License, Version 2.0", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -320,8 +327,7 @@ public class TabAccount extends Fragment {
         t_information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(thisContext,
+                Toast.makeText(thisContext.getApplicationContext(),
                         "학교기본정보\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17020190531110010104913&infSeq=1\n\n\n" +
                                 "급식식단\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17320190722180924242823&infSeq=1\n\n\n" +
                                 "초등학교시간표\n기관 : 나이스 교육정보 개방 포털\nhttps://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN15020190408160341416743&infSeq=1\n\n\n" +

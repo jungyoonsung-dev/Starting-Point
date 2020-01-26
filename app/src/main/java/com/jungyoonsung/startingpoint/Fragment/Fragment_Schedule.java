@@ -3,6 +3,7 @@ package com.jungyoonsung.startingpoint.Fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -166,6 +167,16 @@ public class Fragment_Schedule extends Fragment {
         requestQueue = Volley.newRequestQueue(thisContext);
 
         cardView = (CardView) view.findViewById(R.id.cardView);
+
+        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+        int position = sharedPreferencesBackground.getInt("Position", 0);
+        if (position < 10) {
+            cardView.setCardBackgroundColor(Color.parseColor("#292929"));
+        } else {
+            cardView.setCardBackgroundColor(Color.parseColor("#000000"));
+        }
+
+
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1125,45 +1136,92 @@ public class Fragment_Schedule extends Fragment {
         t_7.setText("");
         t_8.setText("");
 
+        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+        int position = sharedPreferencesBackground.getInt("Position", 0);
+
         if (period.size() == 0) {
 
-            t_1.setBackgroundResource(R.color.color1);
-            t_2.setBackgroundResource(R.color.color1);
-            t_3.setBackgroundResource(R.color.color1);
-            t_4.setBackgroundResource(R.color.color1);
-            t_5.setBackgroundResource(R.color.color1);
-            t_6.setBackgroundResource(R.color.color1);
-            t_7.setBackgroundResource(R.color.color1);
-            t_8.setBackgroundResource(R.color.color1);
+            if (position < 10) {
+                t_1.setBackgroundResource(R.color.color1);
+                t_2.setBackgroundResource(R.color.color1);
+                t_3.setBackgroundResource(R.color.color1);
+                t_4.setBackgroundResource(R.color.color1);
+                t_5.setBackgroundResource(R.color.color1);
+                t_6.setBackgroundResource(R.color.color1);
+                t_7.setBackgroundResource(R.color.color1);
+                t_8.setBackgroundResource(R.color.color1);
+            } else {
+                t_1.setBackgroundColor(Color.parseColor("#000000"));
+                t_2.setBackgroundColor(Color.parseColor("#000000"));
+                t_3.setBackgroundColor(Color.parseColor("#000000"));
+                t_4.setBackgroundColor(Color.parseColor("#000000"));
+                t_5.setBackgroundColor(Color.parseColor("#000000"));
+                t_6.setBackgroundColor(Color.parseColor("#000000"));
+                t_7.setBackgroundColor(Color.parseColor("#000000"));
+                t_8.setBackgroundColor(Color.parseColor("#000000"));
+            }
 
         } else if (period.size() == 1) {
+
+            if (position < 10) {
+                t_2.setBackgroundResource(R.color.color1);
+                t_3.setBackgroundResource(R.color.color1);
+                t_4.setBackgroundResource(R.color.color1);
+                t_5.setBackgroundResource(R.color.color1);
+                t_6.setBackgroundResource(R.color.color1);
+                t_7.setBackgroundResource(R.color.color1);
+                t_8.setBackgroundResource(R.color.color1);
+            } else {
+                t_2.setBackgroundColor(Color.parseColor("#000000"));
+                t_3.setBackgroundColor(Color.parseColor("#000000"));
+                t_4.setBackgroundColor(Color.parseColor("#000000"));
+                t_5.setBackgroundColor(Color.parseColor("#000000"));
+                t_6.setBackgroundColor(Color.parseColor("#000000"));
+                t_7.setBackgroundColor(Color.parseColor("#000000"));
+                t_8.setBackgroundColor(Color.parseColor("#000000"));
+            }
 
             t_1.setText(period.get(0));
             t_1.setBackgroundResource(R.color.colorPrimary);
 
-            t_2.setBackgroundResource(R.color.color1);
-            t_3.setBackgroundResource(R.color.color1);
-            t_4.setBackgroundResource(R.color.color1);
-            t_5.setBackgroundResource(R.color.color1);
-            t_6.setBackgroundResource(R.color.color1);
-            t_7.setBackgroundResource(R.color.color1);
-            t_8.setBackgroundResource(R.color.color1);
-
         } else if (period.size() == 2) {
+
+            if (position < 10) {
+                t_3.setBackgroundResource(R.color.color1);
+                t_4.setBackgroundResource(R.color.color1);
+                t_5.setBackgroundResource(R.color.color1);
+                t_6.setBackgroundResource(R.color.color1);
+                t_7.setBackgroundResource(R.color.color1);
+                t_8.setBackgroundResource(R.color.color1);
+            } else {
+                t_3.setBackgroundColor(Color.parseColor("#000000"));
+                t_4.setBackgroundColor(Color.parseColor("#000000"));
+                t_5.setBackgroundColor(Color.parseColor("#000000"));
+                t_6.setBackgroundColor(Color.parseColor("#000000"));
+                t_7.setBackgroundColor(Color.parseColor("#000000"));
+                t_8.setBackgroundColor(Color.parseColor("#000000"));
+            }
 
             t_1.setText(period.get(0));
             t_2.setText(period.get(1));
             t_1.setBackgroundResource(R.color.colorPrimary);
             t_2.setBackgroundResource(R.color.colorPrimary);
 
-            t_3.setBackgroundResource(R.color.color1);
-            t_4.setBackgroundResource(R.color.color1);
-            t_5.setBackgroundResource(R.color.color1);
-            t_6.setBackgroundResource(R.color.color1);
-            t_7.setBackgroundResource(R.color.color1);
-            t_8.setBackgroundResource(R.color.color1);
-
         } else if (period.size() == 3) {
+
+            if (position < 10) {
+                t_4.setBackgroundResource(R.color.color1);
+                t_5.setBackgroundResource(R.color.color1);
+                t_6.setBackgroundResource(R.color.color1);
+                t_7.setBackgroundResource(R.color.color1);
+                t_8.setBackgroundResource(R.color.color1);
+            } else {
+                t_4.setBackgroundColor(Color.parseColor("#000000"));
+                t_5.setBackgroundColor(Color.parseColor("#000000"));
+                t_6.setBackgroundColor(Color.parseColor("#000000"));
+                t_7.setBackgroundColor(Color.parseColor("#000000"));
+                t_8.setBackgroundColor(Color.parseColor("#000000"));
+            }
 
             t_1.setText(period.get(0));
             t_2.setText(period.get(1));
@@ -1172,13 +1230,19 @@ public class Fragment_Schedule extends Fragment {
             t_2.setBackgroundResource(R.color.colorPrimary);
             t_3.setBackgroundResource(R.color.colorPrimary);
 
-            t_4.setBackgroundResource(R.color.color1);
-            t_5.setBackgroundResource(R.color.color1);
-            t_6.setBackgroundResource(R.color.color1);
-            t_7.setBackgroundResource(R.color.color1);
-            t_8.setBackgroundResource(R.color.color1);
-
         } else if (period.size() == 4) {
+
+            if (position < 10) {
+                t_5.setBackgroundResource(R.color.color1);
+                t_6.setBackgroundResource(R.color.color1);
+                t_7.setBackgroundResource(R.color.color1);
+                t_8.setBackgroundResource(R.color.color1);
+            } else {
+                t_5.setBackgroundColor(Color.parseColor("#000000"));
+                t_6.setBackgroundColor(Color.parseColor("#000000"));
+                t_7.setBackgroundColor(Color.parseColor("#000000"));
+                t_8.setBackgroundColor(Color.parseColor("#000000"));
+            }
 
             t_1.setText(period.get(0));
             t_2.setText(period.get(1));
@@ -1189,12 +1253,17 @@ public class Fragment_Schedule extends Fragment {
             t_3.setBackgroundResource(R.color.colorPrimary);
             t_4.setBackgroundResource(R.color.colorPrimary);
 
-            t_5.setBackgroundResource(R.color.color1);
-            t_6.setBackgroundResource(R.color.color1);
-            t_7.setBackgroundResource(R.color.color1);
-            t_8.setBackgroundResource(R.color.color1);
-
         } else if (period.size() == 5) {
+
+            if (position < 10) {
+                t_6.setBackgroundResource(R.color.color1);
+                t_7.setBackgroundResource(R.color.color1);
+                t_8.setBackgroundResource(R.color.color1);
+            } else {
+                t_6.setBackgroundColor(Color.parseColor("#000000"));
+                t_7.setBackgroundColor(Color.parseColor("#000000"));
+                t_8.setBackgroundColor(Color.parseColor("#000000"));
+            }
 
             t_1.setText(period.get(0));
             t_2.setText(period.get(1));
@@ -1207,11 +1276,15 @@ public class Fragment_Schedule extends Fragment {
             t_4.setBackgroundResource(R.color.colorPrimary);
             t_5.setBackgroundResource(R.color.colorPrimary);
 
-            t_6.setBackgroundResource(R.color.color1);
-            t_7.setBackgroundResource(R.color.color1);
-            t_8.setBackgroundResource(R.color.color1);
-
         } else if (period.size() == 6) {
+
+            if (position < 10) {
+                t_7.setBackgroundResource(R.color.color1);
+                t_8.setBackgroundResource(R.color.color1);
+            } else {
+                t_7.setBackgroundColor(Color.parseColor("#000000"));
+                t_8.setBackgroundColor(Color.parseColor("#000000"));
+            }
 
             t_1.setText(period.get(0));
             t_2.setText(period.get(1));
@@ -1226,10 +1299,13 @@ public class Fragment_Schedule extends Fragment {
             t_5.setBackgroundResource(R.color.colorPrimary);
             t_6.setBackgroundResource(R.color.colorPrimary);
 
-            t_7.setBackgroundResource(R.color.color1);
-            t_8.setBackgroundResource(R.color.color1);
-
         } else if (period.size() == 7) {
+
+            if (position < 10) {
+                t_8.setBackgroundResource(R.color.color1);
+            } else {
+                t_8.setBackgroundColor(Color.parseColor("#000000"));
+            }
 
             t_1.setText(period.get(0));
             t_2.setText(period.get(1));
@@ -1245,8 +1321,6 @@ public class Fragment_Schedule extends Fragment {
             t_5.setBackgroundResource(R.color.colorPrimary);
             t_6.setBackgroundResource(R.color.colorPrimary);
             t_7.setBackgroundResource(R.color.colorPrimary);
-
-            t_8.setBackgroundResource(R.color.color1);
 
         } else if (period.size() == 8) {
 

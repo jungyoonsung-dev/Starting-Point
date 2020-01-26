@@ -11,7 +11,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@android:color/white"
+        app:cardBackgroundColor="#292929"
         app:cardCornerRadius="19dp"
         app:cardUseCompatPadding="true">
 
@@ -40,8 +40,7 @@
                         android:gravity="center"
                         android:text="월"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#FFFFFF"
-                        android:background="#292929"/>
+                        android:textColor="#FFFFFF"/>
 
                     <TextView
                         android:padding="5dp"
@@ -51,8 +50,7 @@
                         android:gravity="center"
                         android:text="화"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#FFFFFF"
-                        android:background="#292929"/>
+                        android:textColor="#FFFFFF"/>
 
                     <TextView
                         android:padding="5dp"
@@ -62,8 +60,7 @@
                         android:gravity="center"
                         android:text="수"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#FFFFFF"
-                        android:background="#292929"/>
+                        android:textColor="#FFFFFF"/>
 
                     <TextView
                         android:padding="5dp"
@@ -73,8 +70,7 @@
                         android:gravity="center"
                         android:text="목"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#FFFFFF"
-                        android:background="#292929"/>
+                        android:textColor="#FFFFFF"/>
 
                     <TextView
                         android:padding="5dp"
@@ -84,14 +80,12 @@
                         android:gravity="center"
                         android:text="금"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="#FFFFFF"
-                        android:background="#292929"/>
+                        android:textColor="#FFFFFF"/>
 
                 </TableRow>
 
                 <TableRow
                     android:id="@+id/tableRow_1"
-                    android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
@@ -100,7 +94,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_1_1"
-                        android:layout_margin="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -114,7 +108,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_2_1"
-                        android:layout_margin="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -128,7 +122,6 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_3_1"
-                        android:layout_margin="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -142,7 +135,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_4_1"
-                        android:layout_margin="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -156,7 +149,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_5_1"
-                        android:layout_margin="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -171,7 +164,6 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow_2"
-                    android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
@@ -180,7 +172,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_1_2"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -194,7 +187,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_2_2"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -208,7 +202,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_3_2"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -222,7 +216,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_4_2"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -236,7 +231,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_5_2"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -251,7 +247,6 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow_3"
-                    android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
@@ -260,7 +255,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_1_3"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -274,7 +270,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_2_3"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -288,7 +285,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_3_3"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -302,7 +299,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_4_3"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -316,7 +314,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_5_3"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -330,7 +329,6 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow_4"
-                    android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
@@ -339,7 +337,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_1_4"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -353,7 +352,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_2_4"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -367,7 +367,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_3_4"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -381,7 +381,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_4_4"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -395,7 +396,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_5_4"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -409,7 +411,6 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow_5"
-                    android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
@@ -418,7 +419,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_1_5"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -432,7 +434,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_2_5"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -446,7 +449,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_3_5"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -460,7 +463,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_4_5"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -474,7 +478,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_5_5"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -489,7 +494,6 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow_6"
-                    android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
@@ -498,7 +502,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_1_6"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -512,7 +517,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_2_6"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -526,7 +532,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_3_6"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -540,7 +546,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_4_6"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -554,7 +561,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_5_6"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -568,7 +576,6 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow_7"
-                    android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
@@ -579,7 +586,8 @@
                         android:id="@+id/textView_1_7"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:background="@android:color/white"
                         android:gravity="center"
@@ -591,7 +599,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_2_7"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -605,7 +614,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_3_7"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -619,7 +628,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_4_7"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -633,7 +643,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_5_7"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -647,7 +658,6 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow_8"
-                    android:background="#292929"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
@@ -658,7 +668,8 @@
                         android:id="@+id/textView_1_8"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:background="@android:color/white"
                         android:gravity="center"
@@ -672,7 +683,8 @@
                         android:id="@+id/textView_2_8"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
                         android:layout_weight="1"
                         android:background="@android:color/white"
                         android:gravity="center"
@@ -684,7 +696,7 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_3_8"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -698,7 +710,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_4_8"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"
@@ -712,7 +725,8 @@
                     <TextView
                         android:maxLength="5"
                         android:id="@+id/textView_5_8"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginLeft="1dp"
                         android:background="@android:color/white"
                         android:padding="5dp"
                         android:layout_weight="1"

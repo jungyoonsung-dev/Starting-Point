@@ -4,15 +4,22 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -45,6 +52,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -922,6 +932,254 @@ public class Fragment_Schedule extends Fragment {
                     }
                 });
 
+            }
+        });
+
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                Dialog dialog = new Dialog(thisContext);
+                dialog.setContentView(R.layout.dialog_download);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                TextView image = (TextView) dialog.findViewById(R.id.image);
+                final TextView pdf = (TextView) dialog.findViewById(R.id.pdf);
+
+                database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+
+                        String startDate, endDate;
+
+                        Calendar calendar = GregorianCalendar.getInstance();
+                        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+                        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+                        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+
+                        startDate = dateFormat.format(calendar.getTime());
+                        monday = dateFormat.format(calendar.getTime());
+
+                        calendar.add(Calendar.DAY_OF_WEEK, 1);
+                        tuesday = dateFormat.format(calendar.getTime());
+
+                        calendar.add(Calendar.DAY_OF_WEEK, 1);
+                        wednesday = dateFormat.format(calendar.getTime());
+
+                        calendar.add(Calendar.DAY_OF_WEEK, 1);
+                        thursday = dateFormat.format(calendar.getTime());
+
+                        calendar.add(Calendar.DAY_OF_WEEK, 1);
+                        endDate = dateFormat.format(calendar.getTime());
+                        friday = dateFormat.format(calendar.getTime());
+
+                        String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
+                        String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+                        String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+                        String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+
+                        final String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
+
+                        String url = null;
+
+                        if (SCHUL_KND_SC_NM.equals("초등학교")) {
+                            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=fe77fbc542fa4baa9b8c39659d7f5f33&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                        } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+                            url = "https://open.neis.go.kr/hub/misTimetable?KEY=fe77fbc542fa4baa9b8c39659d7f5f33&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                        } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+                            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=fe77fbc542fa4baa9b8c39659d7f5f33&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                        }
+
+                        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+
+                                        if (SCHUL_KND_SC_NM.equals("초등학교")) {
+                                            try {
+                                                JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
+                                                JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                                JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                                for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                                    JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                                    String date = response3.getString("ALL_TI_YMD");
+                                                    String perio = response3.getString("PERIO");
+                                                    String period = response3.getString("ITRT_CNTNT");
+
+                                                    c_4(date, perio, period);
+                                                }
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+                                            try {
+                                                JSONArray jsonArrayInfo = response.getJSONArray("misTimetable");
+                                                JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                                JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                                for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                                    JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                                    String date = response3.getString("ALL_TI_YMD");
+                                                    String perio = response3.getString("PERIO");
+                                                    String period = response3.getString("ITRT_CNTNT");
+
+                                                    period = period.replaceFirst("-", "");
+
+                                                    c_4(date, perio, period);
+                                                }
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+                                            try {
+                                                JSONArray jsonArrayInfo = response.getJSONArray("hisTimetable");
+                                                JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                                JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                                for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                                    JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                                    String date = response3.getString("ALL_TI_YMD");
+                                                    String perio = response3.getString("PERIO");
+                                                    String period = response3.getString("ITRT_CNTNT");
+
+                                                    c_4(date, perio, period);
+                                                }
+
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                            }
+                        });
+
+                        requestQueue.add(request);
+                        final RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
+                            @Override
+                            public void onRequestFinished(final Request request) {
+                                pdf.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        String monday = null;
+                                        String tuesday = null;
+                                        String wednesday = null;
+                                        String thursday = null;
+                                        String friday = null;
+
+                                        for (int i = 0; i < period_monday.size(); i++) {
+                                            int count = i + 1;
+
+                                            if (count == 1) {
+                                                monday =  period_monday.get(i) + ", ";
+                                            } else if (!(count == period_monday.size())) {
+                                                monday = monday + period_monday.get(i) + ", ";
+                                            } else {
+                                                monday = monday + period_monday.get(i);
+                                            }
+                                        }
+                                        for (int i = 0; i < period_tuesday.size(); i++) {
+                                            int count = i + 1;
+
+                                            if (count == 1) {
+                                                tuesday =  period_tuesday.get(i) + ", ";
+                                            } else if (!(count == period_tuesday.size())) {
+                                                tuesday = tuesday + period_tuesday.get(i) + ", ";
+                                            } else {
+                                                tuesday = tuesday + period_tuesday.get(i);
+                                            }
+                                        }
+                                        for (int i = 0; i < period_wednesday.size(); i++) {
+                                            int count = i + 1;
+
+                                            if (count == 1) {
+                                                wednesday =  period_wednesday.get(i) + ", ";
+                                            } else if (!(count == period_wednesday.size())) {
+                                                wednesday = wednesday + period_wednesday.get(i) + ", ";
+                                            } else {
+                                                wednesday = wednesday + period_wednesday.get(i);
+                                            }
+                                        }
+                                        for (int i = 0; i < period_thursday.size(); i++) {
+                                            int count = i + 1;
+
+                                            if (count == 1) {
+                                                thursday =  period_thursday.get(i) + ", ";
+                                            } else if (!(count == period_thursday.size())) {
+                                                thursday = thursday + period_thursday.get(i) + ", ";
+                                            } else {
+                                                thursday = thursday + period_thursday.get(i);
+                                            }
+                                        }
+                                        for (int i = 0; i < period_friday.size(); i++) {
+                                            int count = i + 1;
+
+                                            if (count == 1) {
+                                                friday =  period_friday.get(i) + ", ";
+                                            } else if (!(count == period_friday.size())) {
+                                                friday = friday + period_friday.get(i) + ", ";
+                                            } else {
+                                                friday = friday + period_friday.get(i);
+                                            }
+                                        }
+
+                                        PdfDocument document = new PdfDocument();
+                                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(2100, 2970, 1).create();
+                                        PdfDocument.Page page = document.startPage(pageInfo);
+
+                                        Paint paint = new Paint();
+                                        paint.setColor(Color.BLACK);
+                                        paint.setTextSize(50);
+
+                                        Canvas canvas = page.getCanvas();
+                                        canvas.drawText("월요일 : " + monday, 200, 500, paint);
+                                        canvas.drawText("화요일 : " + tuesday, 200, 1000, paint);
+                                        canvas.drawText("수요일 : " + wednesday, 200, 1500, paint);
+                                        canvas.drawText("목요일 : " + thursday, 200, 2000, paint);
+                                        canvas.drawText("금요일 : " + friday, 200, 2500, paint);
+
+                                        document.finishPage(page);
+
+                                        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/Download/";
+                                        File file = new File(directory_path);
+                                        if (!file.exists()) {
+                                            file.mkdirs();
+                                        }
+                                        String targetPdf = directory_path+"test-2.pdf";
+                                        File filePath = new File(targetPdf);
+                                        try {
+                                            document.writeTo(new FileOutputStream(filePath));
+                                            Toast.makeText(thisContext, "Done", Toast.LENGTH_LONG).show();
+                                        } catch (IOException e) {
+                                        }
+                                        // close the document
+                                        document.close();
+                                    }
+                                });
+                            }
+                        };
+
+                        requestQueue.addRequestFinishedListener(listener);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+                return true;
             }
         });
 

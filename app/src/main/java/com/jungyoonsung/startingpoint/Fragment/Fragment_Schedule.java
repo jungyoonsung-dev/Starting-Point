@@ -3,24 +3,22 @@ package com.jungyoonsung.startingpoint.Fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.CalendarView;
-import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,17 +48,16 @@ import com.jungyoonsung.startingpoint.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
@@ -163,6 +160,8 @@ public class Fragment_Schedule extends Fragment {
             textView_5_8;
 
     int count;
+
+    String s_image_pdf_school, s_image_pdf_grade, s_image_pdf_class, s_image_pdf_number, s_image_pdf_name;
 
     @Nullable
     @Override
@@ -939,12 +938,12 @@ public class Fragment_Schedule extends Fragment {
             @Override
             public boolean onLongClick(View v) {
 
-                Dialog dialog = new Dialog(thisContext);
+                final Dialog dialog = new Dialog(thisContext);
                 dialog.setContentView(R.layout.dialog_download);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
-                TextView image = (TextView) dialog.findViewById(R.id.image);
+                final TextView image = (TextView) dialog.findViewById(R.id.image);
                 final TextView pdf = (TextView) dialog.findViewById(R.id.pdf);
 
                 database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -958,8 +957,14 @@ public class Fragment_Schedule extends Fragment {
                         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
                         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
 
+                        DateFormat dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+                        DateFormat dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
+
+                        final String s_d_s, s_d_f;
+
                         startDate = dateFormat.format(calendar.getTime());
                         monday = dateFormat.format(calendar.getTime());
+                        s_d_s = dateFormat_s.format(calendar.getTime());
 
                         calendar.add(Calendar.DAY_OF_WEEK, 1);
                         tuesday = dateFormat.format(calendar.getTime());
@@ -973,13 +978,24 @@ public class Fragment_Schedule extends Fragment {
                         calendar.add(Calendar.DAY_OF_WEEK, 1);
                         endDate = dateFormat.format(calendar.getTime());
                         friday = dateFormat.format(calendar.getTime());
+                        s_d_f = dateFormat_f.format(calendar.getTime());
 
                         String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
                         String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+
+                        String s_school = String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue());
                         String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
                         String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+                        String s_number = String.valueOf(dataSnapshot.child("s_8_number").getValue());
+                        String s_name = String.valueOf(auth.getCurrentUser().getDisplayName());
 
                         final String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
+
+                        s_image_pdf_school = s_school;
+                        s_image_pdf_grade = s_grade;
+                        s_image_pdf_class = s_class;
+                        s_image_pdf_number = s_number;
+                        s_image_pdf_name = s_name;
 
                         String url = null;
 
@@ -1065,74 +1081,159 @@ public class Fragment_Schedule extends Fragment {
                         final RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
                             @Override
                             public void onRequestFinished(final Request request) {
+
+                                String monday = null;
+                                String tuesday = null;
+                                String wednesday = null;
+                                String thursday = null;
+                                String friday = null;
+
+                                for (int i = 0; i < period_monday.size(); i++) {
+                                    int count = i + 1;
+
+                                    if (count == 1) {
+                                        monday =  period_monday.get(i) + ", ";
+                                    } else if (!(count == period_monday.size())) {
+                                        monday = monday + period_monday.get(i) + ", ";
+                                    } else {
+                                        monday = monday + period_monday.get(i);
+                                    }
+                                }
+                                for (int i = 0; i < period_tuesday.size(); i++) {
+                                    int count = i + 1;
+
+                                    if (count == 1) {
+                                        tuesday =  period_tuesday.get(i) + ", ";
+                                    } else if (!(count == period_tuesday.size())) {
+                                        tuesday = tuesday + period_tuesday.get(i) + ", ";
+                                    } else {
+                                        tuesday = tuesday + period_tuesday.get(i);
+                                    }
+                                }
+                                for (int i = 0; i < period_wednesday.size(); i++) {
+                                    int count = i + 1;
+
+                                    if (count == 1) {
+                                        wednesday =  period_wednesday.get(i) + ", ";
+                                    } else if (!(count == period_wednesday.size())) {
+                                        wednesday = wednesday + period_wednesday.get(i) + ", ";
+                                    } else {
+                                        wednesday = wednesday + period_wednesday.get(i);
+                                    }
+                                }
+                                for (int i = 0; i < period_thursday.size(); i++) {
+                                    int count = i + 1;
+
+                                    if (count == 1) {
+                                        thursday =  period_thursday.get(i) + ", ";
+                                    } else if (!(count == period_thursday.size())) {
+                                        thursday = thursday + period_thursday.get(i) + ", ";
+                                    } else {
+                                        thursday = thursday + period_thursday.get(i);
+                                    }
+                                }
+                                for (int i = 0; i < period_friday.size(); i++) {
+                                    int count = i + 1;
+
+                                    if (count == 1) {
+                                        friday =  period_friday.get(i) + ", ";
+                                    } else if (!(count == period_friday.size())) {
+                                        friday = friday + period_friday.get(i) + ", ";
+                                    } else {
+                                        friday = friday + period_friday.get(i);
+                                    }
+                                }
+
+                                final String finalMonday = monday;
+                                final String finalTuesday = tuesday;
+                                final String finalWednesday = wednesday;
+                                final String finalThursday = thursday;
+                                final String finalFriday = friday;
+
+                                if (s_image_pdf_class.length() == 1) {
+                                    s_image_pdf_class = "0" + s_image_pdf_class;
+                                }
+                                if (s_image_pdf_number.length() == 1) {
+                                    s_image_pdf_number = "0" + s_image_pdf_number;
+                                }
+                                final String info = s_image_pdf_school + " • " + s_image_pdf_grade + s_image_pdf_class + s_image_pdf_number;
+
+                                image.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Paint paint = new Paint();
+                                        paint.setColor(Color.BLACK);
+                                        paint.setTextSize(50);
+
+                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,null);
+                                        Canvas canvas = new Canvas(bitmap);
+
+                                        canvas.drawColor(Color.WHITE);
+
+                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                                        paint.setColor(Color.BLACK);
+                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
+
+                                        paint.setColor(Color.DKGRAY);
+                                        canvas.drawText(info, 100, 218, paint);
+
+                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                                        paint.setColor(Color.BLACK);
+                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
+                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
+                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
+                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
+                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
+
+                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
+
+                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
+
+
+                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/Image/";
+                                        File file = new File(path);
+                                        if (!file.exists()) {
+                                            file.mkdirs();
+                                        }
+                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png";
+
+                                        File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png");
+
+                                        OutputStream outputStream = null;
+
+                                        try {
+                                            outputStream = new FileOutputStream(resultFile);
+                                        } catch (FileNotFoundException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                                        dialog.dismiss();
+                                        Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
+
+                                        try {
+                                            outputStream.flush();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            outputStream.close();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                                        intent.setData(Uri.fromFile(resultFile));
+                                        thisContext.sendBroadcast(intent);
+                                    }
+                                });
+
                                 pdf.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-
-                                        String monday = null;
-                                        String tuesday = null;
-                                        String wednesday = null;
-                                        String thursday = null;
-                                        String friday = null;
-
-                                        for (int i = 0; i < period_monday.size(); i++) {
-                                            int count = i + 1;
-
-                                            if (count == 1) {
-                                                monday =  period_monday.get(i) + ", ";
-                                            } else if (!(count == period_monday.size())) {
-                                                monday = monday + period_monday.get(i) + ", ";
-                                            } else {
-                                                monday = monday + period_monday.get(i);
-                                            }
-                                        }
-                                        for (int i = 0; i < period_tuesday.size(); i++) {
-                                            int count = i + 1;
-
-                                            if (count == 1) {
-                                                tuesday =  period_tuesday.get(i) + ", ";
-                                            } else if (!(count == period_tuesday.size())) {
-                                                tuesday = tuesday + period_tuesday.get(i) + ", ";
-                                            } else {
-                                                tuesday = tuesday + period_tuesday.get(i);
-                                            }
-                                        }
-                                        for (int i = 0; i < period_wednesday.size(); i++) {
-                                            int count = i + 1;
-
-                                            if (count == 1) {
-                                                wednesday =  period_wednesday.get(i) + ", ";
-                                            } else if (!(count == period_wednesday.size())) {
-                                                wednesday = wednesday + period_wednesday.get(i) + ", ";
-                                            } else {
-                                                wednesday = wednesday + period_wednesday.get(i);
-                                            }
-                                        }
-                                        for (int i = 0; i < period_thursday.size(); i++) {
-                                            int count = i + 1;
-
-                                            if (count == 1) {
-                                                thursday =  period_thursday.get(i) + ", ";
-                                            } else if (!(count == period_thursday.size())) {
-                                                thursday = thursday + period_thursday.get(i) + ", ";
-                                            } else {
-                                                thursday = thursday + period_thursday.get(i);
-                                            }
-                                        }
-                                        for (int i = 0; i < period_friday.size(); i++) {
-                                            int count = i + 1;
-
-                                            if (count == 1) {
-                                                friday =  period_friday.get(i) + ", ";
-                                            } else if (!(count == period_friday.size())) {
-                                                friday = friday + period_friday.get(i) + ", ";
-                                            } else {
-                                                friday = friday + period_friday.get(i);
-                                            }
-                                        }
-
                                         PdfDocument document = new PdfDocument();
-                                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(2100, 2970, 1).create();
+                                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(2000, 1700, 1).create();
                                         PdfDocument.Page page = document.startPage(pageInfo);
 
                                         Paint paint = new Paint();
@@ -1140,27 +1241,49 @@ public class Fragment_Schedule extends Fragment {
                                         paint.setTextSize(50);
 
                                         Canvas canvas = page.getCanvas();
-                                        canvas.drawText("월요일 : " + monday, 200, 500, paint);
-                                        canvas.drawText("화요일 : " + tuesday, 200, 1000, paint);
-                                        canvas.drawText("수요일 : " + wednesday, 200, 1500, paint);
-                                        canvas.drawText("목요일 : " + thursday, 200, 2000, paint);
-                                        canvas.drawText("금요일 : " + friday, 200, 2500, paint);
 
+                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                                        paint.setColor(Color.BLACK);
+                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
+
+                                        paint.setColor(Color.DKGRAY);
+                                        canvas.drawText(info, 100, 218, paint);
+
+                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                                        paint.setColor(Color.BLACK);
+                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
+                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
+                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
+                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
+                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
+
+                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
+
+                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
                                         document.finishPage(page);
 
-                                        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/Download/";
-                                        File file = new File(directory_path);
+
+                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/PDF/";
+                                        File file = new File(path);
                                         if (!file.exists()) {
                                             file.mkdirs();
                                         }
-                                        String targetPdf = directory_path+"test-2.pdf";
-                                        File filePath = new File(targetPdf);
+                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf";
+                                        File filePath = new File(resultPath);
                                         try {
                                             document.writeTo(new FileOutputStream(filePath));
-                                            Toast.makeText(thisContext, "Done", Toast.LENGTH_LONG).show();
+                                            dialog.dismiss();
+
+                                            File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf");
+
+                                            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                                            intent.setData(Uri.fromFile(resultFile));
+                                            thisContext.sendBroadcast(intent);
+
+                                            Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
                                         } catch (IOException e) {
                                         }
-                                        // close the document
                                         document.close();
                                     }
                                 });

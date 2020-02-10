@@ -23,7 +23,7 @@
             <TextView
                 android:id="@+id/image"
                 android:paddingTop="30dp"
-                android:paddingBottom="30dp"
+                android:paddingBottom="15dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
                 android:drawableStart="@drawable/ic_image_black_24dp"
@@ -34,9 +34,40 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:id="@+id/image_share"
+                android:paddingTop="15dp"
+                android:paddingBottom="30dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:drawableStart="@drawable/ic_share_black_24dp"
+                android:text="   이미지 ( 공유 )"
+                android:textColor="#000000"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="19dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/pdf"
                 android:paddingTop="30dp"
-                android:paddingBottom="30dp"
+                android:paddingBottom="15dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
                 android:drawableStart="@drawable/ic_picture_as_pdf_black_24dp"
@@ -46,7 +77,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/pdf_share"
+                android:paddingTop="15dp"
+                android:paddingBottom="30dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:drawableStart="@drawable/ic_share_black_24dp"
+                android:text="   PDF ( 공유 )"
+                android:textColor="#000000"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

@@ -37,6 +37,18 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_admob_id" />
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.jungyoonsung.startingpoint.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!-- ressource file to create -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/path">
+            </meta-data>
+        </provider>
+
     </application>
 
 </manifest>

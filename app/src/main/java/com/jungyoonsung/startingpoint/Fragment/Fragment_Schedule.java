@@ -1169,7 +1169,7 @@ public class Fragment_Schedule extends Fragment {
                                         paint.setColor(Color.BLACK);
                                         paint.setTextSize(50);
 
-                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,null);
+                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,Bitmap.Config.ARGB_8888);
                                         Canvas canvas = new Canvas(bitmap);
 
                                         canvas.drawColor(Color.BLACK);
@@ -1308,7 +1308,7 @@ public class Fragment_Schedule extends Fragment {
                                         paint.setColor(Color.BLACK);
                                         paint.setTextSize(50);
 
-                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,null);
+                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,Bitmap.Config.ARGB_8888);
                                         Canvas canvas = new Canvas(bitmap);
 
                                         canvas.drawColor(Color.BLACK);

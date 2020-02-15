@@ -32,7 +32,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".Notification.Schedule_Lunch_Receiver" />
+        <receiver android:name=".Notification.Schedule_Lunch_Academic_Calendar_Receiver" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_admob_id" />

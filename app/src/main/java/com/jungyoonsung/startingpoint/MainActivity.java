@@ -3,10 +3,13 @@ package com.jungyoonsung.startingpoint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -20,7 +23,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,7 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jungyoonsung.startingpoint.Notification.Receiver;
-import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
+import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Academic_Calendar_Receiver;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
 
 import java.util.Arrays;
@@ -94,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             } else {
 
+                                int permissionCheckWRITE = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                                if (!(permissionCheckWRITE == PackageManager.PERMISSION_GRANTED)) {
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                                }
+
                                 textView_name.setText(auth.getCurrentUser().getDisplayName());
                                 textView_school.setText(String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + "   ");
 
@@ -118,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                                 SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
                                 String f_lunch = sharedPreferences.getString("CLunch", "");
                                 String f_schedule = sharedPreferences.getString("CSchedule", "");
+                                String f_academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
 
                                 if (TextUtils.isEmpty(f_lunch)) {
                                     SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
@@ -128,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
                                 if (TextUtils.isEmpty(f_schedule)) {
                                     SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
                                     editor.putString("CSchedule", "true");
+                                    editor.apply();
+                                }
+
+                                if (TextUtils.isEmpty(f_academic_calendar)) {
+                                    SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                                    editor.putString("CAcademic_Calendar", "true");
                                     editor.apply();
                                 }
 
@@ -240,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
         PackageManager pm = this.getPackageManager();
         ComponentName receiver = new ComponentName(this, Receiver.class);
-        Intent alarmIntent = new Intent(this, Schedule_Lunch_Receiver.class);
+        Intent alarmIntent = new Intent(this, Schedule_Lunch_Academic_Calendar_Receiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
@@ -265,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
                 editor.putString("CLunch", "true");
                 editor.putString("CSchedule", "true");
+                editor.putString("CAcademic_Calendar", "true");
                 editor.apply();
             }
         }

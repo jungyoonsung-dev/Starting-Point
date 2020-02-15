@@ -2,7 +2,6 @@ package com.jungyoonsung.startingpoint.Tab;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,16 +9,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,20 +29,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jungyoonsung.startingpoint.MainActivity;
 import com.jungyoonsung.startingpoint.Notification.Receiver;
-import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
+import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Academic_Calendar_Receiver;
 import com.jungyoonsung.startingpoint.R;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -127,14 +116,16 @@ public class TabAccount extends Fragment {
             }
         });
 
-        final CheckBox c_l_n, c_s_n;
+        final CheckBox c_l_n, c_s_n, c_a_c_n;
 
         c_l_n = (CheckBox) view.findViewById(R.id.c_l_n);
         c_s_n = (CheckBox) view.findViewById(R.id.c_s_n);
+        c_a_c_n = (CheckBox) view.findViewById(R.id.c_a_c_n);
 
         SharedPreferences sharedPreferences = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE);
         String f_lunch = sharedPreferences.getString("CLunch", "");
         String f_schedule = sharedPreferences.getString("CSchedule", "");
+        String f_academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
 
         if (TextUtils.isEmpty(f_lunch)) {
             SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
@@ -148,8 +139,15 @@ public class TabAccount extends Fragment {
             editor.apply();
         }
 
+        if (TextUtils.isEmpty(f_academic_calendar)) {
+            SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
+            editor.putString("CAcademic_Calendar", "true");
+            editor.apply();
+        }
+
         String lunch = sharedPreferences.getString("CLunch", "");
         String schedule = sharedPreferences.getString("CSchedule", "");
+        String academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
 
         if (lunch.equals("true")) {
             c_l_n.setChecked(true);
@@ -161,6 +159,12 @@ public class TabAccount extends Fragment {
             c_s_n.setChecked(true);
         } else {
             c_s_n.setChecked(false);
+        }
+
+        if (academic_calendar.equals("true")) {
+            c_a_c_n.setChecked(true);
+        } else {
+            c_a_c_n.setChecked(false);
         }
 
         c_l_n.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +201,22 @@ public class TabAccount extends Fragment {
             }
         });
 
+        c_a_c_n.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (c_a_c_n.isChecked()) {
+                    Log.d("TEST", "true");
+                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
+                    editor.putString("CAcademic_Calendar", "true");
+                    editor.apply();
+                } else {
+                    Log.d("TEST", "false");
+                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
+                    editor.putString("CAcademic_Calendar", "false");
+                    editor.apply();
+                }
+            }
+        });
 
         TextView t_edit = (TextView) view.findViewById(R.id.t_edit);
         t_edit.setOnClickListener(new View.OnClickListener() {
@@ -344,7 +364,7 @@ public class TabAccount extends Fragment {
 
         PackageManager pm = thisContext.getPackageManager();
         ComponentName receiver = new ComponentName(thisContext, Receiver.class);
-        Intent alarmIntent = new Intent(thisContext, Schedule_Lunch_Receiver.class);
+        Intent alarmIntent = new Intent(thisContext, Schedule_Lunch_Academic_Calendar_Receiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(thisContext, 0, alarmIntent, 0);
         AlarmManager alarmManager = (AlarmManager) thisContext.getSystemService(Context.ALARM_SERVICE);
 

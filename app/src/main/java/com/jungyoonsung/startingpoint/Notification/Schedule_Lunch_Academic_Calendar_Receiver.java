@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -37,10 +36,11 @@ import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class Schedule_Lunch_Receiver extends BroadcastReceiver {
+public class Schedule_Lunch_Academic_Calendar_Receiver extends BroadcastReceiver {
 
     private RequestQueue requestQueue;
     private RequestQueue requestQueueLunch;
+    private RequestQueue requestQueueAcademic_Calendar;
 
 
     private List<String> periodSize = new ArrayList<>();
@@ -49,13 +49,17 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
     private List<String> lunchSize = new ArrayList<>();
     private List<String> lunch = new ArrayList<>();
 
-    String s_schedule, s_lunch;
+    private List<String> academic_calendarSize = new ArrayList<>();
+    private List<String> academic_calendar = new ArrayList<>();
+
+    String s_schedule, s_lunch, s_academic_calendar;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
 
         requestQueue = Volley.newRequestQueue(context);
         requestQueueLunch = Volley.newRequestQueue(context);
+        requestQueueAcademic_Calendar = Volley.newRequestQueue(context);
 
         Date date = Calendar.getInstance().getTime();
 
@@ -79,6 +83,8 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
         String url_schedule = null;
         String url_lunch = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=7038ed79d5144336975a34e3c1a184cc&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&MLSV_YMD=" + alldate;
+        String url_academic_calendar = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=30129fe5388f4a5481be0326265f9483&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
+
 
         if (SCHUL_KND_SC_NM.equals("초등학교")) {
             url_schedule = "https://open.neis.go.kr/hub/elsTimetable?KEY=28d1c579be6f424a82296bef1d143291&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&ALL_TI_YMD=" + alldate + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class;
@@ -116,9 +122,9 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                     if (count == 1) {
                                         s_schedule =  count + ". " + period.get(i) + "\n";
                                     } else if (!(count == period.size())) {
-                                        s_schedule = s_schedule + + count + ". " + period.get(i) + "\n";
+                                        s_schedule = s_schedule + count + ". " + period.get(i) + "\n";
                                     } else {
-                                        s_schedule = s_schedule + + count + ". " + period.get(i);
+                                        s_schedule = s_schedule + count + ". " + period.get(i);
                                     }
                                 }
 
@@ -149,9 +155,9 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                     if (count == 1) {
                                         s_schedule =  count + ". " + period.get(i) + "\n";
                                     } else if (!(count == period.size())) {
-                                        s_schedule = s_schedule + + count + ". " + period.get(i) + "\n";
+                                        s_schedule = s_schedule + count + ". " + period.get(i) + "\n";
                                     } else {
-                                        s_schedule = s_schedule + + count + ". " + period.get(i);
+                                        s_schedule = s_schedule + count + ". " + period.get(i);
                                     }
                                 }
 
@@ -181,9 +187,9 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
                                     if (count == 1) {
                                         s_schedule =  count + ". " + period.get(i) + "\n";
                                     } else if (!(count == period.size())) {
-                                        s_schedule = s_schedule + + count + ". " + period.get(i) + "\n";
+                                        s_schedule = s_schedule + count + ". " + period.get(i) + "\n";
                                     } else {
-                                        s_schedule = s_schedule + + count + ". " + period.get(i);
+                                        s_schedule = s_schedule + count + ". " + period.get(i);
                                     }
                                 }
 
@@ -241,8 +247,49 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
             }
         });
 
+        JsonObjectRequest request_academic_calendar = new JsonObjectRequest(Request.Method.GET, url_academic_calendar, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            JSONArray jsonArrayInfo = response.getJSONArray("SchoolSchedule");
+                            JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                            JSONArray jsonArrayrow = response2.getJSONArray("row");
+                            for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                String s_period = response3.getString("EVENT_NM");
+
+                                academic_calendar.add(s_period);
+                            }
+
+                            for (int i = 0; i < academic_calendar.size(); i++) {
+                                int count = i + 1;
+
+                                if (count == 1) {
+                                    s_academic_calendar =  count + ". " + academic_calendar.get(i) + "\n";
+                                } else if (!(count == period.size())) {
+                                    s_academic_calendar = s_academic_calendar + count + ". " + academic_calendar.get(i) + "\n";
+                                } else {
+                                    s_academic_calendar = s_academic_calendar + count + ". " + academic_calendar.get(i);
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+
         requestQueue.add(request_schedule);
         requestQueueLunch.add(request_lunch);
+        requestQueueAcademic_Calendar.add(request_academic_calendar);
 
         RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
             @Override
@@ -366,8 +413,70 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
             }
         };
 
+        RequestQueue.RequestFinishedListener listener_academic_calendar = new RequestQueue.RequestFinishedListener() {
+            @Override
+            public void onRequestFinished(Request request) {
+
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                Intent notificationIntent = new Intent(context, MainActivity.class);
+
+                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                final PendingIntent pendingI = PendingIntent.getActivity(context, 0,
+                        notificationIntent, 0);
+
+                NotificationCompat.Builder builder_Lunch = new NotificationCompat.Builder(context, "Academic_Calendar");
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+                    builder_Lunch.setSmallIcon(R.drawable.ic_icon);
+
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+
+                    String channelNameAcademic_Calendar ="학사일정";
+
+                    NotificationChannel channelLunch = new NotificationChannel("Academic_Calendar", channelNameAcademic_Calendar, importance);
+
+                    if (notificationManager != null) {
+                        notificationManager.createNotificationChannel(channelLunch);
+                    }
+                } else {
+                    builder_Lunch.setSmallIcon(R.mipmap.icon);
+                }
+
+                builder_Lunch.setAutoCancel(true)
+                        .setWhen(System.currentTimeMillis())
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(s_academic_calendar))
+                        .setContentTitle("학사일정")
+                        .setContentText(s_academic_calendar)
+                        .setContentIntent(pendingI);
+
+                if (notificationManager != null) {
+
+                    Calendar calendar = Calendar.getInstance();
+                    int number = calendar.get(Calendar.DAY_OF_WEEK);
+
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("Notification", MODE_PRIVATE);
+                    String academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
+
+                    if (academic_calendar.equals("true")) {
+
+                        if (!(TextUtils.isEmpty(s_academic_calendar))) {
+                            notificationManager.notify(3333, builder_Lunch.build());
+                        }
+
+//                        if (!(number == 1 || number == 7)) {
+//                            notificationManager.notify(2222, builder_Lunch.build());
+//                        }
+                    }
+                }
+            }
+        };
+
         requestQueue.addRequestFinishedListener(listener);
         requestQueueLunch.addRequestFinishedListener(listener_lunch);
+        requestQueueAcademic_Calendar.addRequestFinishedListener(listener_academic_calendar);
 
         Calendar calendar = Calendar.getInstance();
         SharedPreferences sharedPreferencesNext = context.getSharedPreferences("Notification", MODE_PRIVATE);
@@ -389,7 +498,7 @@ public class Schedule_Lunch_Receiver extends BroadcastReceiver {
 
         PackageManager pm = context.getPackageManager();
         ComponentName receiver = new ComponentName(context, Receiver.class);
-        Intent alarmIntent = new Intent(context, Schedule_Lunch_Receiver.class);
+        Intent alarmIntent = new Intent(context, Schedule_Lunch_Academic_Calendar_Receiver.class);
 
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);

@@ -96,6 +96,17 @@
                             android:textColor="@android:color/black"
                             android:checked="false" />
 
+                        <CheckBox
+                            android:id="@+id/c_a_c_n"
+                            android:padding="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="학사일정 알림"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@android:color/black"
+                            android:checked="false" />
+
+
                         <TextView
                             android:layout_marginTop="15dp"
                             android:id="@+id/t_edit"

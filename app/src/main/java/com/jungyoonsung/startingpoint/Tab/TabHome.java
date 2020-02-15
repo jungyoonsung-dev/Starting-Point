@@ -29,7 +29,7 @@ import com.jungyoonsung.startingpoint.Fragment.Fragment_Academic_Calendar;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Lunch;
 import com.jungyoonsung.startingpoint.Fragment.Fragment_Schedule;
 import com.jungyoonsung.startingpoint.Notification.Receiver;
-import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Receiver;
+import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Academic_Calendar_Receiver;
 import com.jungyoonsung.startingpoint.R;
 
 import java.util.Calendar;
@@ -157,7 +157,7 @@ public class TabHome extends Fragment {
 
         PackageManager pm = thisContext.getPackageManager();
         ComponentName receiver = new ComponentName(thisContext, Receiver.class);
-        Intent alarmIntent = new Intent(thisContext, Schedule_Lunch_Receiver.class);
+        Intent alarmIntent = new Intent(thisContext, Schedule_Lunch_Academic_Calendar_Receiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(thisContext, 0, alarmIntent, 0);
         AlarmManager alarmManager = (AlarmManager) thisContext.getSystemService(Context.ALARM_SERVICE);
 

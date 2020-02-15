@@ -18,7 +18,7 @@ public class Receiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (Objects.equals(intent.getAction(), "android.intent.action.BOOT_COMPLETED")) {
 
-            Intent intentScheduleReceiver = new Intent(context, Schedule_Lunch_Receiver.class);
+            Intent intentScheduleReceiver = new Intent(context, Schedule_Lunch_Academic_Calendar_Receiver.class);
             PendingIntent pendingIntentScheduleReceiver = PendingIntent.getBroadcast(context, 0, intentScheduleReceiver, 0);
 
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

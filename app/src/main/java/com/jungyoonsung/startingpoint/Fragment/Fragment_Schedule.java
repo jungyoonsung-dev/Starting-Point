@@ -51,6 +51,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jungyoonsung.startingpoint.R;
+import com.jungyoonsung.startingpoint.Settings.OnSwipeTouchListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -242,9 +243,9 @@ public class Fragment_Schedule extends Fragment {
                     }
                 });
 
-                final TextView back, next;
-                back = (TextView) mView.findViewById(R.id.back);
-                next = (TextView) mView.findViewById(R.id.next);
+//                final TextView back, next;
+//                back = (TextView) mView.findViewById(R.id.back);
+//                next = (TextView) mView.findViewById(R.id.next);
 
                 final TableRow
                         tableRow_1,
@@ -362,6 +363,8 @@ public class Fragment_Schedule extends Fragment {
 
                 final TextView t_date;
                 t_date = (TextView) mView.findViewById(R.id.t_date);
+
+                CardView dialog_cardView = (CardView) mView.findViewById(R.id.cardView);
 
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
@@ -550,204 +553,396 @@ public class Fragment_Schedule extends Fragment {
                     }
                 });
 
-                next.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+//                next.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        count = count + 1;
+//
+//                        dialog.dismiss();
+//
+//                        c_1();
+//
+//                        requestQueueDialog.getCache().clear();
+//
+//                        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+//
+//                                final Calendar calendar = GregorianCalendar.getInstance();
+//                                calendar.setFirstDayOfWeek(Calendar.MONDAY);
+//                                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+//                                calendar.add(Calendar.WEEK_OF_MONTH, count);
+//
+//                                String startDate, endDate;
+//                                String s_d_s, s_d_f;
+//
+//                                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+//                                DateFormat t_dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+//                                DateFormat t_dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
+//
+//                                startDate = dateFormat.format(calendar.getTime());
+//                                monday = dateFormat.format(calendar.getTime());
+//                                s_d_s = t_dateFormat_s.format(calendar.getTime());
+//
+//                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+//                                tuesday = dateFormat.format(calendar.getTime());
+//
+//                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+//                                wednesday = dateFormat.format(calendar.getTime());
+//
+//                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+//                                thursday = dateFormat.format(calendar.getTime());
+//
+//                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+//                                endDate = dateFormat.format(calendar.getTime());
+//                                friday = dateFormat.format(calendar.getTime());
+//                                s_d_f = t_dateFormat_f.format(calendar.getTime());
+//
+//                                t_date.setText(s_d_s + " ~ " + s_d_f);
+//
+//                                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
+//                                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+//                                String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+//                                String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+//
+//                                final String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
+//
+//                                String url = null;
+//
+//                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
+//                                    url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+//                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+//                                    url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+//                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+//                                    url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+//                                }
+//
+//                                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                                        new Response.Listener<JSONObject>() {
+//                                            @Override
+//                                            public void onResponse(JSONObject response) {
+//
+//                                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
+//                                                    try {
+//                                                        JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
+//                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+//                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+//                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+//                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+//
+//                                                            String date = response3.getString("ALL_TI_YMD");
+//                                                            String perio = response3.getString("PERIO");
+//                                                            String period = response3.getString("ITRT_CNTNT");
+//
+//                                                            c_3(date, perio, period);
+//                                                        }
+//                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+//                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+//                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+//                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+//                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+//
+//                                                        c_5(
+//                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+//                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+//                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+//                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+//                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+//                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+//
+//                                                    } catch (JSONException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+//                                                    try {
+//                                                        JSONArray jsonArrayInfo = response.getJSONArray("misTimetable");
+//                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+//                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+//                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+//                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+//
+//                                                            String date = response3.getString("ALL_TI_YMD");
+//                                                            String perio = response3.getString("PERIO");
+//                                                            String period = response3.getString("ITRT_CNTNT");
+//
+//                                                            period = period.replaceFirst("-", "");
+//
+//                                                            c_3(date, perio, period);
+//                                                        }
+//                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+//                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+//                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+//                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+//                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+//
+//                                                        c_5(
+//                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+//                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+//                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+//                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+//                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+//                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+//
+//                                                    } catch (JSONException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+//                                                    try {
+//                                                        JSONArray jsonArrayInfo = response.getJSONArray("hisTimetable");
+//                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+//                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+//                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+//                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+//
+//                                                            String date = response3.getString("ALL_TI_YMD");
+//                                                            String perio = response3.getString("PERIO");
+//                                                            String period = response3.getString("ITRT_CNTNT");
+//
+//                                                            c_3(date, perio, period);
+//                                                        }
+//                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+//                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+//                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+//                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+//                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+//
+//                                                        c_5(
+//                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+//                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+//                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+//                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+//                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+//                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+//
+//                                                    } catch (JSONException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                }
+//                                            }
+//                                        }, new Response.ErrorListener() {
+//                                    @Override
+//                                    public void onErrorResponse(VolleyError error) {
+//                                    }
+//                                });
+//
+//                                requestQueueDialog.add(request);
+//
+//                                final RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
+//                                    @Override
+//                                    public void onRequestFinished(final Request request) {
+//                                        dialog.show();
+//                                    }
+//                                };
+//
+//                                requestQueueDialog.addRequestFinishedListener(listener);
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+//
+//                    }
+//                });
 
-                        count = count + 1;
+//                back.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        count = count - 1;
+//
+//                        dialog.dismiss();
+//
+//                        c_1();
+//
+//                        requestQueueDialog.getCache().clear();
+//
+//                        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+//
+//                                final Calendar calendar = GregorianCalendar.getInstance();
+//                                calendar.setFirstDayOfWeek(Calendar.MONDAY);
+//                                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+//                                calendar.add(Calendar.WEEK_OF_MONTH, count);
+//
+//                                String startDate, endDate;
+//                                String s_d_s, s_d_f;
+//
+//                                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+//                                DateFormat t_dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+//                                DateFormat t_dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
+//
+//                                startDate = dateFormat.format(calendar.getTime());
+//                                monday = dateFormat.format(calendar.getTime());
+//                                s_d_s = t_dateFormat_s.format(calendar.getTime());
+//
+//                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+//                                tuesday = dateFormat.format(calendar.getTime());
+//
+//                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+//                                wednesday = dateFormat.format(calendar.getTime());
+//
+//                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+//                                thursday = dateFormat.format(calendar.getTime());
+//
+//                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+//                                endDate = dateFormat.format(calendar.getTime());
+//                                friday = dateFormat.format(calendar.getTime());
+//                                s_d_f = t_dateFormat_f.format(calendar.getTime());
+//
+//                                t_date.setText(s_d_s + " ~ " + s_d_f);
+//
+//                                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
+//                                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+//                                String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+//                                String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+//
+//                                final String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
+//
+//                                String url = null;
+//
+//                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
+//                                    url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+//                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+//                                    url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+//                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+//                                    url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+//                                }
+//
+//                                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                                        new Response.Listener<JSONObject>() {
+//                                            @Override
+//                                            public void onResponse(JSONObject response) {
+//
+//                                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
+//                                                    try {
+//                                                        JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
+//                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+//                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+//                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+//                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+//
+//                                                            String date = response3.getString("ALL_TI_YMD");
+//                                                            String perio = response3.getString("PERIO");
+//                                                            String period = response3.getString("ITRT_CNTNT");
+//
+//                                                            c_3(date, perio, period);
+//                                                        }
+//                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+//                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+//                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+//                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+//                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+//
+//                                                        c_5(
+//                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+//                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+//                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+//                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+//                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+//                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+//
+//                                                    } catch (JSONException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+//                                                    try {
+//                                                        JSONArray jsonArrayInfo = response.getJSONArray("misTimetable");
+//                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+//                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+//                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+//                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+//
+//                                                            String date = response3.getString("ALL_TI_YMD");
+//                                                            String perio = response3.getString("PERIO");
+//                                                            String period = response3.getString("ITRT_CNTNT");
+//
+//                                                            period = period.replaceFirst("-", "");
+//
+//                                                            c_3(date, perio, period);
+//                                                        }
+//                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+//                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+//                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+//                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+//                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+//
+//                                                        c_5(
+//                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+//                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+//                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+//                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+//                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+//                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+//
+//                                                    } catch (JSONException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+//                                                    try {
+//                                                        JSONArray jsonArrayInfo = response.getJSONArray("hisTimetable");
+//                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+//                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+//                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+//                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+//
+//                                                            String date = response3.getString("ALL_TI_YMD");
+//                                                            String perio = response3.getString("PERIO");
+//                                                            String period = response3.getString("ITRT_CNTNT");
+//
+//                                                            c_3(date, perio, period);
+//                                                        }
+//                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+//                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+//                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+//                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+//                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+//
+//                                                        c_5(
+//                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+//                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+//                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+//                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+//                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+//                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+//
+//                                                    } catch (JSONException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                }
+//                                            }
+//                                        }, new Response.ErrorListener() {
+//                                    @Override
+//                                    public void onErrorResponse(VolleyError error) {
+//                                    }
+//                                });
+//
+//                                requestQueueDialog.add(request);
+//
+//                                final RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
+//                                    @Override
+//                                    public void onRequestFinished(final Request request) {
+//                                        dialog.show();
+//                                    }
+//                                };
+//
+//                                requestQueueDialog.addRequestFinishedListener(listener);
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+//
+//                    }
+//                });
 
-                        dialog.dismiss();
-
-                        c_1();
-
-                        requestQueueDialog.getCache().clear();
-
-                        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-
-                                final Calendar calendar = GregorianCalendar.getInstance();
-                                calendar.setFirstDayOfWeek(Calendar.MONDAY);
-                                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-                                calendar.add(Calendar.WEEK_OF_MONTH, count);
-
-                                String startDate, endDate;
-                                String s_d_s, s_d_f;
-
-                                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-                                DateFormat t_dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
-                                DateFormat t_dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
-
-                                startDate = dateFormat.format(calendar.getTime());
-                                monday = dateFormat.format(calendar.getTime());
-                                s_d_s = t_dateFormat_s.format(calendar.getTime());
-
-                                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                                tuesday = dateFormat.format(calendar.getTime());
-
-                                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                                wednesday = dateFormat.format(calendar.getTime());
-
-                                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                                thursday = dateFormat.format(calendar.getTime());
-
-                                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                                endDate = dateFormat.format(calendar.getTime());
-                                friday = dateFormat.format(calendar.getTime());
-                                s_d_f = t_dateFormat_f.format(calendar.getTime());
-
-                                t_date.setText(s_d_s + " ~ " + s_d_f);
-
-                                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
-                                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
-                                String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
-                                String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
-
-                                final String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
-
-                                String url = null;
-
-                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                                    url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                                    url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                                    url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                                }
-
-                                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                                        new Response.Listener<JSONObject>() {
-                                            @Override
-                                            public void onResponse(JSONObject response) {
-
-                                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                                                    try {
-                                                        JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
-                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                                            String date = response3.getString("ALL_TI_YMD");
-                                                            String perio = response3.getString("PERIO");
-                                                            String period = response3.getString("ITRT_CNTNT");
-
-                                                            c_3(date, perio, period);
-                                                        }
-                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
-                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
-                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
-                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
-                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-
-                                                        c_5(
-                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
-                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
-                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
-                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
-                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
-                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
-
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                                                    try {
-                                                        JSONArray jsonArrayInfo = response.getJSONArray("misTimetable");
-                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                                            String date = response3.getString("ALL_TI_YMD");
-                                                            String perio = response3.getString("PERIO");
-                                                            String period = response3.getString("ITRT_CNTNT");
-
-                                                            period = period.replaceFirst("-", "");
-
-                                                            c_3(date, perio, period);
-                                                        }
-                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
-                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
-                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
-                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
-                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-
-                                                        c_5(
-                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
-                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
-                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
-                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
-                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
-                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
-
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                                                    try {
-                                                        JSONArray jsonArrayInfo = response.getJSONArray("hisTimetable");
-                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                                            String date = response3.getString("ALL_TI_YMD");
-                                                            String perio = response3.getString("PERIO");
-                                                            String period = response3.getString("ITRT_CNTNT");
-
-                                                            c_3(date, perio, period);
-                                                        }
-                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
-                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
-                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
-                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
-                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-
-                                                        c_5(
-                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
-                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
-                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
-                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
-                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
-                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
-
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-                                            }
-                                        }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                    }
-                                });
-
-                                requestQueueDialog.add(request);
-
-                                final RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
-                                    @Override
-                                    public void onRequestFinished(final Request request) {
-                                        dialog.show();
-                                    }
-                                };
-
-                                requestQueueDialog.addRequestFinishedListener(listener);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
-                    }
-                });
-
-                back.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
+                dialog_cardView.setOnTouchListener(new OnSwipeTouchListener(thisContext) {
+                    public void onSwipeRight() {
                         count = count - 1;
 
                         dialog.dismiss();
@@ -934,8 +1129,196 @@ public class Fragment_Schedule extends Fragment {
 
                             }
                         });
-
                     }
+                    public void onSwipeLeft() {
+                        count = count + 1;
+
+                        dialog.dismiss();
+
+                        c_1();
+
+                        requestQueueDialog.getCache().clear();
+
+                        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+
+                                final Calendar calendar = GregorianCalendar.getInstance();
+                                calendar.setFirstDayOfWeek(Calendar.MONDAY);
+                                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+                                calendar.add(Calendar.WEEK_OF_MONTH, count);
+
+                                String startDate, endDate;
+                                String s_d_s, s_d_f;
+
+                                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+                                DateFormat t_dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+                                DateFormat t_dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
+
+                                startDate = dateFormat.format(calendar.getTime());
+                                monday = dateFormat.format(calendar.getTime());
+                                s_d_s = t_dateFormat_s.format(calendar.getTime());
+
+                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+                                tuesday = dateFormat.format(calendar.getTime());
+
+                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+                                wednesday = dateFormat.format(calendar.getTime());
+
+                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+                                thursday = dateFormat.format(calendar.getTime());
+
+                                calendar.add(Calendar.DAY_OF_WEEK, 1);
+                                endDate = dateFormat.format(calendar.getTime());
+                                friday = dateFormat.format(calendar.getTime());
+                                s_d_f = t_dateFormat_f.format(calendar.getTime());
+
+                                t_date.setText(s_d_s + " ~ " + s_d_f);
+
+                                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
+                                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+                                String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+                                String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+
+                                final String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
+
+                                String url = null;
+
+                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
+                                    url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+                                    url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+                                    url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                                }
+
+                                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject response) {
+
+                                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
+                                                    try {
+                                                        JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
+                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                                            String date = response3.getString("ALL_TI_YMD");
+                                                            String perio = response3.getString("PERIO");
+                                                            String period = response3.getString("ITRT_CNTNT");
+
+                                                            c_3(date, perio, period);
+                                                        }
+                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+                                                    try {
+                                                        JSONArray jsonArrayInfo = response.getJSONArray("misTimetable");
+                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                                            String date = response3.getString("ALL_TI_YMD");
+                                                            String perio = response3.getString("PERIO");
+                                                            String period = response3.getString("ITRT_CNTNT");
+
+                                                            period = period.replaceFirst("-", "");
+
+                                                            c_3(date, perio, period);
+                                                        }
+                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+                                                    try {
+                                                        JSONArray jsonArrayInfo = response.getJSONArray("hisTimetable");
+                                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                                            String date = response3.getString("ALL_TI_YMD");
+                                                            String perio = response3.getString("PERIO");
+                                                            String period = response3.getString("ITRT_CNTNT");
+
+                                                            c_3(date, perio, period);
+                                                        }
+                                                        show_period(d_period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+                                                        show_period(d_period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+                                                        show_period(d_period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+                                                        show_period(d_period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+                                                        show_period(d_period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+
+                                                        c_5(
+                                                                textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8,
+                                                                textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8,
+                                                                textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8,
+                                                                textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8,
+                                                                textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8,
+                                                                tableRow_1, tableRow_2, tableRow_3, tableRow_4, tableRow_5, tableRow_6, tableRow_7, tableRow_8);
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
+                                        }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                    }
+                                });
+
+                                requestQueueDialog.add(request);
+
+                                final RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
+                                    @Override
+                                    public void onRequestFinished(final Request request) {
+                                        dialog.show();
+                                    }
+                                };
+
+                                requestQueueDialog.addRequestFinishedListener(listener);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
                 });
 
             }

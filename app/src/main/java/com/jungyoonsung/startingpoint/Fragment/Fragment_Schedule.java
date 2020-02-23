@@ -1345,7 +1345,6 @@ public class Fragment_Schedule extends Fragment {
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
-
                 final ImageView image = (ImageView) dialog.findViewById(R.id.image);
                 final ImageView pdf = (ImageView) dialog.findViewById(R.id.pdf);
 

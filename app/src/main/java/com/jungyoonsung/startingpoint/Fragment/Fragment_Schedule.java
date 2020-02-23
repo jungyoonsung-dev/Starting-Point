@@ -34,6 +34,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -50,8 +54,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jungyoonsung.startingpoint.Fragment_Download_Share.Fragment_Downalod_Image;
+import com.jungyoonsung.startingpoint.Fragment_Download_Share.Fragment_Download_PDF;
+import com.jungyoonsung.startingpoint.Fragment_Download_Share.Fragment_Share_Image;
+import com.jungyoonsung.startingpoint.Fragment_Download_Share.Fragment_Share_PDF;
 import com.jungyoonsung.startingpoint.R;
 import com.jungyoonsung.startingpoint.Settings.OnSwipeTouchListener;
+import com.jungyoonsung.startingpoint.Tab.TabHome;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,6 +78,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+
+import me.relex.circleindicator.CircleIndicator;
 
 public class Fragment_Schedule extends Fragment {
 
@@ -171,6 +182,9 @@ public class Fragment_Schedule extends Fragment {
 
     String s_image_pdf_school, s_image_pdf_grade, s_image_pdf_class, s_image_pdf_number, s_image_pdf_name;
 
+    ViewPager viewPager;
+    CircleIndicator circleIndicator_1;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -246,6 +260,7 @@ public class Fragment_Schedule extends Fragment {
 //                final TextView back, next;
 //                back = (TextView) mView.findViewById(R.id.back);
 //                next = (TextView) mView.findViewById(R.id.next);
+
 
                 final TableRow
                         tableRow_1,
@@ -365,6 +380,14 @@ public class Fragment_Schedule extends Fragment {
                 t_date = (TextView) mView.findViewById(R.id.t_date);
 
                 CardView dialog_cardView = (CardView) mView.findViewById(R.id.cardView);
+
+                SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+                int position = sharedPreferencesBackground.getInt("Position", 0);
+                if (position < 10) {
+                    dialog_cardView.setCardBackgroundColor(Color.parseColor("#292929"));
+                } else {
+                    dialog_cardView.setCardBackgroundColor(Color.parseColor("#000000"));
+                }
 
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
@@ -1333,11 +1356,19 @@ public class Fragment_Schedule extends Fragment {
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
-                final TextView image = (TextView) dialog.findViewById(R.id.image);
-                final TextView pdf = (TextView) dialog.findViewById(R.id.pdf);
+                viewPager = dialog.findViewById(R.id.dialog_download_viewpager);
+                circleIndicator_1 = dialog.findViewById(R.id.circle_1);
 
-                final TextView image_share = (TextView) dialog.findViewById(R.id.image_share);
-                final TextView pdf_share = (TextView) dialog.findViewById(R.id.pdf_share);
+                viewPager.setAdapter(new Fragment_Schedule.pagerAdapter(((FragmentActivity)thisContext).getSupportFragmentManager()));
+                viewPager.setCurrentItem(1);
+
+                circleIndicator_1.setViewPager(viewPager);
+
+//                final TextView image = (TextView) dialog.findViewById(R.id.image);
+//                final TextView pdf = (TextView) dialog.findViewById(R.id.pdf);
+//
+//                final TextView image_share = (TextView) dialog.findViewById(R.id.image_share);
+//                final TextView pdf_share = (TextView) dialog.findViewById(R.id.pdf_share);
 
                 database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -1551,293 +1582,293 @@ public class Fragment_Schedule extends Fragment {
                                 }
                                 final String info = s_image_pdf_school + "   •   " + s_image_pdf_grade + s_image_pdf_class + s_image_pdf_number;
 
-                                image.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Paint paint = new Paint();
-                                        paint.setColor(Color.BLACK);
-                                        paint.setTextSize(50);
-
-                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,Bitmap.Config.ARGB_8888);
-                                        Canvas canvas = new Canvas(bitmap);
-
-                                        canvas.drawColor(Color.BLACK);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                        paint.setColor(Color.WHITE);
-                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
-
-                                        paint.setColor(Color.parseColor("#EEEEEE"));
-                                        canvas.drawText(s_image_pdf_school, 100, 218, paint);
-                                        float width_s_image_pdf_school_1 = paint.measureText(s_image_pdf_school);
-
-                                        paint.setColor(Color.parseColor("#EA0000"));
-                                        canvas.drawText("   •   ", 100 + width_s_image_pdf_school_1, 218, paint);
-                                        float width_s_image_pdf_school_2 = paint.measureText("   •   ");
-
-                                        paint.setColor(Color.parseColor("#EEEEEE"));
-                                        canvas.drawText(s_image_pdf_grade + s_image_pdf_class + s_image_pdf_number, 100 + width_s_image_pdf_school_1 + width_s_image_pdf_school_2, 218, paint);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-                                        paint.setColor(Color.WHITE);
-                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
-                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
-                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
-                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
-                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
-
-                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
-
-
-                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/Image/";
-                                        File file = new File(path);
-                                        if (!file.exists()) {
-                                            file.mkdirs();
-                                        }
-                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png";
-
-                                        File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png");
-
-                                        OutputStream outputStream = null;
-
-                                        try {
-                                            outputStream = new FileOutputStream(resultFile);
-                                        } catch (FileNotFoundException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                                        dialog.dismiss();
-                                        Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
-
-                                        try {
-                                            outputStream.flush();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            outputStream.close();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                                        intent.setData(Uri.fromFile(resultFile));
-                                        thisContext.sendBroadcast(intent);
-                                    }
-                                });
-
-                                pdf.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        PdfDocument document = new PdfDocument();
-                                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(2000, 1700, 1).create();
-                                        PdfDocument.Page page = document.startPage(pageInfo);
-
-                                        Paint paint = new Paint();
-                                        paint.setColor(Color.BLACK);
-                                        paint.setTextSize(50);
-
-                                        Canvas canvas = page.getCanvas();
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                        paint.setColor(Color.BLACK);
-                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
-
-                                        paint.setColor(Color.DKGRAY);
-                                        canvas.drawText(info, 100, 218, paint);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-                                        paint.setColor(Color.BLACK);
-                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
-                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
-                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
-                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
-                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
-
-                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
-                                        document.finishPage(page);
-
-
-                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/PDF/";
-                                        File file = new File(path);
-                                        if (!file.exists()) {
-                                            file.mkdirs();
-                                        }
-                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf";
-                                        File filePath = new File(resultPath);
-                                        try {
-                                            document.writeTo(new FileOutputStream(filePath));
-                                            dialog.dismiss();
-
-                                            File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf");
-
-                                            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                                            intent.setData(Uri.fromFile(resultFile));
-                                            thisContext.sendBroadcast(intent);
-
-                                            Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
-                                        } catch (IOException e) {
-                                        }
-                                        document.close();
-                                    }
-                                });
-
-
-                                image_share.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Paint paint = new Paint();
-                                        paint.setColor(Color.BLACK);
-                                        paint.setTextSize(50);
-
-                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,Bitmap.Config.ARGB_8888);
-                                        Canvas canvas = new Canvas(bitmap);
-
-                                        canvas.drawColor(Color.BLACK);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                        paint.setColor(Color.WHITE);
-                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
-
-                                        paint.setColor(Color.parseColor("#EEEEEE"));
-                                        canvas.drawText(s_image_pdf_school, 100, 218, paint);
-                                        float width_s_image_pdf_school_1 = paint.measureText(s_image_pdf_school);
-
-                                        paint.setColor(Color.parseColor("#EA0000"));
-                                        canvas.drawText("   •   ", 100 + width_s_image_pdf_school_1, 218, paint);
-                                        float width_s_image_pdf_school_2 = paint.measureText("   •   ");
-
-                                        paint.setColor(Color.parseColor("#EEEEEE"));
-                                        canvas.drawText(s_image_pdf_grade + s_image_pdf_class + s_image_pdf_number, 100 + width_s_image_pdf_school_1 + width_s_image_pdf_school_2, 218, paint);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-                                        paint.setColor(Color.WHITE);
-                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
-                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
-                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
-                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
-                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
-
-                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
-
-
-                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/Image/";
-                                        File file = new File(path);
-                                        if (!file.exists()) {
-                                            file.mkdirs();
-                                        }
-                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png";
-
-                                        File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png");
-
-                                        OutputStream outputStream = null;
-
-                                        try {
-                                            outputStream = new FileOutputStream(resultFile);
-                                        } catch (FileNotFoundException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                                        dialog.dismiss();
-                                        Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
-
-                                        try {
-                                            outputStream.flush();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            outputStream.close();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                                        intent.setData(Uri.fromFile(resultFile));
-                                        thisContext.sendBroadcast(intent);
-
-                                        Intent share = new Intent(Intent.ACTION_SEND);
-                                        share.setType("image/png");
-                                        share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "com.jungyoonsung.startingpoint.provider", resultFile));
-                                        thisContext.startActivity(Intent.createChooser(share,"공유"));
-                                    }
-                                });
-
-                                pdf_share.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        PdfDocument document = new PdfDocument();
-                                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(2000, 1700, 1).create();
-                                        PdfDocument.Page page = document.startPage(pageInfo);
-
-                                        Paint paint = new Paint();
-                                        paint.setColor(Color.BLACK);
-                                        paint.setTextSize(50);
-
-                                        Canvas canvas = page.getCanvas();
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                        paint.setColor(Color.BLACK);
-                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
-
-                                        paint.setColor(Color.DKGRAY);
-                                        canvas.drawText(info, 100, 218, paint);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-                                        paint.setColor(Color.BLACK);
-                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
-                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
-                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
-                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
-                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
-
-                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
-
-                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
-                                        document.finishPage(page);
-
-
-                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/PDF/";
-                                        File file = new File(path);
-                                        if (!file.exists()) {
-                                            file.mkdirs();
-                                        }
-                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf";
-                                        File filePath = new File(resultPath);
-                                        try {
-                                            document.writeTo(new FileOutputStream(filePath));
-                                            dialog.dismiss();
-
-                                            File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf");
-
-                                            Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
-
-                                            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                                            intent.setData(Uri.fromFile(resultFile));
-                                            thisContext.sendBroadcast(intent);
-
-                                            Intent share = new Intent(Intent.ACTION_SEND);
-                                            share.setType("application/pdf");
-                                            share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "com.jungyoonsung.startingpoint.provider", resultFile));
-                                            thisContext.startActivity(Intent.createChooser(share,"공유"));
-
-                                        } catch (IOException e) {
-                                        }
-                                        document.close();
-                                    }
-                                });
+//                                image.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        Paint paint = new Paint();
+//                                        paint.setColor(Color.BLACK);
+//                                        paint.setTextSize(50);
+//
+//                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,Bitmap.Config.ARGB_8888);
+//                                        Canvas canvas = new Canvas(bitmap);
+//
+//                                        canvas.drawColor(Color.BLACK);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//                                        paint.setColor(Color.WHITE);
+//                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
+//
+//                                        paint.setColor(Color.parseColor("#EEEEEE"));
+//                                        canvas.drawText(s_image_pdf_school, 100, 218, paint);
+//                                        float width_s_image_pdf_school_1 = paint.measureText(s_image_pdf_school);
+//
+//                                        paint.setColor(Color.parseColor("#EA0000"));
+//                                        canvas.drawText("   •   ", 100 + width_s_image_pdf_school_1, 218, paint);
+//                                        float width_s_image_pdf_school_2 = paint.measureText("   •   ");
+//
+//                                        paint.setColor(Color.parseColor("#EEEEEE"));
+//                                        canvas.drawText(s_image_pdf_grade + s_image_pdf_class + s_image_pdf_number, 100 + width_s_image_pdf_school_1 + width_s_image_pdf_school_2, 218, paint);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+//                                        paint.setColor(Color.WHITE);
+//                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
+//                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
+//                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
+//                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
+//                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
+//
+//                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
+//
+//
+//                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/Image/";
+//                                        File file = new File(path);
+//                                        if (!file.exists()) {
+//                                            file.mkdirs();
+//                                        }
+//                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png";
+//
+//                                        File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png");
+//
+//                                        OutputStream outputStream = null;
+//
+//                                        try {
+//                                            outputStream = new FileOutputStream(resultFile);
+//                                        } catch (FileNotFoundException e) {
+//                                            e.printStackTrace();
+//                                        }
+//
+//                                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+//                                        dialog.dismiss();
+//                                        Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
+//
+//                                        try {
+//                                            outputStream.flush();
+//                                        } catch (IOException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                        try {
+//                                            outputStream.close();
+//                                        } catch (IOException e) {
+//                                            e.printStackTrace();
+//                                        }
+//
+//                                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//                                        intent.setData(Uri.fromFile(resultFile));
+//                                        thisContext.sendBroadcast(intent);
+//                                    }
+//                                });
+//
+//                                pdf.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        PdfDocument document = new PdfDocument();
+//                                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(2000, 1700, 1).create();
+//                                        PdfDocument.Page page = document.startPage(pageInfo);
+//
+//                                        Paint paint = new Paint();
+//                                        paint.setColor(Color.BLACK);
+//                                        paint.setTextSize(50);
+//
+//                                        Canvas canvas = page.getCanvas();
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//                                        paint.setColor(Color.BLACK);
+//                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
+//
+//                                        paint.setColor(Color.DKGRAY);
+//                                        canvas.drawText(info, 100, 218, paint);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+//                                        paint.setColor(Color.BLACK);
+//                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
+//                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
+//                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
+//                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
+//                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
+//
+//                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
+//                                        document.finishPage(page);
+//
+//
+//                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/PDF/";
+//                                        File file = new File(path);
+//                                        if (!file.exists()) {
+//                                            file.mkdirs();
+//                                        }
+//                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf";
+//                                        File filePath = new File(resultPath);
+//                                        try {
+//                                            document.writeTo(new FileOutputStream(filePath));
+//                                            dialog.dismiss();
+//
+//                                            File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf");
+//
+//                                            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//                                            intent.setData(Uri.fromFile(resultFile));
+//                                            thisContext.sendBroadcast(intent);
+//
+//                                            Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
+//                                        } catch (IOException e) {
+//                                        }
+//                                        document.close();
+//                                    }
+//                                });
+//
+//
+//                                image_share.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        Paint paint = new Paint();
+//                                        paint.setColor(Color.BLACK);
+//                                        paint.setTextSize(50);
+//
+//                                        Bitmap bitmap = Bitmap.createBitmap(2000,1700,Bitmap.Config.ARGB_8888);
+//                                        Canvas canvas = new Canvas(bitmap);
+//
+//                                        canvas.drawColor(Color.BLACK);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//                                        paint.setColor(Color.WHITE);
+//                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
+//
+//                                        paint.setColor(Color.parseColor("#EEEEEE"));
+//                                        canvas.drawText(s_image_pdf_school, 100, 218, paint);
+//                                        float width_s_image_pdf_school_1 = paint.measureText(s_image_pdf_school);
+//
+//                                        paint.setColor(Color.parseColor("#EA0000"));
+//                                        canvas.drawText("   •   ", 100 + width_s_image_pdf_school_1, 218, paint);
+//                                        float width_s_image_pdf_school_2 = paint.measureText("   •   ");
+//
+//                                        paint.setColor(Color.parseColor("#EEEEEE"));
+//                                        canvas.drawText(s_image_pdf_grade + s_image_pdf_class + s_image_pdf_number, 100 + width_s_image_pdf_school_1 + width_s_image_pdf_school_2, 218, paint);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+//                                        paint.setColor(Color.WHITE);
+//                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
+//                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
+//                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
+//                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
+//                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
+//
+//                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
+//
+//
+//                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/Image/";
+//                                        File file = new File(path);
+//                                        if (!file.exists()) {
+//                                            file.mkdirs();
+//                                        }
+//                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png";
+//
+//                                        File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png");
+//
+//                                        OutputStream outputStream = null;
+//
+//                                        try {
+//                                            outputStream = new FileOutputStream(resultFile);
+//                                        } catch (FileNotFoundException e) {
+//                                            e.printStackTrace();
+//                                        }
+//
+//                                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+//                                        dialog.dismiss();
+//                                        Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
+//
+//                                        try {
+//                                            outputStream.flush();
+//                                        } catch (IOException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                        try {
+//                                            outputStream.close();
+//                                        } catch (IOException e) {
+//                                            e.printStackTrace();
+//                                        }
+//
+//                                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//                                        intent.setData(Uri.fromFile(resultFile));
+//                                        thisContext.sendBroadcast(intent);
+//
+//                                        Intent share = new Intent(Intent.ACTION_SEND);
+//                                        share.setType("image/png");
+//                                        share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "com.jungyoonsung.startingpoint.provider", resultFile));
+//                                        thisContext.startActivity(Intent.createChooser(share,"공유"));
+//                                    }
+//                                });
+//
+//                                pdf_share.setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        PdfDocument document = new PdfDocument();
+//                                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(2000, 1700, 1).create();
+//                                        PdfDocument.Page page = document.startPage(pageInfo);
+//
+//                                        Paint paint = new Paint();
+//                                        paint.setColor(Color.BLACK);
+//                                        paint.setTextSize(50);
+//
+//                                        Canvas canvas = page.getCanvas();
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//                                        paint.setColor(Color.BLACK);
+//                                        canvas.drawText(s_image_pdf_name, 100, 150, paint);
+//
+//                                        paint.setColor(Color.DKGRAY);
+//                                        canvas.drawText(info, 100, 218, paint);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+//                                        paint.setColor(Color.BLACK);
+//                                        canvas.drawText("월 : " + finalMonday, 200, 750, paint);
+//                                        canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
+//                                        canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
+//                                        canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
+//                                        canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
+//
+//                                        float width = paint.measureText(s_d_s + " ~ " + s_d_f);
+//
+//                                        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+//                                        canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
+//                                        document.finishPage(page);
+//
+//
+//                                        String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/PDF/";
+//                                        File file = new File(path);
+//                                        if (!file.exists()) {
+//                                            file.mkdirs();
+//                                        }
+//                                        String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf";
+//                                        File filePath = new File(resultPath);
+//                                        try {
+//                                            document.writeTo(new FileOutputStream(filePath));
+//                                            dialog.dismiss();
+//
+//                                            File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".pdf");
+//
+//                                            Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
+//
+//                                            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//                                            intent.setData(Uri.fromFile(resultFile));
+//                                            thisContext.sendBroadcast(intent);
+//
+//                                            Intent share = new Intent(Intent.ACTION_SEND);
+//                                            share.setType("application/pdf");
+//                                            share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(), "com.jungyoonsung.startingpoint.provider", resultFile));
+//                                            thisContext.startActivity(Intent.createChooser(share,"공유"));
+//
+//                                        } catch (IOException e) {
+//                                        }
+//                                        document.close();
+//                                    }
+//                                });
                             }
                         };
 
@@ -2576,6 +2607,33 @@ public class Fragment_Schedule extends Fragment {
             tableRow_6.setVisibility(View.VISIBLE);
             tableRow_7.setVisibility(View.VISIBLE);
             tableRow_8.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private class pagerAdapter extends FragmentStatePagerAdapter {
+        public pagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch(position) {
+                case 0:
+                    return new Fragment_Downalod_Image();
+                case 1:
+                    return new Fragment_Share_Image();
+                case 2:
+                    return new Fragment_Download_PDF();
+                case 3:
+                    return new Fragment_Share_PDF();
+                default:
+                    return null;
+            }
+        }
+        @Override
+        public int getCount()
+        {
+            return 4;
         }
     }
 }

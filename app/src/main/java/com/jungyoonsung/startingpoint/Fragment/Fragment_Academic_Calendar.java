@@ -50,6 +50,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Fragment_Academic_Calendar extends Fragment {
 
     FirebaseAuth auth;
@@ -87,7 +89,7 @@ public class Fragment_Academic_Calendar extends Fragment {
         item_fragment_academic_calendar_textView.setVisibility(View.VISIBLE);
         item_fragment_academic_calendar.setVisibility(View.GONE);
 
-        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", MODE_PRIVATE);
         int position = sharedPreferencesBackground.getInt("Position", 0);
         if (position < 10) {
             cardView.setCardBackgroundColor(ContextCompat.getColor(thisContext, android.R.color.white));
@@ -103,91 +105,167 @@ public class Fragment_Academic_Calendar extends Fragment {
 
         requestQueue = Volley.newRequestQueue(thisContext);
 
-        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        Date date = Calendar.getInstance().getTime();
 
-                Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
 
-                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
-                SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
-                SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
+        String year = yearFormat.format(date);
+        String month = monthFormat.format(date);
+        String day = dayFormat.format(date);
 
-                String year = yearFormat.format(date);
-                String month = monthFormat.format(date);
-                String day = dayFormat.format(date);
+        String alldate = year + month + day;
 
-                String alldate = year + month + day;
+        SharedPreferences sharedPreferencesUSER = thisContext.getSharedPreferences("USER", MODE_PRIVATE);
 
-                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
-                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+        String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("s_1_ATPT_OFCDC_SC_CODE", "");
+        String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
 
-                String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=f7d04890d151476bb2a4e2281962853b&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
+        String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=f7d04890d151476bb2a4e2281962853b&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
 
-                final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                                try {
-                                    JSONArray jsonArrayInfo = response.getJSONArray("SchoolSchedule");
-                                    JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                    JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                    for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                        JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                        String s_period = response3.getString("EVENT_NM");
-
-                                        academic_calendar.add(s_period);
-                                    }
-
-                                    if (academic_calendar.size() == 1) {
-
-                                        c_1();
-                                        item_fragment_academic_calendar.setText(academic_calendar.get(0));
-
-                                    } else if (academic_calendar.size() == 2) {
-
-                                        c_1();
-                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1));
-
-                                    } else if (academic_calendar.size() == 3) {
-
-                                        c_1();
-                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2));
-
-                                    } else if (academic_calendar.size() == 4) {
-
-                                        c_1();
-                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3));
-
-                                    } else if (academic_calendar.size() == 5) {
-
-                                        c_1();
-                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3) + ", " + academic_calendar.get(4));
-
-                                    }
-
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
+        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            JSONArray jsonArrayInfo = response.getJSONArray("SchoolSchedule");
+                            JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                            JSONArray jsonArrayrow = response2.getJSONArray("row");
+                            for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                String s_period = response3.getString("EVENT_NM");
+
+                                academic_calendar.add(s_period);
+                            }
+
+                            if (academic_calendar.size() == 1) {
+
+                                c_1();
+                                item_fragment_academic_calendar.setText(academic_calendar.get(0));
+
+                            } else if (academic_calendar.size() == 2) {
+
+                                c_1();
+                                item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1));
+
+                            } else if (academic_calendar.size() == 3) {
+
+                                c_1();
+                                item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2));
+
+                            } else if (academic_calendar.size() == 4) {
+
+                                c_1();
+                                item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3));
+
+                            } else if (academic_calendar.size() == 5) {
+
+                                c_1();
+                                item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3) + ", " + academic_calendar.get(4));
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                });
-
-                requestQueue.add(request);
-
-            }
-
+                }, new Response.ErrorListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onErrorResponse(VolleyError error) {
             }
         });
+
+        requestQueue.add(request);
+
+//        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                Date date = Calendar.getInstance().getTime();
+//
+//                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+//                SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
+//                SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
+//
+//                String year = yearFormat.format(date);
+//                String month = monthFormat.format(date);
+//                String day = dayFormat.format(date);
+//
+//                String alldate = year + month + day;
+//
+//                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
+//                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+//
+//                String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=f7d04890d151476bb2a4e2281962853b&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
+//
+//                final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                        new Response.Listener<JSONObject>() {
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//
+//                                try {
+//                                    JSONArray jsonArrayInfo = response.getJSONArray("SchoolSchedule");
+//                                    JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+//                                    JSONArray jsonArrayrow = response2.getJSONArray("row");
+//                                    for (int i = 0; i < jsonArrayrow.length(); i++) {
+//                                        JSONObject response3 = jsonArrayrow.getJSONObject(i);
+//
+//                                        String s_period = response3.getString("EVENT_NM");
+//
+//                                        academic_calendar.add(s_period);
+//                                    }
+//
+//                                    if (academic_calendar.size() == 1) {
+//
+//                                        c_1();
+//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0));
+//
+//                                    } else if (academic_calendar.size() == 2) {
+//
+//                                        c_1();
+//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1));
+//
+//                                    } else if (academic_calendar.size() == 3) {
+//
+//                                        c_1();
+//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2));
+//
+//                                    } else if (academic_calendar.size() == 4) {
+//
+//                                        c_1();
+//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3));
+//
+//                                    } else if (academic_calendar.size() == 5) {
+//
+//                                        c_1();
+//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3) + ", " + academic_calendar.get(4));
+//
+//                                    }
+//
+//
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                    }
+//                });
+//
+//                requestQueue.add(request);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override

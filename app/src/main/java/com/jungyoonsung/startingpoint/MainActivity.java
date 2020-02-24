@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -88,84 +89,208 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
-                    database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() == null) {
-                                Intent intent = new Intent(MainActivity.this, SchoolSettings.class);
-                                startActivity(intent);
-                                finish();
+
+                    int permissionCheckWRITE = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    if (!(permissionCheckWRITE == PackageManager.PERMISSION_GRANTED)) {
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    }
+
+                    SharedPreferences sharedPreferencesUSER = getSharedPreferences("USER", MODE_PRIVATE);
+                    String check = sharedPreferencesUSER.getString("Check", "");
+
+                    if (!(TextUtils.isEmpty(check))) {
+                        
+                        String s_name = sharedPreferencesUSER.getString("Name", "");
+                        String s_school_name = sharedPreferencesUSER.getString("School_Name", "");
+                        String s_grade_class_number = sharedPreferencesUSER.getString("Grade_Class_Number", "");
+
+                        textView_name.setText(s_name);
+                        textView_school.setText(s_school_name);
+                        textView_grade_class_number.setText(s_grade_class_number);
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
+                        String f_lunch = sharedPreferences.getString("CLunch", "");
+                        String f_schedule = sharedPreferences.getString("CSchedule", "");
+                        String f_academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
+
+                        if (TextUtils.isEmpty(f_lunch)) {
+                            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("CLunch", "true");
+                            editor.apply();
+                        }
+
+                        if (TextUtils.isEmpty(f_schedule)) {
+                            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("CSchedule", "true");
+                            editor.apply();
+                        }
+
+                        if (TextUtils.isEmpty(f_academic_calendar)) {
+                            SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                            editor.putString("CAcademic_Calendar", "true");
+                            editor.apply();
+                        }
+
+                        SharedPreferences sharedPreferencesBackground = getSharedPreferences("Background", MODE_PRIVATE);
+                        int position = sharedPreferencesBackground.getInt("Position", 0);
+                        int color = sharedPreferencesBackground.getInt("Color", 0);
+
+                        if (color == 0) {
+                            activity_main_LinearLayout.setBackgroundResource(android.R.color.black);
+
+                            textView_name.setTextColor(Color.parseColor("#FFFFFF"));
+                            textView_school.setTextColor(Color.parseColor("#EEEEEE"));
+                            textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+
+                            navView_1.setVisibility(View.VISIBLE);
+                            navView_2.setVisibility(View.GONE);
+
+                            NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                            NavigationUI.setupWithNavController(navView_1, navController);
+                        } else if (color != 0) {
+                            activity_main_LinearLayout.setBackgroundColor(color);
+
+                            if (position < 10) {
+                                textView_name.setTextColor(Color.parseColor("#FFFFFF"));
+                                textView_school.setTextColor(Color.parseColor("#EEEEEE"));
+                                textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+
+                                navView_1.setVisibility(View.VISIBLE);
+                                navView_2.setVisibility(View.GONE);
+
+                                NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                                NavigationUI.setupWithNavController(navView_1, navController);
                             } else {
+                                textView_name.setTextColor(Color.parseColor("#000000"));
+                                textView_school.setTextColor(Color.parseColor("#111111"));
+                                textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
 
-                                int permissionCheckWRITE = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                                if (!(permissionCheckWRITE == PackageManager.PERMISSION_GRANTED)) {
-                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                                }
+                                navView_1.setVisibility(View.GONE);
+                                navView_2.setVisibility(View.VISIBLE);
 
-                                textView_name.setText(auth.getCurrentUser().getDisplayName());
-                                textView_school.setText(String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + "   ");
+                                NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                                NavigationUI.setupWithNavController(navView_2, navController);
+                            }
+                        }
 
-                                String t_s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
-                                String t_s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
-                                String t_s_number = String.valueOf(dataSnapshot.child("s_8_number").getValue());
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(System.currentTimeMillis());
 
-                                if (t_s_class.length() == 1) {
-                                    t_s_class = "0" + t_s_class;
-                                }
+                        int i_hour = sharedPreferences.getInt("HOUR", -1);
+                        int i_min = sharedPreferences.getInt("MIN", -1);
 
-                                if (t_s_number.length() == 1) {
-                                    t_s_number = "0" + t_s_number;
-                                }
+                        if (i_hour != -1 && i_min != -1) {
+                            calendar.set(Calendar.HOUR_OF_DAY, i_hour);
+                            calendar.set(Calendar.MINUTE, i_min);
+                            calendar.set(Calendar.SECOND, 0);
+                        } else {
+                            calendar.set(Calendar.HOUR_OF_DAY, 6);
+                            calendar.set(Calendar.MINUTE, 0);
+                            calendar.set(Calendar.SECOND, 0);
+                        }
 
-                                textView_grade_class_number.setText("   " + t_s_grade + t_s_class + t_s_number);
+                        if (calendar.before(Calendar.getInstance())) {
+                            calendar.add(Calendar.DATE, 1);
+                        }
 
+                        String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("s_1_ATPT_OFCDC_SC_CODE", "");
+                        String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
+                        String SCHUL_KND_SC_NM = sharedPreferencesUSER.getString("s_5_SCHUL_KND_SC_NM", "");
+                        String s_grade = sharedPreferencesUSER.getString("s_6_grade", "");
+                        String s_class = sharedPreferencesUSER.getString("s_7_class", "");
 
+                        SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                        editor.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);
+                        editor.putString("SD_SCHUL_CODE", SD_SCHUL_CODE);
+                        editor.putString("SCHUL_KND_SC_NM", SCHUL_KND_SC_NM);
+                        editor.putString("s_grade", s_grade);
+                        editor.putString("s_class", s_class);
+                        editor.putLong("nextNotifyTime", (long)calendar.getTimeInMillis());
+                        editor.apply();
 
+                        Notification_ALARM(calendar);
 
+                    } else {
 
-                                SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
-                                String f_lunch = sharedPreferences.getString("CLunch", "");
-                                String f_schedule = sharedPreferences.getString("CSchedule", "");
-                                String f_academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
+                        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.getValue() == null) {
+                                    Intent intent = new Intent(MainActivity.this, SchoolSettings.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
 
-                                if (TextUtils.isEmpty(f_lunch)) {
-                                    SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                                    editor.putString("CLunch", "true");
+                                    SharedPreferences.Editor editor = getSharedPreferences("USER", MODE_PRIVATE).edit();
+
+                                    editor.putString("Check", "true");
+
+                                    editor.putString("Name", auth.getCurrentUser().getDisplayName());
+                                    editor.putString("School_Name", String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + "   ");
+
+                                    String t_s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+                                    String t_s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+                                    String t_s_number = String.valueOf(dataSnapshot.child("s_8_number").getValue());
+                                    if (t_s_class.length() == 1) {
+                                        t_s_class = "0" + t_s_class;
+                                    }
+                                    if (t_s_number.length() == 1) {
+                                        t_s_number = "0" + t_s_number;
+                                    }
+                                    editor.putString("Grade_Class_Number", "   " + t_s_grade + t_s_class + t_s_number);
+                                    editor.putString("s_1_ATPT_OFCDC_SC_CODE", String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue()));
+                                    editor.putString("s_3_SD_SCHUL_CODE", String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue()));
+                                    editor.putString("s_5_SCHUL_KND_SC_NM", String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue()));
+                                    editor.putString("s_6_grade", String.valueOf(dataSnapshot.child("s_6_grade").getValue()));
+                                    editor.putString("s_7_class", String.valueOf(dataSnapshot.child("s_7_class").getValue()));
                                     editor.apply();
-                                }
 
-                                if (TextUtils.isEmpty(f_schedule)) {
-                                    SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                                    editor.putString("CSchedule", "true");
-                                    editor.apply();
-                                }
 
-                                if (TextUtils.isEmpty(f_academic_calendar)) {
-                                    SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                                    editor.putString("CAcademic_Calendar", "true");
-                                    editor.apply();
-                                }
+//                                    textView_name.setText(auth.getCurrentUser().getDisplayName());
+//                                    textView_school.setText(String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + "   ");
 
-                                SharedPreferences sharedPreferencesBackground = getSharedPreferences("Background", MODE_PRIVATE);
-                                int position = sharedPreferencesBackground.getInt("Position", 0);
-                                int color = sharedPreferencesBackground.getInt("Color", 0);
+//                                    textView_grade_class_number.setText("   " + t_s_grade + t_s_class + t_s_number);
 
-                                if (color == 0) {
-                                    activity_main_LinearLayout.setBackgroundResource(android.R.color.black);
+                                    SharedPreferences sharedPreferencesUSER = getSharedPreferences("USER", MODE_PRIVATE);
 
-                                    textView_name.setTextColor(Color.parseColor("#FFFFFF"));
-                                    textView_school.setTextColor(Color.parseColor("#EEEEEE"));
-                                    textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
+                                    String s_name = sharedPreferencesUSER.getString("Name", "");
+                                    String s_school_name = sharedPreferencesUSER.getString("School_Name", "");
+                                    String s_grade_class_number = sharedPreferencesUSER.getString("Grade_Class_Number", "");
 
-                                    navView_1.setVisibility(View.VISIBLE);
-                                    navView_2.setVisibility(View.GONE);
+                                    textView_name.setText(s_name);
+                                    textView_school.setText(s_school_name);
+                                    textView_grade_class_number.setText(s_grade_class_number);
 
-                                    NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
-                                    NavigationUI.setupWithNavController(navView_1, navController);
-                                } else if (color != 0) {
-                                    activity_main_LinearLayout.setBackgroundColor(color);
+                                    SharedPreferences sharedPreferences = getSharedPreferences("Notification", MODE_PRIVATE);
+                                    String f_lunch = sharedPreferences.getString("CLunch", "");
+                                    String f_schedule = sharedPreferences.getString("CSchedule", "");
+                                    String f_academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
 
-                                    if (position < 10) {
+                                    if (TextUtils.isEmpty(f_lunch)) {
+                                        SharedPreferences.Editor editor2 = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                                        editor2.putString("CLunch", "true");
+                                        editor2.apply();
+                                    }
+
+                                    if (TextUtils.isEmpty(f_schedule)) {
+                                        SharedPreferences.Editor editor2 = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                                        editor2.putString("CSchedule", "true");
+                                        editor2.apply();
+                                    }
+
+                                    if (TextUtils.isEmpty(f_academic_calendar)) {
+                                        SharedPreferences.Editor editor2 = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                                        editor2.putString("CAcademic_Calendar", "true");
+                                        editor2.apply();
+                                    }
+
+                                    SharedPreferences sharedPreferencesBackground = getSharedPreferences("Background", MODE_PRIVATE);
+                                    int position = sharedPreferencesBackground.getInt("Position", 0);
+                                    int color = sharedPreferencesBackground.getInt("Color", 0);
+
+                                    if (color == 0) {
+                                        activity_main_LinearLayout.setBackgroundResource(android.R.color.black);
+
                                         textView_name.setTextColor(Color.parseColor("#FFFFFF"));
                                         textView_school.setTextColor(Color.parseColor("#EEEEEE"));
                                         textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
@@ -175,64 +300,78 @@ public class MainActivity extends AppCompatActivity {
 
                                         NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
                                         NavigationUI.setupWithNavController(navView_1, navController);
-                                    } else {
-                                        textView_name.setTextColor(Color.parseColor("#000000"));
-                                        textView_school.setTextColor(Color.parseColor("#111111"));
-                                        textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
+                                    } else if (color != 0) {
+                                        activity_main_LinearLayout.setBackgroundColor(color);
 
-                                        navView_1.setVisibility(View.GONE);
-                                        navView_2.setVisibility(View.VISIBLE);
+                                        if (position < 10) {
+                                            textView_name.setTextColor(Color.parseColor("#FFFFFF"));
+                                            textView_school.setTextColor(Color.parseColor("#EEEEEE"));
+                                            textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
 
-                                        NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
-                                        NavigationUI.setupWithNavController(navView_2, navController);
+                                            navView_1.setVisibility(View.VISIBLE);
+                                            navView_2.setVisibility(View.GONE);
+
+                                            NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                                            NavigationUI.setupWithNavController(navView_1, navController);
+                                        } else {
+                                            textView_name.setTextColor(Color.parseColor("#000000"));
+                                            textView_school.setTextColor(Color.parseColor("#111111"));
+                                            textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
+
+                                            navView_1.setVisibility(View.GONE);
+                                            navView_2.setVisibility(View.VISIBLE);
+
+                                            NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                                            NavigationUI.setupWithNavController(navView_2, navController);
+                                        }
                                     }
+
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTimeInMillis(System.currentTimeMillis());
+
+                                    int i_hour = sharedPreferences.getInt("HOUR", -1);
+                                    int i_min = sharedPreferences.getInt("MIN", -1);
+
+                                    if (i_hour != -1 && i_min != -1) {
+                                        calendar.set(Calendar.HOUR_OF_DAY, i_hour);
+                                        calendar.set(Calendar.MINUTE, i_min);
+                                        calendar.set(Calendar.SECOND, 0);
+                                    } else {
+                                        calendar.set(Calendar.HOUR_OF_DAY, 6);
+                                        calendar.set(Calendar.MINUTE, 0);
+                                        calendar.set(Calendar.SECOND, 0);
+                                    }
+
+                                    if (calendar.before(Calendar.getInstance())) {
+                                        calendar.add(Calendar.DATE, 1);
+                                    }
+
+                                    String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("s_1_ATPT_OFCDC_SC_CODE", "");
+                                    String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
+                                    String SCHUL_KND_SC_NM = sharedPreferencesUSER.getString("s_5_SCHUL_KND_SC_NM", "");
+                                    String s_grade = sharedPreferencesUSER.getString("s_6_grade", "");
+                                    String s_class = sharedPreferencesUSER.getString("s_7_class", "");
+
+                                    SharedPreferences.Editor editor2 = getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                                    editor2.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);
+                                    editor2.putString("SD_SCHUL_CODE", SD_SCHUL_CODE);
+                                    editor2.putString("SCHUL_KND_SC_NM", SCHUL_KND_SC_NM);
+                                    editor2.putString("s_grade", s_grade);
+                                    editor2.putString("s_class", s_class);
+                                    editor2.putLong("nextNotifyTime", (long)calendar.getTimeInMillis());
+                                    editor2.apply();
+
+                                    Notification_ALARM(calendar);
                                 }
-
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.setTimeInMillis(System.currentTimeMillis());
-
-                                int i_hour = sharedPreferences.getInt("HOUR", -1);
-                                int i_min = sharedPreferences.getInt("MIN", -1);
-
-                                if (i_hour != -1 && i_min != -1) {
-                                    calendar.set(Calendar.HOUR_OF_DAY, i_hour);
-                                    calendar.set(Calendar.MINUTE, i_min);
-                                    calendar.set(Calendar.SECOND, 0);
-                                } else {
-                                    calendar.set(Calendar.HOUR_OF_DAY, 6);
-                                    calendar.set(Calendar.MINUTE, 0);
-                                    calendar.set(Calendar.SECOND, 0);
-                                }
-
-                                if (calendar.before(Calendar.getInstance())) {
-                                    calendar.add(Calendar.DATE, 1);
-                                }
-
-                                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
-                                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
-                                String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
-                                String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
-                                String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
-
-                                SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
-                                editor.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);
-                                editor.putString("SD_SCHUL_CODE", SD_SCHUL_CODE);
-                                editor.putString("SCHUL_KND_SC_NM", SCHUL_KND_SC_NM);
-                                editor.putString("s_grade", s_grade);
-                                editor.putString("s_class", s_class);
-                                editor.putLong("nextNotifyTime", (long)calendar.getTimeInMillis());
-                                editor.apply();
-
-                                Notification_ALARM(calendar);
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
 
+                    }
                 } else {
 
                     startActivityForResult(

@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jungyoonsung.startingpoint.MainActivity;
 import com.jungyoonsung.startingpoint.R;
 
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class SchoolSettingsAdapter extends RecyclerView.Adapter<SchoolSettingsAdapter.ViewHolder> {
 
@@ -123,11 +130,47 @@ public class SchoolSettingsAdapter extends RecyclerView.Adapter<SchoolSettingsAd
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
-                                    ((Activity) thisContext).finish();
+                                    database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                    Intent intent = new Intent(thisContext, MainActivity.class);
-                                    ((Activity) thisContext).startActivity(intent);
+                                            SharedPreferences.Editor editor = thisContext.getSharedPreferences("USER", MODE_PRIVATE).edit();
 
+                                            editor.putString("Check", "true");
+
+                                            editor.putString("Name", auth.getCurrentUser().getDisplayName());
+                                            editor.putString("School_Name", String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + "   ");
+
+                                            Log.d("TEST1", String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + "   ");
+
+                                            String t_s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
+                                            String t_s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
+                                            String t_s_number = String.valueOf(dataSnapshot.child("s_8_number").getValue());
+                                            if (t_s_class.length() == 1) {
+                                                t_s_class = "0" + t_s_class;
+                                            }
+                                            if (t_s_number.length() == 1) {
+                                                t_s_number = "0" + t_s_number;
+                                            }
+                                            editor.putString("Grade_Class_Number", "   " + t_s_grade + t_s_class + t_s_number);
+                                            editor.putString("s_1_ATPT_OFCDC_SC_CODE", String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue()));
+                                            editor.putString("s_3_SD_SCHUL_CODE", String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue()));
+                                            editor.putString("s_5_SCHUL_KND_SC_NM", String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue()));
+                                            editor.putString("s_6_grade", String.valueOf(dataSnapshot.child("s_6_grade").getValue()));
+                                            editor.putString("s_7_class", String.valueOf(dataSnapshot.child("s_7_class").getValue()));
+                                            editor.apply();
+
+                                            ((Activity) thisContext).finish();
+
+                                            Intent intent = new Intent(thisContext, MainActivity.class);
+                                            ((Activity) thisContext).startActivity(intent);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
                                 }
                             });
                         }

@@ -73,6 +73,8 @@ import java.util.Locale;
 import me.relex.circleindicator.CircleIndicator;
 import petrov.kristiyan.colorpicker.CustomDialog;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Fragment_Schedule extends Fragment {
 
     FirebaseAuth auth;
@@ -188,7 +190,7 @@ public class Fragment_Schedule extends Fragment {
 
         cardView = (CardView) view.findViewById(R.id.cardView);
 
-        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", MODE_PRIVATE);
         int position = sharedPreferencesBackground.getInt("Position", 0);
         if (position < 10) {
             cardView.setCardBackgroundColor(Color.parseColor("#292929"));
@@ -196,6 +198,189 @@ public class Fragment_Schedule extends Fragment {
             cardView.setCardBackgroundColor(Color.parseColor("#000000"));
         }
 
+        tableRow_1 = (TableRow) view.findViewById(R.id.tableRow_1);
+        tableRow_2 = (TableRow) view.findViewById(R.id.tableRow_2);
+        tableRow_3 = (TableRow) view.findViewById(R.id.tableRow_3);
+        tableRow_4 = (TableRow) view.findViewById(R.id.tableRow_4);
+        tableRow_5 = (TableRow) view.findViewById(R.id.tableRow_5);
+        tableRow_6 = (TableRow) view.findViewById(R.id.tableRow_6);
+        tableRow_7 = (TableRow) view.findViewById(R.id.tableRow_7);
+        tableRow_8 = (TableRow) view.findViewById(R.id.tableRow_8);
+
+        textView_1_1 = (TextView) view.findViewById(R.id.textView_1_1);
+        textView_1_2 = (TextView) view.findViewById(R.id.textView_1_2);
+        textView_1_3 = (TextView) view.findViewById(R.id.textView_1_3);
+        textView_1_4 = (TextView) view.findViewById(R.id.textView_1_4);
+        textView_1_5 = (TextView) view.findViewById(R.id.textView_1_5);
+        textView_1_6 = (TextView) view.findViewById(R.id.textView_1_6);
+        textView_1_7 = (TextView) view.findViewById(R.id.textView_1_7);
+        textView_1_8 = (TextView) view.findViewById(R.id.textView_1_8);
+
+        textView_2_1 = (TextView) view.findViewById(R.id.textView_2_1);
+        textView_2_2 = (TextView) view.findViewById(R.id.textView_2_2);
+        textView_2_3 = (TextView) view.findViewById(R.id.textView_2_3);
+        textView_2_4 = (TextView) view.findViewById(R.id.textView_2_4);
+        textView_2_5 = (TextView) view.findViewById(R.id.textView_2_5);
+        textView_2_6 = (TextView) view.findViewById(R.id.textView_2_6);
+        textView_2_7 = (TextView) view.findViewById(R.id.textView_2_7);
+        textView_2_8 = (TextView) view.findViewById(R.id.textView_2_8);
+
+        textView_3_1 = (TextView) view.findViewById(R.id.textView_3_1);
+        textView_3_2 = (TextView) view.findViewById(R.id.textView_3_2);
+        textView_3_3 = (TextView) view.findViewById(R.id.textView_3_3);
+        textView_3_4 = (TextView) view.findViewById(R.id.textView_3_4);
+        textView_3_5 = (TextView) view.findViewById(R.id.textView_3_5);
+        textView_3_6 = (TextView) view.findViewById(R.id.textView_3_6);
+        textView_3_7 = (TextView) view.findViewById(R.id.textView_3_7);
+        textView_3_8 = (TextView) view.findViewById(R.id.textView_3_8);
+
+        textView_4_1 = (TextView) view.findViewById(R.id.textView_4_1);
+        textView_4_2 = (TextView) view.findViewById(R.id.textView_4_2);
+        textView_4_3 = (TextView) view.findViewById(R.id.textView_4_3);
+        textView_4_4 = (TextView) view.findViewById(R.id.textView_4_4);
+        textView_4_5 = (TextView) view.findViewById(R.id.textView_4_5);
+        textView_4_6 = (TextView) view.findViewById(R.id.textView_4_6);
+        textView_4_7 = (TextView) view.findViewById(R.id.textView_4_7);
+        textView_4_8 = (TextView) view.findViewById(R.id.textView_4_8);
+
+        textView_5_1 = (TextView) view.findViewById(R.id.textView_5_1);
+        textView_5_2 = (TextView) view.findViewById(R.id.textView_5_2);
+        textView_5_3 = (TextView) view.findViewById(R.id.textView_5_3);
+        textView_5_4 = (TextView) view.findViewById(R.id.textView_5_4);
+        textView_5_5 = (TextView) view.findViewById(R.id.textView_5_5);
+        textView_5_6 = (TextView) view.findViewById(R.id.textView_5_6);
+        textView_5_7 = (TextView) view.findViewById(R.id.textView_5_7);
+        textView_5_8 = (TextView) view.findViewById(R.id.textView_5_8);
+
+        String startDate, endDate;
+
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+
+        startDate = dateFormat.format(calendar.getTime());
+        monday = dateFormat.format(calendar.getTime());
+
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        tuesday = dateFormat.format(calendar.getTime());
+
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        wednesday = dateFormat.format(calendar.getTime());
+
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        thursday = dateFormat.format(calendar.getTime());
+
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+        endDate = dateFormat.format(calendar.getTime());
+        friday = dateFormat.format(calendar.getTime());
+
+        SharedPreferences sharedPreferencesUSER = thisContext.getSharedPreferences("USER", MODE_PRIVATE);
+
+        String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("s_1_ATPT_OFCDC_SC_CODE", "");
+        String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
+        final String SCHUL_KND_SC_NM = sharedPreferencesUSER.getString("s_5_SCHUL_KND_SC_NM", "");
+        String s_grade = sharedPreferencesUSER.getString("s_6_grade", "");
+        String s_class = sharedPreferencesUSER.getString("s_7_class", "");
+
+        String url = null;
+
+        if (SCHUL_KND_SC_NM.equals("초등학교")) {
+            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+        } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+            url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+        } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        if (SCHUL_KND_SC_NM.equals("초등학교")) {
+                            try {
+                                JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
+                                JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                    JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                    String date = response3.getString("ALL_TI_YMD");
+                                    String perio = response3.getString("PERIO");
+                                    String period = response3.getString("ITRT_CNTNT");
+
+                                    c_4(date, perio, period);
+                                }
+                                show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+                                show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+                                show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+                                show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+                                show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+                                c_2();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else if (SCHUL_KND_SC_NM.equals("중학교")) {
+                            try {
+                                JSONArray jsonArrayInfo = response.getJSONArray("misTimetable");
+                                JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                    JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                    String date = response3.getString("ALL_TI_YMD");
+                                    String perio = response3.getString("PERIO");
+                                    String period = response3.getString("ITRT_CNTNT");
+
+                                    period = period.replaceFirst("-", "");
+
+                                    c_4(date, perio, period);
+                                }
+                                show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+                                show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+                                show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+                                show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+                                show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+                                c_2();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
+                            try {
+                                JSONArray jsonArrayInfo = response.getJSONArray("hisTimetable");
+                                JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                    JSONObject response3 = jsonArrayrow.getJSONObject(i);
+
+                                    String date = response3.getString("ALL_TI_YMD");
+                                    String perio = response3.getString("PERIO");
+                                    String period = response3.getString("ITRT_CNTNT");
+
+                                    c_4(date, perio, period);
+                                }
+                                show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
+                                show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
+                                show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
+                                show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
+                                show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
+                                c_2();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
+        requestQueue.add(request);
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -370,7 +555,7 @@ public class Fragment_Schedule extends Fragment {
 
                 CardView dialog_cardView = (CardView) mView.findViewById(R.id.cardView);
 
-                SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+                SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", MODE_PRIVATE);
                 int position = sharedPreferencesBackground.getInt("Position", 0);
                 if (position < 10) {
                     dialog_cardView.setCardBackgroundColor(Color.parseColor("#292929"));
@@ -1863,206 +2048,7 @@ public class Fragment_Schedule extends Fragment {
                     }
                 });
 
-
-
                 return true;
-            }
-        });
-
-        tableRow_1 = (TableRow) view.findViewById(R.id.tableRow_1);
-        tableRow_2 = (TableRow) view.findViewById(R.id.tableRow_2);
-        tableRow_3 = (TableRow) view.findViewById(R.id.tableRow_3);
-        tableRow_4 = (TableRow) view.findViewById(R.id.tableRow_4);
-        tableRow_5 = (TableRow) view.findViewById(R.id.tableRow_5);
-        tableRow_6 = (TableRow) view.findViewById(R.id.tableRow_6);
-        tableRow_7 = (TableRow) view.findViewById(R.id.tableRow_7);
-        tableRow_8 = (TableRow) view.findViewById(R.id.tableRow_8);
-
-        textView_1_1 = (TextView) view.findViewById(R.id.textView_1_1);
-        textView_1_2 = (TextView) view.findViewById(R.id.textView_1_2);
-        textView_1_3 = (TextView) view.findViewById(R.id.textView_1_3);
-        textView_1_4 = (TextView) view.findViewById(R.id.textView_1_4);
-        textView_1_5 = (TextView) view.findViewById(R.id.textView_1_5);
-        textView_1_6 = (TextView) view.findViewById(R.id.textView_1_6);
-        textView_1_7 = (TextView) view.findViewById(R.id.textView_1_7);
-        textView_1_8 = (TextView) view.findViewById(R.id.textView_1_8);
-
-        textView_2_1 = (TextView) view.findViewById(R.id.textView_2_1);
-        textView_2_2 = (TextView) view.findViewById(R.id.textView_2_2);
-        textView_2_3 = (TextView) view.findViewById(R.id.textView_2_3);
-        textView_2_4 = (TextView) view.findViewById(R.id.textView_2_4);
-        textView_2_5 = (TextView) view.findViewById(R.id.textView_2_5);
-        textView_2_6 = (TextView) view.findViewById(R.id.textView_2_6);
-        textView_2_7 = (TextView) view.findViewById(R.id.textView_2_7);
-        textView_2_8 = (TextView) view.findViewById(R.id.textView_2_8);
-
-        textView_3_1 = (TextView) view.findViewById(R.id.textView_3_1);
-        textView_3_2 = (TextView) view.findViewById(R.id.textView_3_2);
-        textView_3_3 = (TextView) view.findViewById(R.id.textView_3_3);
-        textView_3_4 = (TextView) view.findViewById(R.id.textView_3_4);
-        textView_3_5 = (TextView) view.findViewById(R.id.textView_3_5);
-        textView_3_6 = (TextView) view.findViewById(R.id.textView_3_6);
-        textView_3_7 = (TextView) view.findViewById(R.id.textView_3_7);
-        textView_3_8 = (TextView) view.findViewById(R.id.textView_3_8);
-
-        textView_4_1 = (TextView) view.findViewById(R.id.textView_4_1);
-        textView_4_2 = (TextView) view.findViewById(R.id.textView_4_2);
-        textView_4_3 = (TextView) view.findViewById(R.id.textView_4_3);
-        textView_4_4 = (TextView) view.findViewById(R.id.textView_4_4);
-        textView_4_5 = (TextView) view.findViewById(R.id.textView_4_5);
-        textView_4_6 = (TextView) view.findViewById(R.id.textView_4_6);
-        textView_4_7 = (TextView) view.findViewById(R.id.textView_4_7);
-        textView_4_8 = (TextView) view.findViewById(R.id.textView_4_8);
-
-        textView_5_1 = (TextView) view.findViewById(R.id.textView_5_1);
-        textView_5_2 = (TextView) view.findViewById(R.id.textView_5_2);
-        textView_5_3 = (TextView) view.findViewById(R.id.textView_5_3);
-        textView_5_4 = (TextView) view.findViewById(R.id.textView_5_4);
-        textView_5_5 = (TextView) view.findViewById(R.id.textView_5_5);
-        textView_5_6 = (TextView) view.findViewById(R.id.textView_5_6);
-        textView_5_7 = (TextView) view.findViewById(R.id.textView_5_7);
-        textView_5_8 = (TextView) view.findViewById(R.id.textView_5_8);
-
-
-        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-
-                String startDate, endDate;
-
-                Calendar calendar = GregorianCalendar.getInstance();
-                calendar.setFirstDayOfWeek(Calendar.MONDAY);
-                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-
-                startDate = dateFormat.format(calendar.getTime());
-                monday = dateFormat.format(calendar.getTime());
-
-                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                tuesday = dateFormat.format(calendar.getTime());
-
-                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                wednesday = dateFormat.format(calendar.getTime());
-
-                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                thursday = dateFormat.format(calendar.getTime());
-
-                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                endDate = dateFormat.format(calendar.getTime());
-                friday = dateFormat.format(calendar.getTime());
-
-                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
-                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
-                String s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
-                String s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
-
-                final String SCHUL_KND_SC_NM = String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue());
-
-                String url = null;
-
-                if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                    url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                    url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                    url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                }
-
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                                    try {
-                                        JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
-                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                            String date = response3.getString("ALL_TI_YMD");
-                                            String perio = response3.getString("PERIO");
-                                            String period = response3.getString("ITRT_CNTNT");
-
-                                            c_4(date, perio, period);
-                                        }
-                                        show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
-                                        show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
-                                        show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
-                                        show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
-                                        show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-                                        c_2();
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                                    try {
-                                        JSONArray jsonArrayInfo = response.getJSONArray("misTimetable");
-                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                            String date = response3.getString("ALL_TI_YMD");
-                                            String perio = response3.getString("PERIO");
-                                            String period = response3.getString("ITRT_CNTNT");
-
-                                            period = period.replaceFirst("-", "");
-
-                                            c_4(date, perio, period);
-                                        }
-                                        show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
-                                        show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
-                                        show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
-                                        show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
-                                        show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-                                        c_2();
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                                    try {
-                                        JSONArray jsonArrayInfo = response.getJSONArray("hisTimetable");
-                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                            String date = response3.getString("ALL_TI_YMD");
-                                            String perio = response3.getString("PERIO");
-                                            String period = response3.getString("ITRT_CNTNT");
-
-                                            c_4(date, perio, period);
-                                        }
-                                        show_period(period_monday, textView_1_1, textView_1_2, textView_1_3, textView_1_4, textView_1_5, textView_1_6, textView_1_7, textView_1_8);
-                                        show_period(period_tuesday, textView_2_1, textView_2_2, textView_2_3, textView_2_4, textView_2_5, textView_2_6, textView_2_7, textView_2_8);
-                                        show_period(period_wednesday, textView_3_1, textView_3_2, textView_3_3, textView_3_4, textView_3_5, textView_3_6, textView_3_7, textView_3_8);
-                                        show_period(period_thursday, textView_4_1, textView_4_2, textView_4_3, textView_4_4, textView_4_5, textView_4_6, textView_4_7, textView_4_8);
-                                        show_period(period_friday, textView_5_1, textView_5_2, textView_5_3, textView_5_4, textView_5_5, textView_5_6, textView_5_7, textView_5_8);
-                                        c_2();
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                });
-
-                requestQueue.add(request);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -2080,7 +2066,7 @@ public class Fragment_Schedule extends Fragment {
         t_7.setText("");
         t_8.setText("");
 
-        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
+        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", MODE_PRIVATE);
         int position = sharedPreferencesBackground.getInt("Position", 0);
 
         if (period.size() == 0) {

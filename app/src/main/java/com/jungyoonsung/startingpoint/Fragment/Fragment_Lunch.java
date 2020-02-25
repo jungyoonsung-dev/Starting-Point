@@ -131,6 +131,7 @@ public class Fragment_Lunch extends Fragment {
             lunch_2.setTextColor(ContextCompat.getColor(thisContext, android.R.color.white));
         }
 
+
         requestQueue = Volley.newRequestQueue(thisContext);
 
         Date date = Calendar.getInstance().getTime();

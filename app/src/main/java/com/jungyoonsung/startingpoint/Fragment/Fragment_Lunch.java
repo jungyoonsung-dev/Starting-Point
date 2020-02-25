@@ -80,7 +80,7 @@ public class Fragment_Lunch extends Fragment {
             lunch_2,
             lunch_3;
 
-    private AdView adView1, adView2;
+    private AdView adView1;
 
     @Nullable
     @Override
@@ -383,44 +383,6 @@ public class Fragment_Lunch extends Fragment {
 
                         final TextView dialog_lunch_text_1 = (TextView) mView2.findViewById(R.id.dialog_lunch_text_1);
                         final TextView dialog_lunch_text_2 = (TextView) mView2.findViewById(R.id.dialog_lunch_text_2);
-
-                        MobileAds.initialize(thisContext,
-                                getString(R.string.app_admob_id));
-
-                        adView2 = (AdView) mView2.findViewById(R.id.adView2);
-                        AdRequest adRequest = new AdRequest.Builder().build();
-                        adView2.loadAd(adRequest);
-
-                        adView2.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdLoaded() {
-                                // Code to be executed when an ad finishes loading.
-                                adView2.setVisibility(View.VISIBLE);
-                            }
-
-                            @Override
-                            public void onAdFailedToLoad(int errorCode) {
-                                // Code to be executed when an ad request fails.
-                                adView2.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onAdOpened() {
-                                // Code to be executed when an ad opens an overlay that
-                                // covers the screen.
-                            }
-
-                            @Override
-                            public void onAdLeftApplication() {
-                                // Code to be executed when the user has left the app.
-                            }
-
-                            @Override
-                            public void onAdClosed() {
-                                // Code to be executed when when the user is about to return
-                                // to the app after tapping on an ad.
-                            }
-                        });
 
                         dialog_lunch_text_1.setVisibility(View.VISIBLE);
                         dialog_lunch_text_2.setVisibility(View.GONE);

@@ -315,23 +315,24 @@ public class TabAccount extends Fragment {
             }
         });
 
-        TextView t_log_out = (TextView) view.findViewById(R.id.t_log_out);
-        t_log_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AuthUI.getInstance()
-                        .signOut(thisContext)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                                homeIntent.addCategory( Intent.CATEGORY_HOME);
-                                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(homeIntent);
-                            }
-                        });
-            }
-        });
+//        TextView t_log_out = (TextView) view.findViewById(R.id.t_log_out);
+//        t_log_out.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AuthUI.getInstance()
+//                        .signOut(thisContext)
+//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//
+//                                Intent intent = new Intent(thisContext, MainActivity.class);
+//                                ((Activity) thisContext).startActivity(intent);
+//                                ((Activity) thisContext).finish();
+//                                ((Activity) thisContext).overridePendingTransition(0,0);
+//                            }
+//                        });
+//            }
+//        });
 
         t_open_source_license.setOnClickListener(new View.OnClickListener() {
             @Override

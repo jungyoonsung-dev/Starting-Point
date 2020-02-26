@@ -160,6 +160,23 @@ public class SchoolSettingsAdapter extends RecyclerView.Adapter<SchoolSettingsAd
                                             editor.putString("s_7_class", String.valueOf(dataSnapshot.child("s_7_class").getValue()));
                                             editor.apply();
 
+
+                                            SharedPreferences sharedPreferencesUSER = thisContext.getSharedPreferences("USER", MODE_PRIVATE);
+
+                                            String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("s_1_ATPT_OFCDC_SC_CODE", "");
+                                            String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
+                                            String SCHUL_KND_SC_NM = sharedPreferencesUSER.getString("s_5_SCHUL_KND_SC_NM", "");
+                                            String s_grade = sharedPreferencesUSER.getString("s_6_grade", "");
+                                            String s_class = sharedPreferencesUSER.getString("s_7_class", "");
+
+                                            SharedPreferences.Editor editor2 = thisContext.getSharedPreferences("Notification", MODE_PRIVATE).edit();
+                                            editor2.putString("ATPT_OFCDC_SC_CODE", ATPT_OFCDC_SC_CODE);
+                                            editor2.putString("SD_SCHUL_CODE", SD_SCHUL_CODE);
+                                            editor2.putString("SCHUL_KND_SC_NM", SCHUL_KND_SC_NM);
+                                            editor2.putString("s_grade", s_grade);
+                                            editor2.putString("s_class", s_class);
+                                            editor2.apply();
+
                                             ((Activity) thisContext).finish();
 
                                             Intent intent = new Intent(thisContext, MainActivity.class);

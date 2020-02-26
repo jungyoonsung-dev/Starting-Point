@@ -172,22 +172,6 @@ public class TabHome extends Fragment {
         return view;
     }
 
-    void Notification_ALARM(Calendar calendar) {
-
-        PackageManager pm = thisContext.getPackageManager();
-        ComponentName receiver = new ComponentName(thisContext, Receiver.class);
-        Intent alarmIntent = new Intent(thisContext, Schedule_Lunch_Academic_Calendar_Receiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(thisContext, 0, alarmIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) thisContext.getSystemService(Context.ALARM_SERVICE);
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-    }
-
     private class pagerAdapter extends FragmentStatePagerAdapter {
         public pagerAdapter(FragmentManager fm) {
             super(fm);

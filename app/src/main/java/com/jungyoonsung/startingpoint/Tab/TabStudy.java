@@ -19,7 +19,6 @@ public class TabStudy extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tabstudy, container, false);
         thisContext = container.getContext();
-
         return view;
     }
 }

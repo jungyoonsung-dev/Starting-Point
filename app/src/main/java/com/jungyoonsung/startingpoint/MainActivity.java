@@ -286,6 +286,11 @@ public class MainActivity extends AppCompatActivity {
                                         editor2.apply();
                                     }
 
+                                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    overridePendingTransition(0,0);
+
                                     SharedPreferences sharedPreferencesBackground = getSharedPreferences("Background", MODE_PRIVATE);
                                     int position = sharedPreferencesBackground.getInt("Position", 0);
                                     int color = sharedPreferencesBackground.getInt("Color", 0);
@@ -418,11 +423,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(0,0);
 
                 SharedPreferences.Editor editor = getSharedPreferences("Notification", MODE_PRIVATE).edit();
                 editor.putString("CLunch", "true");

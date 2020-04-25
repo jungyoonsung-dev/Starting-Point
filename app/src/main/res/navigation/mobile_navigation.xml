@@ -10,10 +10,10 @@
         android:name="com.jungyoonsung.startingpoint.Tab.TabHome"
         tools:layout="@layout/tabhome" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_school"-->
-<!--        android:name="com.jungyoonsung.startingpoint.Tab.TabSchool"-->
-<!--        tools:layout="@layout/tabschool" />-->
+    <fragment
+        android:id="@+id/navigation_school"
+        android:name="com.jungyoonsung.startingpoint.Tab.TabSchool"
+        tools:layout="@layout/tabschool" />
 
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_study"-->

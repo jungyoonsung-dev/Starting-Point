@@ -296,9 +296,9 @@ public class Fragment_Schedule extends Fragment {
         }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
 
                         if (SCHUL_KND_SC_NM.equals("초등학교")) {
                             try {

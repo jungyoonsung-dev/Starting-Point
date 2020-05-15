@@ -12,8 +12,8 @@
 
     <fragment
         android:id="@+id/navigation_school"
-        android:name="com.jungyoonsung.startingpoint.Tab.TabSchool"
-        tools:layout="@layout/tabschool" />
+        android:name="com.jungyoonsung.startingpoint.Tab.TabTest"
+        tools:layout="@layout/tabtest" />
 
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_study"-->

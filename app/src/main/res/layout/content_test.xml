@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
+    android:background="@android:color/black"
+    android:gravity="center"
+    android:padding="27dp">
+
+    <TextView
+        android:id="@+id/text1"
+        android:text="몸을 구부리는 동작을 잘 할 수 있다."
+        android:textColor="#FFFFFF"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_marginTop="27dp"
+        android:text="서서 몸을 앞으로 숙였을 때, 손끝이 발목까지만 닿는다.\n서서 몸을 앞으로 숙였을 때, 손바닥이 쉽게 땅에 닿는다."
+        android:textColor="#FFFFFF"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_marginTop="54dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="27dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/cardview_answerScore07"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="19dp">
+
+                <TextView
+                    android:id="@+id/c_t_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="매우 높음"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="27dp"
+
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/cardview_answerScore06"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="19dp">
+
+                <TextView
+                    android:id="@+id/c_t_6"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="높음"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="27dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/cardview_answerScore05"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="19dp">
+
+                <TextView
+                    android:id="@+id/c_t_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="약간 높음"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="19dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="27dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/cardview_answerScore04"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="19dp">
+
+                <TextView
+                    android:id="@+id/c_t_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="보통"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/black"
+            app:cardCornerRadius="27dp"
+            app:cardUseCompatPadding="true">
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/black"
+            app:cardCornerRadius="27dp"
+            app:cardUseCompatPadding="true">
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="19dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="27dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/cardview_answerScore03"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="19dp">
+
+                <TextView
+                    android:id="@+id/c_t_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="약간 낮음"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="27dp"
+
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/cardview_answerScore02"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="19dp">
+
+                <TextView
+                    android:id="@+id/c_t_2"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="낮음"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="27dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/cardview_answerScore01"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="19dp">
+
+                <TextView
+                    android:id="@+id/c_t_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="매우 낮음"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_marginTop="27dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:text="1 / 40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+</LinearLayout>

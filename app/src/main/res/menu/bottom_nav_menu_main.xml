@@ -6,10 +6,10 @@
         android:icon="@drawable/b_n_m_m_d_h"
         android:title="홈" />
 
-    <item
-        android:id="@+id/navigation_school"
-        android:icon="@drawable/b_t_f_b"
-        android:title="검사" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_school"-->
+<!--        android:icon="@drawable/b_t_f_b"-->
+<!--        android:title="검사" />-->
 
 <!--    <item-->
 <!--        android:id="@+id/navigation_study"-->

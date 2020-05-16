@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     );
 
     public static LinearLayout activity_main_LinearLayout;
-    public static TextView textView_name, textView_school, textView_grade_class_number;
+    public static TextView textView_name, textView_major, textView_school, textView_grade_class_number;
 
     public static BottomNavigationView navView_1, navView_2;
 
@@ -76,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
         activity_main_LinearLayout = (LinearLayout) findViewById(R.id.activity_main_LinearLayout);
 
         textView_name = (TextView) findViewById(R.id.textView_name);
+        textView_major = (TextView) findViewById(R.id.textView_major);
+        textView_major.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                startActivity(intent);
+            }
+        });
+
         textView_school = (TextView) findViewById(R.id.textView_school);
         textView_grade_class_number = (TextView) findViewById(R.id.textView_grade_class_number);
 
@@ -84,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
         navView_1.setVisibility(View.VISIBLE);
         navView_2.setVisibility(View.GONE);
+
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -106,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         String s_school_name = sharedPreferencesUSER.getString("School_Name", "");
                         String s_grade_class_number = sharedPreferencesUSER.getString("Grade_Class_Number", "");
 
-                        textView_name.setText(s_name);
+                        textView_name.setText(s_name + "   ");
                         textView_school.setText(s_school_name);
                         textView_grade_class_number.setText(s_grade_class_number);
 
@@ -228,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                                     editor.putString("Check", "true");
 
                                     editor.putString("Name", auth.getCurrentUser().getDisplayName());
-                                    editor.putString("School_Name", String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + "   ");
+                                    editor.putString("School_Name", String.valueOf(dataSnapshot.child("s_4_SCHUL_NM").getValue()) + " ");
 
                                     String t_s_grade = String.valueOf(dataSnapshot.child("s_6_grade").getValue());
                                     String t_s_class = String.valueOf(dataSnapshot.child("s_7_class").getValue());
@@ -239,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                                     if (t_s_number.length() == 1) {
                                         t_s_number = "0" + t_s_number;
                                     }
-                                    editor.putString("Grade_Class_Number", "   " + t_s_grade + t_s_class + t_s_number);
+                                    editor.putString("Grade_Class_Number", t_s_grade + t_s_class + t_s_number);
                                     editor.putString("s_1_ATPT_OFCDC_SC_CODE", String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue()));
                                     editor.putString("s_3_SD_SCHUL_CODE", String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue()));
                                     editor.putString("s_5_SCHUL_KND_SC_NM", String.valueOf(dataSnapshot.child("s_5_SCHUL_KND_SC_NM").getValue()));

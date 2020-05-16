@@ -1,5 +1,7 @@
-package com.jungyoonsung.startingpoint;
+package com.jungyoonsung.startingpoint.Major;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.android.volley.AuthFailureError;
@@ -8,13 +10,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.jungyoonsung.startingpoint.MainActivity;
+import com.jungyoonsung.startingpoint.R;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.solver.LinearSystem;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,67 +93,22 @@ public class TestActivity extends AppCompatActivity {
         t_c_2 = (TextView) findViewById(R.id.c_t_2);
         t_c_1 = (TextView) findViewById(R.id.c_t_1);
 
-        Long tsLong = System.currentTimeMillis()/1000;
-        String ts = tsLong.toString();
-
-        // Optional Parameters to pass as POST request
-        JSONObject js = new JSONObject();
-        try {
-            js.put("apikey", "1814f7ddd67754490effc301d6e0f940");
-            js.put("qestrnSeq", "21");
-            js.put("trgetSe", "100207");
-            js.put("name", "");
-            js.put("gender", "100323");
-            js.put("school", "");
-            js.put("grade", "1");
-            js.put("email", "");
-            js.put("startDtm", ts);
-            js.put("answers", "1=5 2=5 3=3 4=3 5=1 6=1 7=4 8=4 9=4 10=5 11=4 12=7 13=7 14=7 15=5 16=5 17=4 18=3 19=3 20=3 21=3 22=4 23=3 24=1 25=1 26=1 27=2 28=3 29=2 30=1 31=7 32=4 33=7 34=7 35=5 36=5 37=7 38=3 39=7 40=4 41=1 42=2 43=4 44=1 45=3 46=2 47=2 48=2 49=5 50=7 51=6 52=6 53=5 54=4 55=3 56=4 57=3 58=2 59=7 60=1 61=5 62=3 63=4 64=3 65=2 66=4 67=2 68=3 69=4 70=1 71=4 72=3 73=4 74=4 75=6 76=4 77=5 78=5 79=7 80=5 81=6 82=5 83=2 84=1 85=4 86=5 87=5 88=4");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Make request for JSONObject
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-                Request.Method.POST, "https://inspct.career.go.kr/openapi/test/report", js,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("TEST", response.toString() + " i am queen");
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                return headers;
-            }
-
-        };
-
-        // Adding request to request queue
-        Volley.newRequestQueue(this).add(jsonObjReq);
-
-
-
-
-
-
-
 
         requestQueue = Volley.newRequestQueue(this);
 
-        String url = "https://inspct.career.go.kr/openapi/test/questions?apikey=1814f7ddd67754490effc301d6e0f940&q=21";
+
+        SharedPreferences sharedPreferencesUSER = getSharedPreferences("USER", MODE_PRIVATE);
+        String s_major = sharedPreferencesUSER.getString("s_5_SCHUL_KND_SC_NM", "");
+//        String s_grade = sharedPreferencesUSER.getString("s_6_grade", "");
+
+
+        String url = null;
+
+        if (s_major.equals("고등학교")) {
+            url = "https://inspct.career.go.kr/openapi/test/questions?apikey=1814f7ddd67754490effc301d6e0f940&q=21";
+        } else if (s_major.equals("중학교")) {
+            url = "https://inspct.career.go.kr/openapi/test/questions?apikey=1814f7ddd67754490effc301d6e0f940&q=20";
+        }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -169,7 +124,7 @@ public class TestActivity extends AppCompatActivity {
 
                                 String tip1 = jsonObject2.getString("tip1Desc");
                                 String tip2 = jsonObject2.getString("tip2Desc");
-                                String tip = tip1 + "\n" + tip2;
+                                String tip = tip2 + "\n" + tip1;
 
                                 if (i == 0) {
                                     String s_aS7 = jsonObject2.getString("answer07");
@@ -278,6 +233,60 @@ public class TestActivity extends AppCompatActivity {
         if (i+1 == L_question.size()) {
             result = result + "88=" + i2;
             i = 100;
+
+            Long tsLong = System.currentTimeMillis()/1000;
+            String ts = tsLong.toString();
+
+            JSONObject js = new JSONObject();
+            try {
+
+                SharedPreferences sharedPreferencesUSER = getSharedPreferences("USER", MODE_PRIVATE);
+                String s_major = sharedPreferencesUSER.getString("s_5_SCHUL_KND_SC_NM", "");
+
+                if (s_major.equals("고등학교")) {
+                    js.put("qestrnSeq", "21");
+                    js.put("trgetSe", "100207");
+                } else if (s_major.equals("중학교")) {
+                    js.put("qestrnSeq", "20");
+                    js.put("trgetSe", "100206");
+                }
+
+                js.put("apikey", "1814f7ddd67754490effc301d6e0f940");
+                js.put("name", "");
+                js.put("gender", "100323");
+                js.put("school", "");
+                js.put("grade", "1");
+                js.put("email", "");
+                js.put("startDtm", ts);
+                js.put("answers", "1=5 2=5 3=3 4=3 5=1 6=1 7=4 8=4 9=4 10=5 11=4 12=7 13=7 14=7 15=5 16=5 17=4 18=3 19=3 20=3 21=3 22=4 23=3 24=1 25=1 26=1 27=2 28=3 29=2 30=1 31=7 32=4 33=7 34=7 35=5 36=5 37=7 38=3 39=7 40=4 41=1 42=2 43=4 44=1 45=3 46=2 47=2 48=2 49=5 50=7 51=6 52=6 53=5 54=4 55=3 56=4 57=3 58=2 59=7 60=1 61=5 62=3 63=4 64=3 65=2 66=4 67=2 68=3 69=4 70=1 71=4 72=3 73=4 74=4 75=6 76=4 77=5 78=5 79=7 80=5 81=6 82=5 83=2 84=1 85=4 86=5 87=5 88=4");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(
+                    Request.Method.POST, "https://inspct.career.go.kr/openapi/test/report", js,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("TEST", response.toString() + " i am queen");
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Content-Type", "application/json; charset=utf-8");
+                    return headers;
+                }
+
+            };
+
+            Volley.newRequestQueue(this).add(jsonObjReq);
 
         } else if (i == 100) {
 

@@ -32,11 +32,12 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:maxLength="50"
                 android:singleLine="true"
-                android:inputType="number"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:id="@+id/dialog_major_textview"
                 android:layout_marginTop="46dp"
                 android:text="아직 잘 모르겠습니다."
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"

@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 
 import com.jungyoonsung.startingpoint.R;
-import com.jungyoonsung.startingpoint.TestActivity;
+import com.jungyoonsung.startingpoint.Major.TestActivity;
 
 public class TabTest extends Fragment {
 

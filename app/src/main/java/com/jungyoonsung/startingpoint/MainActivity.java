@@ -12,23 +12,30 @@ import androidx.navigation.ui.NavigationUI;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,6 +43,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jungyoonsung.startingpoint.Major.MAJORMODEL;
+import com.jungyoonsung.startingpoint.Major.TestActivity;
 import com.jungyoonsung.startingpoint.Notification.Receiver;
 import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Academic_Calendar_Receiver;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
@@ -80,8 +89,71 @@ public class MainActivity extends AppCompatActivity {
         textView_major.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
+                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater myInflater = LayoutInflater.from(MainActivity.this);
+                final View mView = myInflater.inflate(R.layout.dialog_major, null);
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+
+                final EditText dialog_major_edittext = (EditText) mView.findViewById(R.id.dialog_major_edittext);
+
+                TextView dialog_major_textview = (TextView) mView.findViewById(R.id.dialog_major_textview);
+                dialog_major_textview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        SharedPreferences sharedPreferencesUSER = getSharedPreferences("USER", MODE_PRIVATE);
+                        String s_major = sharedPreferencesUSER.getString("s_5_SCHUL_KND_SC_NM", "");
+
+                        if (s_major.equals("고등학교") || s_major.equals("중학교")) {
+
+                            final AlertDialog.Builder mBuilder2 = new AlertDialog.Builder(MainActivity.this);
+                            LayoutInflater myInflater2 = LayoutInflater.from(MainActivity.this);
+                            final View mView2 = myInflater2.inflate(R.layout.dialog_gender, null);
+                            mBuilder2.setView(mView2);
+                            final AlertDialog dialog2 = mBuilder2.create();
+                            dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            dialog2.show();
+
+                            TextView t_m = (TextView) mView2.findViewById(R.id.t_m);
+                            TextView t_w = (TextView) mView2.findViewById(R.id.t_w);
+
+                            t_m.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                                    intent.putExtra("MF", "M");
+                                    startActivity(intent);
+                                }
+                            });
+
+                            t_w.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                                    intent.putExtra("MF", "F");
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                    }
+                });
+
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        String s_major = dialog_major_edittext.getText().toString();
+
+                        if (!(TextUtils.isEmpty(s_major))) {
+                            MAJORMODEL majormodel = new MAJORMODEL();
+                            majormodel.s_major = s_major;
+
+                            database.getReference().child("Major").child(auth.getCurrentUser().getUid()).setValue(majormodel);
+                        }
+                    }
+                });
             }
         });
 
@@ -107,6 +179,24 @@ public class MainActivity extends AppCompatActivity {
                     if (!(permissionCheckWRITE == PackageManager.PERMISSION_GRANTED)) {
                         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                     }
+
+                    database.getReference().child("Major").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String s_major = String.valueOf(dataSnapshot.child("s_major").getValue());
+
+                            if (!(s_major.equals("null"))) {
+                                textView_major.setText("   " + s_major);
+                            } else {
+                                textView_major.setText("   학과");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                     SharedPreferences sharedPreferencesUSER = getSharedPreferences("USER", MODE_PRIVATE);
                     String check = sharedPreferencesUSER.getString("Check", "");

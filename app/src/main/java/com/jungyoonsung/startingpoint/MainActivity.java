@@ -124,8 +124,10 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                                    intent.putExtra("MF", "M");
+                                    intent.putExtra("MW", "M");
                                     startActivity(intent);
+
+                                    dialog2.dismiss();
                                 }
                             });
 
@@ -133,8 +135,10 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                                    intent.putExtra("MF", "F");
+                                    intent.putExtra("MW", "W");
                                     startActivity(intent);
+
+                                    dialog2.dismiss();
                                 }
                             });
                         }

@@ -2,6 +2,7 @@ package com.jungyoonsung.startingpoint.Major;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.android.volley.AuthFailureError;
@@ -21,8 +22,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,7 +95,6 @@ public class TestActivity extends AppCompatActivity {
         t_c_3 = (TextView) findViewById(R.id.c_t_3);
         t_c_2 = (TextView) findViewById(R.id.c_t_2);
         t_c_1 = (TextView) findViewById(R.id.c_t_1);
-
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -230,18 +232,19 @@ public class TestActivity extends AppCompatActivity {
 
     private void NextQuestion(int i2) {
 
-        if (i+1 == L_question.size()) {
+        if (i + 1 == L_question.size()) {
             result = result + "88=" + i2;
-            i = 100;
-
-            Long tsLong = System.currentTimeMillis()/1000;
+            Long tsLong = System.currentTimeMillis() / 1000;
             String ts = tsLong.toString();
 
             JSONObject js = new JSONObject();
             try {
 
+
                 SharedPreferences sharedPreferencesUSER = getSharedPreferences("USER", MODE_PRIVATE);
                 String s_major = sharedPreferencesUSER.getString("s_5_SCHUL_KND_SC_NM", "");
+                String s_grade = sharedPreferencesUSER.getString("s_6_grade", "");
+                String s_mw = getIntent().getStringExtra("MW");
 
                 if (s_major.equals("고등학교")) {
                     js.put("qestrnSeq", "21");
@@ -251,14 +254,19 @@ public class TestActivity extends AppCompatActivity {
                     js.put("trgetSe", "100206");
                 }
 
+                if (s_mw.equals("M")) {
+                    js.put("gender", "100323");
+                } else {
+                    js.put("gender", "100324");
+                }
+
                 js.put("apikey", "1814f7ddd67754490effc301d6e0f940");
                 js.put("name", "");
-                js.put("gender", "100323");
                 js.put("school", "");
-                js.put("grade", "1");
+                js.put("grade", s_grade);
                 js.put("email", "");
                 js.put("startDtm", ts);
-                js.put("answers", "1=5 2=5 3=3 4=3 5=1 6=1 7=4 8=4 9=4 10=5 11=4 12=7 13=7 14=7 15=5 16=5 17=4 18=3 19=3 20=3 21=3 22=4 23=3 24=1 25=1 26=1 27=2 28=3 29=2 30=1 31=7 32=4 33=7 34=7 35=5 36=5 37=7 38=3 39=7 40=4 41=1 42=2 43=4 44=1 45=3 46=2 47=2 48=2 49=5 50=7 51=6 52=6 53=5 54=4 55=3 56=4 57=3 58=2 59=7 60=1 61=5 62=3 63=4 64=3 65=2 66=4 67=2 68=3 69=4 70=1 71=4 72=3 73=4 74=4 75=6 76=4 77=5 78=5 79=7 80=5 81=6 82=5 83=2 84=1 85=4 86=5 87=5 88=4");
+                js.put("answers", result);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -269,7 +277,16 @@ public class TestActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("TEST", response.toString() + " i am queen");
+                            try {
+                                JSONObject jsonObject2 = response.getJSONObject("RESULT");
+                                String url = jsonObject2.getString("url");
+
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                startActivity(intent);
+                                finish();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -297,15 +314,11 @@ public class TestActivity extends AppCompatActivity {
             text3.setText(i + 1 + " / " + L_question.size());
 
             if (TextUtils.isEmpty(result)) {
-                result = i + "=" +i2 + " ";
+                result = i + "=" + i2 + " ";
             } else {
-                result = result + i + "=" +i2 + " ";
+                result = result + i + "=" + i2 + " ";
             }
         }
-
-        Log.d("TEST", result);
-
-
     }
 
     @Override

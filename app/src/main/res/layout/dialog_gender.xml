@@ -23,11 +23,11 @@
 
         <TextView
             android:id="@+id/t_m"
-            android:padding="10dp"
+            android:padding="15dp"
             android:gravity="center"
             android:text="남자"
             android:textColor="@android:color/black"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -46,11 +46,11 @@
 
         <TextView
             android:id="@+id/t_w"
-            android:padding="10dp"
+            android:padding="15dp"
             android:gravity="center"
             android:text="여자"
             android:textColor="@android:color/black"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

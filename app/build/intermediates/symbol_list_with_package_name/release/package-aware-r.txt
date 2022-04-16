@@ -1621,7 +1621,6 @@ layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout dialog_academic_calendar_calendar
 layout dialog_academic_calendar_text
-layout dialog_download
 layout dialog_lunch_calendar
 layout dialog_lunch_text
 layout dialog_schedule

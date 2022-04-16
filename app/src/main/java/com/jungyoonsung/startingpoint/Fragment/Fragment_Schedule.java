@@ -3,27 +3,17 @@ package com.jungyoonsung.startingpoint.Fragment;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,11 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -267,9 +252,9 @@ public class Fragment_Schedule extends Fragment {
         }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
                         if (SCHUL_KND_SC_NM.equals("초등학교")) {
                             try {
@@ -1034,303 +1019,6 @@ public class Fragment_Schedule extends Fragment {
             }
         });
 
-        cardView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                final Dialog dialog = new Dialog(thisContext);
-                dialog.setContentView(R.layout.dialog_download);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-
-                final ImageView image = (ImageView) dialog.findViewById(R.id.image);
-
-                String startDate, endDate;
-
-                Calendar calendar = GregorianCalendar.getInstance();
-                calendar.setFirstDayOfWeek(Calendar.MONDAY);
-                calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-
-                DateFormat dateFormat_s = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
-                DateFormat dateFormat_f = new SimpleDateFormat("dd", Locale.getDefault());
-
-                final String s_d_s, s_d_f;
-
-                startDate = dateFormat.format(calendar.getTime());
-                monday = dateFormat.format(calendar.getTime());
-                s_d_s = dateFormat_s.format(calendar.getTime());
-
-                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                tuesday = dateFormat.format(calendar.getTime());
-
-                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                wednesday = dateFormat.format(calendar.getTime());
-
-                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                thursday = dateFormat.format(calendar.getTime());
-
-                calendar.add(Calendar.DAY_OF_WEEK, 1);
-                endDate = dateFormat.format(calendar.getTime());
-                friday = dateFormat.format(calendar.getTime());
-                s_d_f = dateFormat_f.format(calendar.getTime());
-
-                final SharedPreferences sharedPreferencesUSER = thisContext.getSharedPreferences("USER", MODE_PRIVATE);
-
-                String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("School_Name", "");
-                String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
-
-                String s_school = sharedPreferencesUSER.getString("School_Name", "");
-                String s_grade = sharedPreferencesUSER.getString("s_6_grade", "");
-                String s_class = sharedPreferencesUSER.getString("s_7_class", "");
-
-                final String s_grade_class_number = sharedPreferencesUSER.getString("Grade_Class_Number", "");
-
-                s_image_pdf_school = s_school;
-                s_image_pdf_grade = s_grade;
-                s_image_pdf_class = s_class;
-
-                String url = null;
-
-                if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                    url = "https://open.neis.go.kr/hub/elsTimetable?KEY=fe77fbc542fa4baa9b8c39659d7f5f33&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                    url = "https://open.neis.go.kr/hub/misTimetable?KEY=fe77fbc542fa4baa9b8c39659d7f5f33&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                    url = "https://open.neis.go.kr/hub/hisTimetable?KEY=fe77fbc542fa4baa9b8c39659d7f5f33&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
-                }
-
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                                if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                                    try {
-                                        JSONArray jsonArrayInfo = response.getJSONArray("elsTimetable");
-                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                            String date = response3.getString("ALL_TI_YMD");
-                                            String perio = response3.getString("PERIO");
-                                            String period = response3.getString("ITRT_CNTNT");
-
-                                            c_4(date, perio, period);
-                                        }
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                                    try {
-                                        JSONArray jsonArrayInfo = response.getJSONArray("misTimetable");
-                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                            String date = response3.getString("ALL_TI_YMD");
-                                            String perio = response3.getString("PERIO");
-                                            String period = response3.getString("ITRT_CNTNT");
-
-                                            period = period.replaceFirst("-", "");
-
-                                            c_4(date, perio, period);
-                                        }
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                                    try {
-                                        JSONArray jsonArrayInfo = response.getJSONArray("hisTimetable");
-                                        JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                        JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                        for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                            JSONObject response3 = jsonArrayrow.getJSONObject(i);
-
-                                            String date = response3.getString("ALL_TI_YMD");
-                                            String perio = response3.getString("PERIO");
-                                            String period = response3.getString("ITRT_CNTNT");
-
-                                            c_4(date, perio, period);
-                                        }
-
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                });
-
-                requestQueue.add(request);
-                final RequestQueue.RequestFinishedListener listener = new RequestQueue.RequestFinishedListener() {
-                    @Override
-                    public void onRequestFinished(final Request request) {
-
-                        String monday = null;
-                        String tuesday = null;
-                        String wednesday = null;
-                        String thursday = null;
-                        String friday = null;
-
-                        for (int i = 0; i < period_monday.size(); i++) {
-                            int count = i + 1;
-
-                            if (count == 1) {
-                                monday =  period_monday.get(i) + ", ";
-                            } else if (!(count == period_monday.size())) {
-                                monday = monday + period_monday.get(i) + ", ";
-                            } else {
-                                monday = monday + period_monday.get(i);
-                            }
-                        }
-                        for (int i = 0; i < period_tuesday.size(); i++) {
-                            int count = i + 1;
-
-                            if (count == 1) {
-                                tuesday =  period_tuesday.get(i) + ", ";
-                            } else if (!(count == period_tuesday.size())) {
-                                tuesday = tuesday + period_tuesday.get(i) + ", ";
-                            } else {
-                                tuesday = tuesday + period_tuesday.get(i);
-                            }
-                        }
-                        for (int i = 0; i < period_wednesday.size(); i++) {
-                            int count = i + 1;
-
-                            if (count == 1) {
-                                wednesday =  period_wednesday.get(i) + ", ";
-                            } else if (!(count == period_wednesday.size())) {
-                                wednesday = wednesday + period_wednesday.get(i) + ", ";
-                            } else {
-                                wednesday = wednesday + period_wednesday.get(i);
-                            }
-                        }
-                        for (int i = 0; i < period_thursday.size(); i++) {
-                            int count = i + 1;
-
-                            if (count == 1) {
-                                thursday =  period_thursday.get(i) + ", ";
-                            } else if (!(count == period_thursday.size())) {
-                                thursday = thursday + period_thursday.get(i) + ", ";
-                            } else {
-                                thursday = thursday + period_thursday.get(i);
-                            }
-                        }
-                        for (int i = 0; i < period_friday.size(); i++) {
-                            int count = i + 1;
-
-                            if (count == 1) {
-                                friday =  period_friday.get(i) + ", ";
-                            } else if (!(count == period_friday.size())) {
-                                friday = friday + period_friday.get(i) + ", ";
-                            } else {
-                                friday = friday + period_friday.get(i);
-                            }
-                        }
-
-                        final String finalMonday = monday;
-                        final String finalTuesday = tuesday;
-                        final String finalWednesday = wednesday;
-                        final String finalThursday = thursday;
-                        final String finalFriday = friday;
-
-                        final String info = s_image_pdf_school + "•" + sharedPreferencesUSER.getString("s_7_class", "");
-
-                        image.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Paint paint = new Paint();
-                                paint.setColor(Color.BLACK);
-                                paint.setTextSize(50);
-
-                                Bitmap bitmap = Bitmap.createBitmap(2000,1700,Bitmap.Config.ARGB_8888);
-                                Canvas canvas = new Canvas(bitmap);
-
-                                canvas.drawColor(Color.BLACK);
-
-                                paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                paint.setColor(Color.WHITE);
-
-                                paint.setColor(Color.parseColor("#EEEEEE"));
-                                canvas.drawText(s_image_pdf_school, 100, 218, paint);
-                                float width_s_image_pdf_school_1 = paint.measureText(s_image_pdf_school);
-
-                                paint.setColor(Color.parseColor("#EA0000"));
-                                canvas.drawText("   •   ", 100 + width_s_image_pdf_school_1, 218, paint);
-                                float width_s_image_pdf_school_2 = paint.measureText("   •   ");
-
-                                paint.setColor(Color.parseColor("#EEEEEE"));
-                                canvas.drawText(s_grade_class_number, 100 + width_s_image_pdf_school_1 + width_s_image_pdf_school_2, 218, paint);
-
-                                paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-                                paint.setColor(Color.WHITE);
-                                canvas.drawText("월 : " + finalMonday, 200, 750, paint);
-                                canvas.drawText("화 : " + finalTuesday, 200, 870, paint);
-                                canvas.drawText("수 : " + finalWednesday, 200, 990, paint);
-                                canvas.drawText("목 : " + finalThursday, 200, 1110, paint);
-                                canvas.drawText("금 : " + finalFriday, 200, 1230, paint);
-
-                                float width = paint.measureText(s_d_s + " ~ " + s_d_f);
-
-                                paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-                                canvas.drawText(s_d_s + " ~ " + s_d_f, 1900 - width, 1600, paint);
-
-
-                                String path = Environment.getExternalStorageDirectory().getPath() + "/StartingPointDownload/Image/";
-                                File file = new File(path);
-                                if (!file.exists()) {
-                                    file.mkdirs();
-                                }
-                                String resultPath = path + "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png";
-
-                                File resultFile = new File(file, "시간표(" + s_d_s+" ~ "+s_d_f + ")" + ".png");
-
-                                OutputStream outputStream = null;
-
-                                try {
-                                    outputStream = new FileOutputStream(resultFile);
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                }
-
-                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                                dialog.dismiss();
-                                Toast.makeText(thisContext, "경로 : " + resultPath, Toast.LENGTH_SHORT).show();
-
-                                try {
-                                    outputStream.flush();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                try {
-                                    outputStream.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                                intent.setData(Uri.fromFile(resultFile));
-                                thisContext.sendBroadcast(intent);
-                            }
-                        });
-                    }
-                };
-
-                requestQueue.addRequestFinishedListener(listener);
-
-                return true;
-            }
-        });
-
         return view;
     }
 
@@ -1568,7 +1256,7 @@ public class Fragment_Schedule extends Fragment {
 
     private void c_2() {
         if (
-                        TextUtils.isEmpty(textView_1_2.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_2.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_2.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_2.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_2.getText().toString()) &&
@@ -1582,7 +1270,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_3.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_3.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_3.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_3.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_3.getText().toString()) &&
@@ -1595,7 +1283,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_4.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_4.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_4.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_4.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_4.getText().toString()) &&
@@ -1607,7 +1295,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_5.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_5.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_5.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_5.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_5.getText().toString()) &&
@@ -1618,7 +1306,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_6.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_6.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_6.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_6.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_6.getText().toString()) &&
@@ -1628,7 +1316,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_7.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_7.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_7.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_7.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_7.getText().toString()) &&
@@ -1636,7 +1324,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_7.setVisibility(View.GONE);
             tableRow_8.setVisibility(View.GONE);
         } else if (
-                        TextUtils.isEmpty(textView_1_8.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_8.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_8.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_8.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_8.getText().toString()) &&
@@ -1742,7 +1430,7 @@ public class Fragment_Schedule extends Fragment {
             TableRow tableRow_1, TableRow tableRow_2, TableRow tableRow_3, TableRow tableRow_4,
             TableRow tableRow_5, TableRow tableRow_6, TableRow tableRow_7, TableRow tableRow_8) {
         if (
-                        TextUtils.isEmpty(textView_1_2.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_2.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_2.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_2.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_2.getText().toString()) &&
@@ -1757,7 +1445,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_3.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_3.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_3.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_3.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_3.getText().toString()) &&
@@ -1772,7 +1460,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_4.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_4.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_4.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_4.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_4.getText().toString()) &&
@@ -1787,7 +1475,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_5.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_5.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_5.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_5.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_5.getText().toString()) &&
@@ -1802,7 +1490,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_6.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_6.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_6.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_6.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_6.getText().toString()) &&
@@ -1817,7 +1505,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_8.setVisibility(View.GONE);
 
         } else if (
-                        TextUtils.isEmpty(textView_1_7.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_7.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_7.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_7.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_7.getText().toString()) &&
@@ -1831,7 +1519,7 @@ public class Fragment_Schedule extends Fragment {
             tableRow_7.setVisibility(View.GONE);
             tableRow_8.setVisibility(View.GONE);
         } else if (
-                        TextUtils.isEmpty(textView_1_8.getText().toString()) &&
+                TextUtils.isEmpty(textView_1_8.getText().toString()) &&
                         TextUtils.isEmpty(textView_2_8.getText().toString()) &&
                         TextUtils.isEmpty(textView_3_8.getText().toString()) &&
                         TextUtils.isEmpty(textView_4_8.getText().toString()) &&

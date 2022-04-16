@@ -28,10 +28,6 @@
         "source": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\src\\main\\res\\layout\\fragment_notifications.xml"
     },
     {
-        "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_download.xml.flat",
-        "source": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\src\\main\\res\\layout\\dialog_download.xml"
-    },
-    {
         "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_check_black_24dp.xml.flat",
         "source": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\src\\main\\res\\drawable\\ic_check_black_24dp.xml"
     },

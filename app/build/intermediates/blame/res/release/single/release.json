@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_more_horiz_white_24dp.xml.flat",
-        "source": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\src\\main\\res\\drawable\\ic_more_horiz_white_24dp.xml"
-    },
-    {
         "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_edit_black_24dp.xml.flat",
         "source": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\src\\main\\res\\drawable\\ic_edit_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_more_horiz_white_24dp.xml.flat",
+        "source": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\src\\main\\res\\drawable\\ic_more_horiz_white_24dp.xml"
     },
     {
         "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\release\\layout_dialog_lunch_calendar.xml.flat",
@@ -306,10 +306,6 @@
     {
         "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_main.xml.flat",
         "source": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\src\\main\\res\\layout\\activity_main.xml"
-    },
-    {
-        "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\release\\layout_dialog_download.xml.flat",
-        "source": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\src\\main\\res\\layout\\dialog_download.xml"
     },
     {
         "merged": "C:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi_icon_foreground.png.flat",

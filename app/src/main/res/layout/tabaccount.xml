@@ -37,7 +37,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="계정"
+                        android:text="설정"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@android:color/black"
                         android:textStyle="bold" />
@@ -47,64 +47,64 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="15dp"
-                            android:padding="15dp"
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+<!--                        <LinearLayout-->
+<!--                            android:layout_marginTop="15dp"-->
+<!--                            android:layout_marginBottom="15dp"-->
+<!--                            android:padding="15dp"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content">-->
 
-                            <TextView
-                                android:gravity="center"
-                                android:text="알림 시간"
-                                android:textStyle="bold"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                android:textColor="@android:color/black"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+<!--                            <TextView-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="알림 시간"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--                                android:textColor="@android:color/black"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"/>-->
 
-                            <TimePicker
-                                android:numbersInnerTextColor="@color/white"
-                                android:numbersBackgroundColor="@color/white"
-                                android:numbersSelectorColor="@color/white"
-                                android:numbersTextColor="@color/white"
-                                android:id="@+id/timePicker"
-                                android:timePickerMode="spinner"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+<!--                            <TimePicker-->
+<!--                                android:numbersInnerTextColor="@color/white"-->
+<!--                                android:numbersBackgroundColor="@color/white"-->
+<!--                                android:numbersSelectorColor="@color/white"-->
+<!--                                android:numbersTextColor="@color/white"-->
+<!--                                android:id="@+id/timePicker"-->
+<!--                                android:timePickerMode="spinner"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"/>-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                        <CheckBox
-                            android:id="@+id/c_l_n"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:padding="15dp"
-                            android:text="급식식단 알림"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@android:color/black" />
+<!--                        <CheckBox-->
+<!--                            android:id="@+id/c_l_n"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:checked="false"-->
+<!--                            android:padding="15dp"-->
+<!--                            android:text="급식식단 알림"-->
+<!--                            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--                            android:textColor="@android:color/black" />-->
 
-                        <CheckBox
-                            android:id="@+id/c_s_n"
-                            android:padding="15dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="시간표 알림"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@android:color/black"
-                            android:checked="false" />
+<!--                        <CheckBox-->
+<!--                            android:id="@+id/c_s_n"-->
+<!--                            android:padding="15dp"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="시간표 알림"-->
+<!--                            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--                            android:textColor="@android:color/black"-->
+<!--                            android:checked="false" />-->
 
-                        <CheckBox
-                            android:id="@+id/c_a_c_n"
-                            android:padding="15dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="학사일정 알림"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@android:color/black"
-                            android:checked="false" />
+<!--                        <CheckBox-->
+<!--                            android:id="@+id/c_a_c_n"-->
+<!--                            android:padding="15dp"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="학사일정 알림"-->
+<!--                            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--                            android:textColor="@android:color/black"-->
+<!--                            android:checked="false" />-->
 
 
                         <TextView
@@ -115,7 +115,7 @@
                             android:drawableStart="@drawable/ic_edit_black_24dp"
                             android:gravity="center_vertical"
                             android:padding="15dp"
-                            android:text="   수정"
+                            android:text="   변경"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@android:color/black" />
 
@@ -127,6 +127,17 @@
                             android:gravity="center_vertical"
                             android:padding="15dp"
                             android:text="   배경"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/t_open_source_license"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_table_rows_24"
+                            android:gravity="center_vertical"
+                            android:padding="15dp"
+                            android:text="   오픈소스 라이선스, 정보"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@android:color/black" />
 
@@ -346,24 +357,6 @@
 
 <!--                </androidx.cardview.widget.CardView>-->
 <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-            <TextView
-                android:layout_marginTop="19dp"
-                android:id="@+id/t_open_source_license"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="오픈소스 라이선스"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/t_information"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="정보"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@android:color/white" />
 
         </LinearLayout>
     </ScrollView>

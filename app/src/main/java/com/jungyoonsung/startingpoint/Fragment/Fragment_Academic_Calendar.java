@@ -1,19 +1,19 @@
 package com.jungyoonsung.startingpoint.Fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CalendarView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,15 +28,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.jungyoonsung.startingpoint.R;
 
 import org.json.JSONArray;
@@ -50,12 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class Fragment_Academic_Calendar extends Fragment {
-
-    FirebaseAuth auth;
-    FirebaseDatabase database;
 
     Context thisContext;
 
@@ -69,15 +55,10 @@ public class Fragment_Academic_Calendar extends Fragment {
             item_fragment_academic_calendar_textView,
             item_fragment_academic_calendar;
 
-    private AdView adView1;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.item_fragment_academic_calendar, container, false);
-
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
 
         thisContext = container.getContext();
 
@@ -181,92 +162,6 @@ public class Fragment_Academic_Calendar extends Fragment {
 
         requestQueue.add(request);
 
-//        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                Date date = Calendar.getInstance().getTime();
-//
-//                SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
-//                SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
-//                SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
-//
-//                String year = yearFormat.format(date);
-//                String month = monthFormat.format(date);
-//                String day = dayFormat.format(date);
-//
-//                String alldate = year + month + day;
-//
-//                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
-//                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
-//
-//                String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=f7d04890d151476bb2a4e2281962853b&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
-//
-//                final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                        new Response.Listener<JSONObject>() {
-//                            @Override
-//                            public void onResponse(JSONObject response) {
-//
-//                                try {
-//                                    JSONArray jsonArrayInfo = response.getJSONArray("SchoolSchedule");
-//                                    JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-//                                    JSONArray jsonArrayrow = response2.getJSONArray("row");
-//                                    for (int i = 0; i < jsonArrayrow.length(); i++) {
-//                                        JSONObject response3 = jsonArrayrow.getJSONObject(i);
-//
-//                                        String s_period = response3.getString("EVENT_NM");
-//
-//                                        academic_calendar.add(s_period);
-//                                    }
-//
-//                                    if (academic_calendar.size() == 1) {
-//
-//                                        c_1();
-//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0));
-//
-//                                    } else if (academic_calendar.size() == 2) {
-//
-//                                        c_1();
-//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1));
-//
-//                                    } else if (academic_calendar.size() == 3) {
-//
-//                                        c_1();
-//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2));
-//
-//                                    } else if (academic_calendar.size() == 4) {
-//
-//                                        c_1();
-//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3));
-//
-//                                    } else if (academic_calendar.size() == 5) {
-//
-//                                        c_1();
-//                                        item_fragment_academic_calendar.setText(academic_calendar.get(0) + ", " + academic_calendar.get(1) + ", " + academic_calendar.get(2) + ", " + academic_calendar.get(3) + ", " + academic_calendar.get(4));
-//
-//                                    }
-//
-//
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                        }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                    }
-//                });
-//
-//                requestQueue.add(request);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,44 +171,6 @@ public class Fragment_Academic_Calendar extends Fragment {
                 final View mView = myInflater.inflate(R.layout.dialog_academic_calendar_calendar, null);
 
                 final CalendarView dialog_academic_calendar_calendar = (CalendarView) mView.findViewById(R.id.dialog_academic_calendar_calendar);
-
-                MobileAds.initialize(thisContext,
-                        getString(R.string.app_admob_id));
-
-                adView1 = (AdView) mView.findViewById(R.id.adView1);
-                AdRequest adRequest = new AdRequest.Builder().build();
-                adView1.loadAd(adRequest);
-
-                adView1.setAdListener(new AdListener() {
-                    @Override
-                    public void onAdLoaded() {
-                        // Code to be executed when an ad finishes loading.
-                        adView1.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(int errorCode) {
-                        // Code to be executed when an ad request fails.
-                        adView1.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAdOpened() {
-                        // Code to be executed when an ad opens an overlay that
-                        // covers the screen.
-                    }
-
-                    @Override
-                    public void onAdLeftApplication() {
-                        // Code to be executed when the user has left the app.
-                    }
-
-                    @Override
-                    public void onAdClosed() {
-                        // Code to be executed when when the user is about to return
-                        // to the app after tapping on an ad.
-                    }
-                });
 
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
@@ -347,89 +204,79 @@ public class Fragment_Academic_Calendar extends Fragment {
                         final RequestQueue requestQueue2;
                         requestQueue2 = Volley.newRequestQueue(thisContext);
 
-                        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String year = String.valueOf(i_year);
 
-                                String year = String.valueOf(i_year);
+                        int i_month_2 = i_month + 1;
 
-                                int i_month_2 = i_month + 1;
+                        String month = String.valueOf(i_month_2);
+                        if (month.length() == 1) {
+                            month = "0" + month;
+                        }
 
-                                String month = String.valueOf(i_month_2);
-                                if (month.length() == 1) {
-                                    month = "0" + month;
-                                }
+                        String day = String.valueOf(i_dayOfMonth);
+                        if (day.length() == 1) {
+                            day = "0" + day;
+                        }
 
-                                String day = String.valueOf(i_dayOfMonth);
-                                if (day.length() == 1) {
-                                    day = "0" + day;
-                                }
+                        String alldate = year + month + day;
 
-                                String alldate = year + month + day;
+                        SharedPreferences sharedPreferencesUSER = thisContext.getSharedPreferences("USER", MODE_PRIVATE);
+                        String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("s_1_ATPT_OFCDC_SC_CODE", "");
+                        String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
 
-                                String ATPT_OFCDC_SC_CODE = String.valueOf(dataSnapshot.child("s_1_ATPT_OFCDC_SC_CODE").getValue());
-                                String SD_SCHUL_CODE = String.valueOf(dataSnapshot.child("s_3_SD_SCHUL_CODE").getValue());
+                        String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=f7d04890d151476bb2a4e2281962853b&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
 
-                                String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=f7d04890d151476bb2a4e2281962853b&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
+                        final JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.GET, url, null,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
 
-                                final JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.GET, url, null,
-                                        new Response.Listener<JSONObject>() {
-                                            @Override
-                                            public void onResponse(JSONObject response) {
+                                        try {
+                                            JSONArray jsonArrayInfo = response.getJSONArray("SchoolSchedule");
+                                            JSONObject response2 = jsonArrayInfo.getJSONObject(1);
+                                            JSONArray jsonArrayrow = response2.getJSONArray("row");
+                                            for (int i = 0; i < jsonArrayrow.length(); i++) {
+                                                JSONObject response3 = jsonArrayrow.getJSONObject(i);
 
-                                                try {
-                                                    JSONArray jsonArrayInfo = response.getJSONArray("SchoolSchedule");
-                                                    JSONObject response2 = jsonArrayInfo.getJSONObject(1);
-                                                    JSONArray jsonArrayrow = response2.getJSONArray("row");
-                                                    for (int i = 0; i < jsonArrayrow.length(); i++) {
-                                                        JSONObject response3 = jsonArrayrow.getJSONObject(i);
+                                                String s_period = response3.getString("EVENT_NM");
 
-                                                        String s_period = response3.getString("EVENT_NM");
+                                                academic_calendar2.add(s_period);
+                                            }
 
-                                                        academic_calendar2.add(s_period);
-                                                    }
+                                            dialog_lunch_text_1.setVisibility(View.VISIBLE);
+                                            dialog_lunch_text_2.setVisibility(View.GONE);
 
-                                                    dialog_lunch_text_1.setVisibility(View.VISIBLE);
-                                                    dialog_lunch_text_2.setVisibility(View.GONE);
+                                            String result = null;
 
-                                                    String result = null;
-
-                                                    for (int i = 0; i < academic_calendar2.size(); i++) {
-                                                        int number = i + 1;
-                                                        if (TextUtils.isEmpty(result)) {
-                                                            result = number + ". " +  academic_calendar2.get(i);
-                                                        } else {
-                                                            result = result + "\n" + number + ". " + academic_calendar2.get(i);
-                                                        }
-                                                    }
-
-                                                    if (TextUtils.isEmpty(result)) {
-                                                        dialog_lunch_text_1.setVisibility(View.VISIBLE);
-                                                        dialog_lunch_text_2.setVisibility(View.GONE);
-                                                    } else {
-                                                        dialog_lunch_text_1.setVisibility(View.GONE);
-                                                        dialog_lunch_text_2.setVisibility(View.VISIBLE);
-
-                                                        dialog_lunch_text_2.setText(result);
-                                                    }
-
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
+                                            for (int i = 0; i < academic_calendar2.size(); i++) {
+                                                int number = i + 1;
+                                                if (TextUtils.isEmpty(result)) {
+                                                    result = number + ". " +  academic_calendar2.get(i);
+                                                } else {
+                                                    result = result + "\n" + number + ". " + academic_calendar2.get(i);
                                                 }
                                             }
-                                        }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
+
+                                            if (TextUtils.isEmpty(result)) {
+                                                dialog_lunch_text_1.setVisibility(View.VISIBLE);
+                                                dialog_lunch_text_2.setVisibility(View.GONE);
+                                            } else {
+                                                dialog_lunch_text_1.setVisibility(View.GONE);
+                                                dialog_lunch_text_2.setVisibility(View.VISIBLE);
+
+                                                dialog_lunch_text_2.setText(result);
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                });
-                                requestQueue2.add(request2);
-                            }
-
+                                }, new Response.ErrorListener() {
                             @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            public void onErrorResponse(VolleyError error) {
                             }
                         });
+                        requestQueue2.add(request2);
 
                         mBuilder2.setView(mView2);
                         final AlertDialog dialog2 = mBuilder2.create();

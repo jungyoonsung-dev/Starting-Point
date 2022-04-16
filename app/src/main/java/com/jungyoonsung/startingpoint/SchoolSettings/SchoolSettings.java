@@ -1,15 +1,11 @@
 package com.jungyoonsung.startingpoint.SchoolSettings;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,19 +15,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.jungyoonsung.startingpoint.MainActivity;
 import com.jungyoonsung.startingpoint.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,16 +41,10 @@ public class SchoolSettings extends AppCompatActivity {
 
     RecyclerView recyclerview;
 
-    FirebaseAuth auth;
-    FirebaseDatabase database;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_settings);
-
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -79,7 +62,7 @@ public class SchoolSettings extends AppCompatActivity {
                 ATPT_OFCDC_SC_NM.clear();
                 SCHUL_NM.clear();
                 SD_SCHUL_CODE.clear();
-                String url = "https://open.neis.go.kr/hub/schoolInfo?KEY=5782ec7c631b48fa8e93c6912fd9f8a7&Type=json&pIndex=1&pSize=100&SCHUL_NM=" + school_name.getText().toString();
+                String url = "https://open.neis.go.kr/hub/schoolInfo?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&SCHUL_NM=" + school_name.getText().toString();
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -115,26 +98,6 @@ public class SchoolSettings extends AppCompatActivity {
                 });
 
                 requestQueue.add(request);
-            }
-        });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        database.getReference().child("Profile").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    Intent intent = new Intent(SchoolSettings.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

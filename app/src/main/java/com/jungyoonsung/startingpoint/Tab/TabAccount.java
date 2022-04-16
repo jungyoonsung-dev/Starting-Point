@@ -1,46 +1,30 @@
 package com.jungyoonsung.startingpoint.Tab;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jungyoonsung.startingpoint.MainActivity;
-import com.jungyoonsung.startingpoint.Notification.Receiver;
-import com.jungyoonsung.startingpoint.Notification.Schedule_Lunch_Academic_Calendar_Receiver;
 import com.jungyoonsung.startingpoint.R;
 import com.jungyoonsung.startingpoint.SchoolSettings.SchoolSettings;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import petrov.kristiyan.colorpicker.ColorPicker;
 
@@ -50,7 +34,7 @@ public class TabAccount extends Fragment {
 
     CardView tabaccount_cardView;
 
-    TextView t_open_source_license, t_information;
+    TextView t_open_source_license;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,164 +44,6 @@ public class TabAccount extends Fragment {
         tabaccount_cardView = (CardView) view.findViewById(R.id.tabaccount_cardView);
 
         t_open_source_license = (TextView) view.findViewById(R.id.t_open_source_license);
-        t_information = (TextView) view.findViewById(R.id.t_information);
-
-        SharedPreferences sharedPreferencesBackground = thisContext.getSharedPreferences("Background", thisContext.MODE_PRIVATE);
-        int position = sharedPreferencesBackground.getInt("Position", 0);
-        if (position < 10) {
-            t_open_source_license.setTextColor(Color.parseColor("#FFFFFF"));
-            t_information.setTextColor(Color.parseColor("#FFFFFF"));
-        } else {
-            t_open_source_license.setTextColor(Color.parseColor("#000000"));
-            t_information.setTextColor(Color.parseColor("#000000"));
-        }
-
-        final TimePicker timePicker = (TimePicker) view.findViewById(R.id.timePicker);
-
-        SharedPreferences sharedPreferences_check = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE);
-        int i_hour = sharedPreferences_check.getInt("HOUR", -1);
-        int i_min = sharedPreferences_check.getInt("MIN", -1);
-
-        if (i_hour != -1 && i_min != -1) {
-            timePicker.setHour(i_hour);
-            timePicker.setMinute(i_min);
-        }
-
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-                editor.putInt("HOUR", timePicker.getHour());
-                editor.putInt("MIN", timePicker.getMinute());
-                editor.apply();
-
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-
-                SharedPreferences sharedPreferences = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE);
-                int i_hour = sharedPreferences.getInt("HOUR", -1);
-                int i_min = sharedPreferences.getInt("MIN", -1);
-
-                if (i_hour != -1 && i_min != -1) {
-                    calendar.set(Calendar.HOUR_OF_DAY, i_hour);
-                    calendar.set(Calendar.MINUTE, i_min);
-                    calendar.set(Calendar.SECOND, 0);
-                } else {
-                    calendar.set(Calendar.HOUR_OF_DAY, 6);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 0);
-                }
-
-                if (calendar.before(Calendar.getInstance())) {
-                    calendar.add(Calendar.DATE, 1);
-                }
-
-                Notification_ALARM(calendar);
-            }
-        });
-
-        final CheckBox c_l_n, c_s_n, c_a_c_n;
-
-        c_l_n = (CheckBox) view.findViewById(R.id.c_l_n);
-        c_s_n = (CheckBox) view.findViewById(R.id.c_s_n);
-        c_a_c_n = (CheckBox) view.findViewById(R.id.c_a_c_n);
-
-        SharedPreferences sharedPreferences = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE);
-        String f_lunch = sharedPreferences.getString("CLunch", "");
-        String f_schedule = sharedPreferences.getString("CSchedule", "");
-        String f_academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
-
-        if (TextUtils.isEmpty(f_lunch)) {
-            SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-            editor.putString("CLunch", "true");
-            editor.apply();
-        }
-
-        if (TextUtils.isEmpty(f_schedule)) {
-            SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-            editor.putString("CSchedule", "true");
-            editor.apply();
-        }
-
-        if (TextUtils.isEmpty(f_academic_calendar)) {
-            SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-            editor.putString("CAcademic_Calendar", "true");
-            editor.apply();
-        }
-
-        String lunch = sharedPreferences.getString("CLunch", "");
-        String schedule = sharedPreferences.getString("CSchedule", "");
-        String academic_calendar = sharedPreferences.getString("CAcademic_Calendar", "");
-
-        if (lunch.equals("true")) {
-            c_l_n.setChecked(true);
-        } else {
-            c_l_n.setChecked(false);
-        }
-
-        if (schedule.equals("true")) {
-            c_s_n.setChecked(true);
-        } else {
-            c_s_n.setChecked(false);
-        }
-
-        if (academic_calendar.equals("true")) {
-            c_a_c_n.setChecked(true);
-        } else {
-            c_a_c_n.setChecked(false);
-        }
-
-        c_l_n.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (c_l_n.isChecked()) {
-                    Log.d("TEST", "true");
-                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-                    editor.putString("CLunch", "true");
-                    editor.apply();
-                } else {
-                    Log.d("TEST", "false");
-                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-                    editor.putString("CLunch", "false");
-                    editor.apply();
-                }
-            }
-        });
-
-        c_s_n.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (c_l_n.isChecked()) {
-                    Log.d("TEST", "true");
-                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-                    editor.putString("CSchedule", "true");
-                    editor.apply();
-                } else {
-                    Log.d("TEST", "false");
-                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-                    editor.putString("CSchedule", "false");
-                    editor.apply();
-                }
-            }
-        });
-
-        c_a_c_n.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (c_a_c_n.isChecked()) {
-                    Log.d("TEST", "true");
-                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-                    editor.putString("CAcademic_Calendar", "true");
-                    editor.apply();
-                } else {
-                    Log.d("TEST", "false");
-                    SharedPreferences.Editor editor = thisContext.getSharedPreferences("Notification", thisContext.MODE_PRIVATE).edit();
-                    editor.putString("CAcademic_Calendar", "false");
-                    editor.apply();
-                }
-            }
-        });
 
         TextView t_edit = (TextView) view.findViewById(R.id.t_edit);
         t_edit.setOnClickListener(new View.OnClickListener() {
@@ -269,7 +95,6 @@ public class TabAccount extends Fragment {
                                 LinearLayout mainLineraLayout = (LinearLayout) MainActivity.activity_main_LinearLayout;
                                 mainLineraLayout.setBackgroundColor(color);
 
-                                TextView textView_name = (TextView) MainActivity.textView_name;
                                 TextView textView_school = (TextView) MainActivity.textView_school;
                                 TextView textView_grade_class_number = (TextView) MainActivity.textView_grade_class_number;
 
@@ -279,7 +104,6 @@ public class TabAccount extends Fragment {
                                 MainActivity mainActivity = (MainActivity) MainActivity.MainContext;
 
                                 if (position < 10) {
-                                    textView_name.setTextColor(Color.parseColor("#FFFFFF"));
                                     textView_school.setTextColor(Color.parseColor("#EEEEEE"));
 
                                     textView_grade_class_number.setTextColor(Color.parseColor("#EEEEEE"));
@@ -289,11 +113,7 @@ public class TabAccount extends Fragment {
 
                                     NavController navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
                                     NavigationUI.setupWithNavController(navView_1, navController);
-
-                                    t_open_source_license.setTextColor(Color.parseColor("#FFFFFF"));
-                                    t_information.setTextColor(Color.parseColor("#FFFFFF"));
                                 } else {
-                                    textView_name.setTextColor(Color.parseColor("#000000"));
                                     textView_school.setTextColor(Color.parseColor("#111111"));
                                     textView_grade_class_number.setTextColor(Color.parseColor("#111111"));
 
@@ -302,9 +122,6 @@ public class TabAccount extends Fragment {
 
                                     NavController navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
                                     NavigationUI.setupWithNavController(navView_2, navController);
-
-                                    t_open_source_license.setTextColor(Color.parseColor("#000000"));
-                                    t_information.setTextColor(Color.parseColor("#000000"));
                                 }
                             }
 
@@ -316,57 +133,14 @@ public class TabAccount extends Fragment {
             }
         });
 
-//        TextView t_log_out = (TextView) view.findViewById(R.id.t_log_out);
-//        t_log_out.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AuthUI.getInstance()
-//                        .signOut(thisContext)
-//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//
-//                                Intent intent = new Intent(thisContext, MainActivity.class);
-//                                ((Activity) thisContext).startActivity(intent);
-//                                ((Activity) thisContext).finish();
-//                                ((Activity) thisContext).overridePendingTransition(0,0);
-//                            }
-//                        });
-//            }
-//        });
-
         t_open_source_license.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jungyoonsung-dev/StartingPoint/blob/master/README.md#오픈소스-라이선스"));
-                startActivity(intent);
-            }
-        });
-
-        t_information.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jungyoonsung-dev/StartingPoint/blob/master/README.md#정보"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jungyoonsung-dev/StartingPoint#readme"));
                 startActivity(intent);
             }
         });
 
         return view;
-    }
-
-    void Notification_ALARM(Calendar calendar) {
-
-        PackageManager pm = thisContext.getPackageManager();
-        ComponentName receiver = new ComponentName(thisContext, Receiver.class);
-        Intent alarmIntent = new Intent(thisContext, Schedule_Lunch_Academic_Calendar_Receiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(thisContext, 0, alarmIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) thisContext.getSystemService(Context.ALARM_SERVICE);
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
     }
 }

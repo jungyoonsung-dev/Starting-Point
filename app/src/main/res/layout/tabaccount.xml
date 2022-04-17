@@ -115,7 +115,7 @@
                             android:drawableStart="@drawable/ic_edit_black_24dp"
                             android:gravity="center_vertical"
                             android:padding="15dp"
-                            android:text="   변경"
+                            android:text="   학교 변경"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@android:color/black" />
 

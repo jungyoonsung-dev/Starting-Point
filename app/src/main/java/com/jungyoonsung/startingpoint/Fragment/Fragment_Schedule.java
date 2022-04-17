@@ -244,11 +244,11 @@ public class Fragment_Schedule extends Fragment {
         String url = null;
 
         if (SCHUL_KND_SC_NM.equals("초등학교")) {
-            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
         } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-            url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+            url = "https://open.neis.go.kr/hub/misTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
         } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
         }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -530,11 +530,11 @@ public class Fragment_Schedule extends Fragment {
                 String url = null;
 
                 if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                    url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                    url = "https://open.neis.go.kr/hub/elsTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                 } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                    url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                    url = "https://open.neis.go.kr/hub/misTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                 } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                    url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                    url = "https://open.neis.go.kr/hub/hisTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                 }
 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -709,11 +709,11 @@ public class Fragment_Schedule extends Fragment {
                         String url = null;
 
                         if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                         } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                            url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                            url = "https://open.neis.go.kr/hub/misTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                         } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                         }
 
                         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -887,11 +887,11 @@ public class Fragment_Schedule extends Fragment {
                         String url = null;
 
                         if (SCHUL_KND_SC_NM.equals("초등학교")) {
-                            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=3c0d4c588de2476a960e8fd2988ce38c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                            url = "https://open.neis.go.kr/hub/elsTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                         } else if (SCHUL_KND_SC_NM.equals("중학교")) {
-                            url = "https://open.neis.go.kr/hub/misTimetable?KEY=11b3f567023f438296130b6335d20b4c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                            url = "https://open.neis.go.kr/hub/misTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLASS_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                         } else if (SCHUL_KND_SC_NM.equals("고등학교")) {
-                            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=1f0018f4daf247c2b1d3d8b2cf15c257&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
+                            url = "https://open.neis.go.kr/hub/hisTimetable?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&GRADE=" + s_grade + "&CLRM_NM=" + s_class + "&TI_FROM_YMD=" + startDate + "&TI_TO_YMD=" + endDate;
                         }
 
                         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,

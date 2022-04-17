@@ -103,7 +103,7 @@ public class Fragment_Academic_Calendar extends Fragment {
         String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("s_1_ATPT_OFCDC_SC_CODE", "");
         String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
 
-        String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=f7d04890d151476bb2a4e2281962853b&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
+        String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -224,7 +224,7 @@ public class Fragment_Academic_Calendar extends Fragment {
                         String ATPT_OFCDC_SC_CODE = sharedPreferencesUSER.getString("s_1_ATPT_OFCDC_SC_CODE", "");
                         String SD_SCHUL_CODE = sharedPreferencesUSER.getString("s_3_SD_SCHUL_CODE", "");
 
-                        String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=f7d04890d151476bb2a4e2281962853b&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
+                        String url = "https://open.neis.go.kr/hub/SchoolSchedule?KEY=4a5bfd1dc5414d198250eb542fd2d21c&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=" + ATPT_OFCDC_SC_CODE + "&SD_SCHUL_CODE=" + SD_SCHUL_CODE + "&AA_YMD=" + alldate;
 
                         final JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.GET, url, null,
                                 new Response.Listener<JSONObject>() {

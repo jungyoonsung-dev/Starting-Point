@@ -1,4 +1,4 @@
-#Sun Apr 17 04:18:17 KST 2022
+#Mon Apr 18 02:10:57 KST 2022
 base.0=C\:\\Users\\jungy\\AndroidStudioProjects\\Starting-Point\\app\\build\\intermediates\\dex\\release\\out\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
